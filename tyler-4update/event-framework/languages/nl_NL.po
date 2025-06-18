@@ -1,0 +1,1726 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Event Framework\n"
+"POT-Creation-Date: 2014-05-13 14:01+0200\n"
+"PO-Revision-Date: 2014-05-16 16:12+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /var/www/html/tyler/event-framework/\n"
+
+#: /var/www/html/tyler/event-framework/event-framework.php:56
+msgid "Theme Options"
+msgstr "Thema-opties"
+
+#: /var/www/html/tyler/event-framework/event-framework.php:96
+msgid "Homepage"
+msgstr "Startpagina"
+
+#: /var/www/html/tyler/event-framework/event-framework.php:105
+msgid "Main Sidebar"
+msgstr "Hoofd Zijbalk"
+
+#: /var/www/html/tyler/event-framework/event-framework.php:110
+msgid "Footer"
+msgstr "Voettekst"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:4
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:14
+msgid "Sessions"
+msgstr "Sessies"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:5
+msgid "Session"
+msgstr "Sessie"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:6
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:6
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:6
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:6
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:6
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:30
+msgid "Add New"
+msgstr "Nieuwe toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:7
+msgid "Add New Session"
+msgstr "Nieuwe Sessie"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:8
+msgid "Edit Session"
+msgstr "Bewerk Sessie"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:9
+msgid "New Session"
+msgstr "Nieuwe Sessie"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:10
+msgid "View Session"
+msgstr "Bekijk Sessie"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:11
+msgid "Search Sessions"
+msgstr "Zoek Sessies"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:12
+msgid "No Sessions found"
+msgstr "Geen Sessies gevonden"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:13
+msgid "No Sessions found in trash"
+msgstr "Geen Sessies in prullenbak"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:48
+#, php-format
+msgid "Session updated. <a href=\"%s\">View Session</a>"
+msgstr "Sessie bijgewerkt. <a href=\"%s\">Bekijk Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:49
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:42
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:42
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:43
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:50
+msgid "Custom field updated."
+msgstr "Aangepast veld bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:50
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:43
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:43
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:44
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:51
+msgid "Custom field deleted."
+msgstr "Aangepast veld verwijderd."
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:51
+msgid "Session updated."
+msgstr "Sessie bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:53
+#, php-format
+msgid "Session restored to revision from %s"
+msgstr "Sessie hersteld naar revisie van %s"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:54
+#, php-format
+msgid "Session published. <a href=\"%s\">View Session</a>"
+msgstr "Sessie gepubliceerd. <a href=\"%s\">Bekijk Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:55
+msgid "Session saved."
+msgstr "Sessie opgeslagen."
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:56
+#, php-format
+msgid "Session submitted. <a target=\"_blank\" href=\"%s\">Preview Session</a>"
+msgstr ""
+"Sessie verzonden. <a target=\"_blank\" href=\"%s\">Vooruitblik Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:57
+#, php-format
+msgid ""
+"Session scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview Session</a>"
+msgstr ""
+"Sessie gepland voor: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Voortuitblik Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:59
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:52
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:52
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:53
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:60
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: /var/www/html/tyler/event-framework/components/cpts/session.php:60
+#, php-format
+msgid ""
+"Session draft updated. <a target=\"_blank\" href=\"%s\">Preview Session</a>"
+msgstr ""
+"Sessie-opzet bijgewerkt. <a target=\"_blank\" href=\"%s\">Vooruitblik "
+"Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:4
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:5
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:14
+msgid "Event Media"
+msgstr "Gebeurtenismedia"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:7
+msgid "Add New Event Media"
+msgstr "Voeg Nieuwe Gebeurtenismedia toe"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:8
+msgid "Edit Event Media"
+msgstr "Bewerk Gebeurtenismedia"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:9
+msgid "New Event Media"
+msgstr "Nieuwe Gebeurtenismedia"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:10
+msgid "View Event Media"
+msgstr "Zoek Gebeurtenismedia"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:11
+msgid "Search Event Media"
+msgstr "Zoek Gebeurtenismedia"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:12
+msgid "No Event Media found"
+msgstr "Geen Gebeurtenismedia gevonden"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:13
+msgid "No Event Media found in trash"
+msgstr "Geen Gebeurtenismedia in prullenbak"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:41
+#, php-format
+msgid "Event Media updated. <a href=\"%s\">View Event Media</a>"
+msgstr ""
+"Gebeurtenismedia bijgewerkt. <a href=\"%s\">Bekijk Gebeurtenismedia</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:44
+msgid "Event Media updated."
+msgstr "Gebeurtenismedia bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:46
+#, php-format
+msgid "Event Media restored to revision from %s"
+msgstr "Gebeurtenismedia hersteld naar revisie van %s"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:47
+#, php-format
+msgid "Event Media published. <a href=\"%s\">View Event Media</a>"
+msgstr ""
+"Gebeurtenismedia gepubliceerd. <a href=\"%s\">Bekijk Gebeurtenismedia</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:48
+msgid "Event Media saved."
+msgstr "Gebeurtenismedia opgeslagen."
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:49
+#, php-format
+msgid ""
+"Event Media submitted. <a target=\"_blank\" href=\"%s\">Preview Event Media</"
+"a>"
+msgstr ""
+"Gebeurtenismedia verzonden. <a target=\"_blank\" href=\"%s\">Vooruitblik "
+"Gebeurtenismedia</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:50
+#, php-format
+msgid ""
+"Event Media scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview Event Media</a>"
+msgstr ""
+"Gebeurtenismedia gepland voor: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Vooruitblik Gebeurtenismedia</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/event-media.php:53
+#, php-format
+msgid ""
+"Event Media draft updated. <a target=\"_blank\" href=\"%s\">Preview Event "
+"Media</a>"
+msgstr ""
+"Gebeurtenismedia-opzet bijgewerkt. <a target=\"_blank\" href=\"%s"
+"\">Voortuitblik Gebeurtenismedia</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:4
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:14
+msgid "Points of Interest"
+msgstr "Points of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:5
+msgid "Point of Interest"
+msgstr "Point of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:7
+msgid "Add New Point of Interest"
+msgstr "Nieuwe Point of Interest toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:8
+msgid "Edit Point of Interest"
+msgstr "Bewerk Point of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:9
+msgid "New Point of Interest"
+msgstr "Nieuwe Point of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:10
+msgid "View Point of Interest"
+msgstr "Bekijk Point of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:11
+msgid "Search Points of Interest"
+msgstr "Zoek Points of Interest"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:12
+msgid "No Points of Interest found"
+msgstr "Geen Points of Interest gevonden"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:13
+msgid "No Points of Interest found in trash"
+msgstr "Geen Points of Interest gevonden in prullenbak"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:41
+#, php-format
+msgid "Point of Interest updated. <a href=\"%s\">View Point of Interest</a>"
+msgstr ""
+"Point of Interest bijgewerkt. <a href=\"%s\">Bekijk Point of Interest</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:44
+msgid "Point of Interest updated."
+msgstr "Point of Interest bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:46
+#, php-format
+msgid "Point of Interest restored to revision from %s"
+msgstr "Point of Interest opgeslagen voor revisie van %s"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:47
+#, php-format
+msgid "Point of Interest published. <a href=\"%s\">View Point of Interest</a>"
+msgstr ""
+"Point of Interest gepubliceerd. <a href=\"%s\">Bekijk Point of Interest</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:48
+msgid "Point of Interest saved."
+msgstr "Point of Interest opgeslagen."
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:49
+#, php-format
+msgid ""
+"Point of Interest submitted. <a target=\"_blank\" href=\"%s\">Preview Point "
+"of Interest</a>"
+msgstr ""
+"Point of Interest verzonden. <a target=\"_blank\" href=\"%s\">Vooruitblik "
+"Point of Interest</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:50
+#, php-format
+msgid ""
+"Point of Interest scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview Point of Interest</a>"
+msgstr ""
+"Point of Interest gepland voor: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Vooruitblik Point of Interest</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/poi.php:53
+#, php-format
+msgid ""
+"Point of Interest draft updated. <a target=\"_blank\" href=\"%s\">Preview "
+"Point of Interest</a>"
+msgstr ""
+"Point of Interest draft bijgewerkt. <a target=\"_blank\" href=\"%s"
+"\">Vooruitblik Point of Interest</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:4
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:14
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:5
+msgid "Sponsor"
+msgstr "Sponsor"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:7
+msgid "Add New Sponsor"
+msgstr "Nieuwe Sponsor toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:8
+msgid "Edit Sponsor"
+msgstr "Bewerk Sponsor"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:9
+msgid "New Sponsor"
+msgstr "Nieuwe Sponsor"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:10
+msgid "View Sponsor"
+msgstr "Bekijk Sponsor"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:11
+msgid "Search Sponsors"
+msgstr "Zoek Sponsors"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:12
+msgid "No Sponsors found"
+msgstr "Geen Sponsors gevonden"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:13
+msgid "No Sponsors found in trash"
+msgstr "Geen Sponsors in prullenbak"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:42
+#, php-format
+msgid "Sponsor updated. <a href=\"%s\">View Sponsor</a>"
+msgstr "Sponsor bijgewerkt. <a href=\"%s\">View Sponsor</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:45
+msgid "Sponsor updated."
+msgstr "Sponsor bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:47
+#, php-format
+msgid "Sponsor restored to revision from %s"
+msgstr "Sponsor hersteld naar revisie van %s"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:48
+#, php-format
+msgid "Sponsor published. <a href=\"%s\">View Sponsor</a>"
+msgstr "Sponsor gepubliceerd. <a href=\"%s\">Bekijk Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:49
+msgid "Sponsor saved."
+msgstr "Sponsor opgeslagen."
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:50
+#, php-format
+msgid "Sponsor submitted. <a target=\"_blank\" href=\"%s\">Preview Sponsor</a>"
+msgstr ""
+"Sponsor verzonden. <a target=\"_blank\" href=\"%s\">Vooruitblik Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:51
+#, php-format
+msgid ""
+"Sponsor scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview Sponsor</a>"
+msgstr ""
+"Sponsor gepland voor: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Voortuitblik Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/sponsor.php:54
+#, php-format
+msgid ""
+"Sponsor draft updated. <a target=\"_blank\" href=\"%s\">Preview Sponsor</a>"
+msgstr ""
+"Sponsor opzet bijgewerkt. <a target=\"_blank\" href=\"%s\">Vooruitblik "
+"Sponsor</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:4
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:15
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:9
+msgid "Speakers"
+msgstr "Sprekers"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:5
+msgid "Speaker"
+msgstr "Sprekers"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:7
+msgid "Add New Speaker"
+msgstr "Nieuwe Spreker toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:8
+msgid "Edit Speaker"
+msgstr "Bewerk Spreker"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:9
+msgid "New Speaker"
+msgstr "Nieuwe Spreker"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:10
+msgid "All Speakers"
+msgstr "Alle Sprekers"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:11
+msgid "View Speaker"
+msgstr "Bekijk Spreker"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:12
+msgid "Search Speakers"
+msgstr "Zoek Sprekers"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:13
+msgid "No Speakers found"
+msgstr "Geen Sprekers gevonden"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:14
+msgid "No Speakers found in trash"
+msgstr "Geen Spreker gevonden in prullenbak"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:49
+#, php-format
+msgid "Speaker updated. <a href=\"%s\">View Speaker</a>"
+msgstr "Spreker bijgewerkt. <a href=\"%s\">Bekijk Spreker</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:52
+msgid "Speaker updated."
+msgstr "Spreker bijgewerkt."
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:54
+#, php-format
+msgid "Speaker restored to revision from %s"
+msgstr "Spreker hersteld naar revisie van %s"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:55
+#, php-format
+msgid "Speaker published. <a href=\"%s\">View Speaker</a>"
+msgstr "Spreker gepubliceerd. <a href=\"%s\">Bekijk Spreker</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:56
+msgid "Speaker saved."
+msgstr "Spreker opgeslagen."
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:57
+#, php-format
+msgid "Speaker submitted. <a target=\"_blank\" href=\"%s\">Preview Speaker</a>"
+msgstr ""
+"Spreker verzonden. <a target=\"_blank\" href=\"%s\">Vooruitblik Spreker</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:58
+#, php-format
+msgid ""
+"Speaker scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview Speaker</a>"
+msgstr ""
+"Spreker gepland voor: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Voortuitblik Sessie</a>"
+
+#: /var/www/html/tyler/event-framework/components/cpts/speaker.php:61
+#, php-format
+msgid ""
+"Speaker draft updated. <a target=\"_blank\" href=\"%s\">Preview Speaker</a>"
+msgstr ""
+"Spreker opzet bijgewerkt. <a target=\"_blank\" href=\"%s\">Vooruitblik "
+"Spreker</a>"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:5
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:15
+msgid "Tiers"
+msgstr "Rangen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:6
+msgid "Tier"
+msgstr "Rang"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:7
+msgid "Search Tiers"
+msgstr "Doorzoek Rangen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:8
+msgid "All Tiers"
+msgstr "Alle Rangen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:9
+msgid "Parent Tier"
+msgstr "Vorige Rang"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:10
+msgid "Parent Tier:"
+msgstr "Vorige Rang:"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:11
+msgid "Edit Tier"
+msgstr "Bewerk Rang"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:12
+msgid "Update Tier"
+msgstr "Bewerk Rang"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:13
+msgid "Add New Tier"
+msgstr "Nieuwe Rang toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/sponsor-tier.php:14
+msgid "New Tier"
+msgstr "Nieuwe Rang"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:5
+msgid "Session Tracks"
+msgstr "Sessie Sporen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:6
+msgid "Session Track"
+msgstr "Sessie Spoor"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:7
+msgid "Search Session Tracks"
+msgstr "Doorzoek Sessie Sporen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:8
+msgid "All Session Tracks"
+msgstr "Alle Sessiesporen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:9
+msgid "Parent Session Track"
+msgstr "Vorige Sessiespoor"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:10
+msgid "Parent Session Track:"
+msgstr "Vorige Sessiespoor:"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:11
+msgid "Edit Session Track"
+msgstr "Bewerk Sessiespoor"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:12
+msgid "Update Session Track"
+msgstr "Bijwerken Sessiespoor"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:13
+msgid "Add New Session Track"
+msgstr "Nieuwe Sessiespoor toevoegen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:14
+msgid "New Session Track"
+msgstr "Nieuwe Sessiespoor "
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-track.php:15
+msgid "Tracks"
+msgstr "Sporen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:6
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:16
+msgid "POI Groups"
+msgstr "POI Groepen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:7
+msgid "POI Group"
+msgstr "POI Groep"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:8
+msgid "Search POI Groups"
+msgstr "Doorzoek POI Groepen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:9
+msgid "All POI Groups"
+msgstr "Alle POI Groepen"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:10
+msgid "Parent POI Group"
+msgstr "Vorige POI Groep"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:11
+msgid "Parent POI Group:"
+msgstr "Vorige POI Groep:"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:12
+msgid "Edit POI Group"
+msgstr "Bewerk POI Groep"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:13
+msgid "Update POI Group"
+msgstr "Bewerk POI Groep"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:14
+msgid "Add New POI Group"
+msgstr "Voeg nieuwe POI Groep toe"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/poi-group.php:15
+msgid "New POI Group"
+msgstr "Nieuwe POI Groep"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:5
+msgid "Session Locations"
+msgstr "Sessie Locaties"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:6
+msgid "Session Location"
+msgstr "Sessie Locatie"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:7
+msgid "Search Session Locations"
+msgstr "Zoek Sessie Locaties"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:8
+msgid "All Session Locations"
+msgstr "Alle Sessie Locaties"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:9
+msgid "Parent Session Location"
+msgstr "Vorige Sessielocatie"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:10
+msgid "Parent Session Location:"
+msgstr "Vorige Sessielocatie:"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:11
+msgid "Edit Session Location"
+msgstr "Bewerk Sessielocatie"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:12
+msgid "Update Session Location"
+msgstr "Bijwerken Sessielocatie"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:13
+msgid "Add New Session Location"
+msgstr "Voeg Nieuwe Sessielocatie toe"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:14
+msgid "New Session Location"
+msgstr "Nieuwe Sessielocatie"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/session-location.php:15
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:64
+msgid "Locations"
+msgstr "Locaties"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:6
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:16
+msgid "Media Types"
+msgstr "Mediasoorten"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:7
+msgid "Media Type"
+msgstr "Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:8
+msgid "Search Media Types"
+msgstr "Zoek Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:9
+msgid "All Media Types"
+msgstr "Alle Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:10
+msgid "Parent Media Type"
+msgstr "Vorige Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:11
+msgid "Parent Media Type:"
+msgstr "Vorige Mediasoort:"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:12
+msgid "Edit Media Type"
+msgstr "Bewerk Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:13
+msgid "Update Media Type"
+msgstr "Bijwerken Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:14
+msgid "Add New Media Type"
+msgstr "Voeg Nieuwe Mediasoort toe"
+
+#: /var/www/html/tyler/event-framework/components/taxonomies/media-type.php:15
+msgid "New Media Type"
+msgstr "Nieuwe Mediasoort"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:33
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:33
+#: /var/www/html/tyler/event-framework/components/widgets/widget-media.php:33
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:33
+msgid "Shows text columns organized in columns"
+msgstr "Toon tekstkolommen in als kolommen"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:36
+msgid " Footer Text Columns"
+msgstr "Voettekstkolommen"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:140
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:138
+msgid "Title 1:"
+msgstr "Titel 1:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:143
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:141
+msgid "Content 1:"
+msgstr "Inhoud 1:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:146
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:144
+msgid "Title 2:"
+msgstr "Titel 2:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:149
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:147
+msgid "Content 2:"
+msgstr "Inhoud 2:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:152
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:150
+msgid "Title 3:"
+msgstr "Titel 3:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-footer-text-columns.php:155
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:153
+msgid "Content 3:"
+msgstr "Inhoud 3:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:36
+msgid " Event Timer"
+msgstr "Gebeurtenisklok"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:72
+msgid "Days"
+msgstr "Dagen"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:73
+msgid "Hours"
+msgstr "Uren"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:74
+msgid "Minutes"
+msgstr "Minuten"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:75
+msgid "Seconds"
+msgstr "Seconden"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:134
+#: /var/www/html/tyler/event-framework/components/widgets/widget-news.php:188
+#: /var/www/html/tyler/event-framework/components/widgets/widget-media.php:125
+#: /var/www/html/tyler/event-framework/components/widgets/widget-connect.php:139
+#: /var/www/html/tyler/event-framework/components/widgets/widget-comments.php:115
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:175
+#: /var/www/html/tyler/event-framework/components/widgets/widget-event-description.php:110
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:114
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:156
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:137
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:262
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:175
+msgid "Title:"
+msgstr "Titel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-timer.php:137
+msgid "Countdown Date:"
+msgstr "Afteldatum"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-news.php:33
+msgid "Shows a section displaying the latest four posts"
+msgstr "Toont de laatste vier berichten"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-news.php:36
+msgid " Latest News"
+msgstr "Laatste Nieuws"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-news.php:191
+#: /var/www/html/tyler/event-framework/components/widgets/widget-media.php:128
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:178
+#: /var/www/html/tyler/event-framework/components/widgets/widget-event-description.php:113
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:117
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:159
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:140
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:265
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:178
+msgid "Subtitle:"
+msgstr "Ondertitel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-news.php:194
+msgid "\"View all news\" Text:"
+msgstr "\"Bekijk al het nieuws\" Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-media.php:36
+msgid " Media Grid"
+msgstr "Gebeurtenisrooster"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-media.php:64
+msgid "ALL"
+msgstr "ALLEMAAL"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-connect.php:33
+msgid ""
+"Shows a section displaying icons for the social media links filled out in "
+"the Customizer"
+msgstr "Toont icoontjes voor de social media links, ingevuld in de Customizer"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-connect.php:36
+msgid " Social Media Links"
+msgstr " Social Media Links"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-comments.php:33
+msgid "Shows a section displaying the latest comments of your posts."
+msgstr "Toont de laatste reacties op je berichten."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-comments.php:36
+msgid " Latest comments"
+msgstr "Laatste reacties"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-comments.php:66
+#, php-format
+msgid "%s ago"
+msgstr "%s geleden"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-comments.php:118
+msgid "Number of comments to show:"
+msgstr "Aantal reacties die worden getoond"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:33
+msgid ""
+"Shows a section displaying speakers created in the Speakers custom post type."
+msgstr ""
+"Toont de sprekers, aangemaakt in het aangepast berichttype van Sprekers "
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:36
+msgid " Speaker List"
+msgstr "Sprekerlijst"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:181
+msgid "\"View profile\" Text:"
+msgstr "\"Bekijk profiel\" Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:184
+msgid "\"View all speakers\" Text:"
+msgstr "\"Bekijk alle sprekers\" Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:187
+msgid "Speakers ID list:"
+msgstr "Sprekers ID lijst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-speakers.php:198
+msgid "Row"
+msgstr "Rij"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-event-description.php:33
+msgid "Shows the event description"
+msgstr "Toon gebeurtenisbeschrijving"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-event-description.php:36
+msgid " Event Description"
+msgstr "Gebeurtenisbeschrijving"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-event-description.php:116
+msgid "Content:"
+msgstr "Inhoud"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:33
+msgid "Shows a section displaying users who've RSVP'd via Facebook"
+msgstr "Toon wie een RSVP heeft geplaatst in Facebook"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:36
+msgid " Facebook RSVP Stats"
+msgstr " Facebook RSVP Stats"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:88
+msgid "YES"
+msgstr "JA"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:93
+msgid "MAYBE"
+msgstr "MISSCHIEN"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:98
+msgid "NO"
+msgstr "NEE"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:165
+msgid "Link to Event on Facebook:"
+msgstr "Link naar Gebeurtenis op Facebook:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:168
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:192
+msgid "Link Text:"
+msgstr "Link Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:171
+msgid "Event ID:"
+msgstr "Gebeurtenis ID:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:174
+msgid "App ID:"
+msgstr "App ID:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-facebook-rsvp.php:177
+msgid "Secret Key:"
+msgstr "Geheime Sleutel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:34
+msgid "Shows a section displaying the call to action."
+msgstr "Toont een oproep tot actie,"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:37
+msgid " Call to Action"
+msgstr "Oproep tot Actie"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:120
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:181
+msgid "Button text:"
+msgstr "Knoptekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-call-to-action.php:123
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:184
+msgid "Button url:"
+msgstr "Knop-url:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:33
+msgid "Display a Contact Form"
+msgstr "Toon Contactformulier"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:36
+msgid " Contact Form"
+msgstr "Contactformulier"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:67
+msgid "Name"
+msgstr "Naam"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:68
+msgid "Number"
+msgstr "Aantal"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:69
+msgid "Email"
+msgstr "E-mail"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:72
+msgid "Message"
+msgstr "Bericht"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:162
+msgid "\"Send message\" Text:"
+msgstr "\"Stuur bericht\" Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:165
+msgid "Email Address To Send Forms To:"
+msgstr "E-mailadres voor verzenden formulier:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:168
+msgid "Recaptcha Public Key:"
+msgstr "Recaptcha Openbare Sleutel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:171
+msgid "Recaptcha Private Key:"
+msgstr "Recaptcha Geheime Sleutel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:207
+msgid "The reCAPTCHA wasn't entered correctly. Go back and try it again.!"
+msgstr "De reCAPTCHA is niet juist ingevuld. Ga terug en probeer het nog eens!"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:215
+msgid "Forgot your name!"
+msgstr "Uw naam is niet ingevuld!"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:225
+msgid "Forgot to enter in your e-mail address."
+msgstr "Uw e-mailadres is niet ingevuld."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:229
+msgid "You entered an invalid email address."
+msgstr "U heeft een ongeldig e-mailadres ingevuld."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:241
+msgid "You forgot to enter a message!"
+msgstr "U heeft nog geen bericht ingevuld!"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:257
+msgid "Submitted message from "
+msgstr "Bericht verstuurd vanaf"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:258
+msgid "Name:"
+msgstr "Naam:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:258
+msgid "Email:"
+msgstr "E-mail:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:258
+msgid "Phone:"
+msgstr "Telefoon:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:258
+msgid "Comments:"
+msgstr "Reacties"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:265
+msgid "Your email was sent."
+msgstr "Uw e-mail is verzonden."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-contact.php:269
+msgid "Error submitting the form"
+msgstr "Er is een fout opgetreden tijdens het versturen van het formulier"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:33
+msgid "Shows registration information & ticket display"
+msgstr "Toont registratiegegevens & ticket"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:36
+msgid " Registration"
+msgstr "Registratie"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:143
+msgid "Main Text:"
+msgstr "Hoofdtekst"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:146
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:51
+msgid "Registration Embed Code:"
+msgstr "Registratie Embedcode:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:149
+msgid "Show in top menu:"
+msgstr "Toon in hoofdmenu:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:152
+msgid "Show call to action:"
+msgstr "Toon oproep tot actie:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-registration.php:177
+msgid "Register"
+msgstr "Registeren"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:33
+msgid "Displays Event Schedule widget."
+msgstr "Toont Gebeurteniskalender widget."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:36
+msgid " Event Schedule"
+msgstr "Gebeurteniskalender"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:170
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:70
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:62
+msgid "Location:"
+msgstr "Locatie"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:176
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:71
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:63
+msgid "Date:"
+msgstr "Datum:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:182
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:72
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:64
+msgid "Time:"
+msgstr "Tijd:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:269
+msgid "\"More info\" Text:"
+msgstr "\"Meer info\" Tekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-schedule.php:272
+msgid "\"View full schedule\" Button Text:"
+msgstr "\"Bekijk volledig schema\" Knoptekst:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-text-columns.php:36
+msgid " Text Columns"
+msgstr "Tekstkolommen"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:33
+msgid "Shows a section displaying points of interest & maps"
+msgstr "Toont points of interest & plattegronden"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:36
+msgid " Points of Interest"
+msgstr "Points of Interest"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:204
+msgid "Widget Title:"
+msgstr "Widgettitel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:206
+msgid "Google Map Zoom:"
+msgstr "Google Map Zoom:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:289
+msgid "Sorry! You've entered an invalid email."
+msgstr "Sorry! U heeft een ongeldig e-mailadres ingevuld."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-explore.php:290
+msgid "This field must be filled out."
+msgstr "Dit veld is verplicht."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:33
+msgid "Shows a section displaying latest tweets"
+msgstr "Toont de laatste tweets"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:36
+msgid " Latest Tweets"
+msgstr "Laatste Tweets"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:195
+msgid "Event Hashtag Keyword:"
+msgstr "Gebeurtenis Hashtag Sleutelwoord:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:197
+msgid "(Leave out the #)"
+msgstr "(Laat de # weg)"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:199
+msgid "Access Token:"
+msgstr "Pincode:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:202
+msgid "Access Token Secret:"
+msgstr "Pincodegeheim:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:205
+msgid "Consumer Key:"
+msgstr "Consumentsleutel:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-twitter.php:208
+msgid "Consumer Secret:"
+msgstr "Consumentgeheim:"
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:33
+msgid ""
+"Shows a section displaying sponsors by tier type created in the Sponsors "
+"custom post type."
+msgstr ""
+"Toont sponsors op rangorde gemaakt in het aangepaste berichttype van "
+"Sponsors."
+
+#: /var/www/html/tyler/event-framework/components/widgets/widget-sponsors.php:36
+msgid " Sponsor List"
+msgstr "Sponsorlijst"
+
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:28
+msgid "Filter by track"
+msgstr "Filter op spoor"
+
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:31
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:46
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:61
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:27
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:22
+msgid "All"
+msgstr "Allemaal"
+
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:43
+msgid "Filter by location"
+msgstr "Filter op locatie"
+
+#: /var/www/html/tyler/event-framework/components/templates/schedule.php:58
+msgid "Filter by days"
+msgstr "Filter op dagen"
+
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:37
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:87
+msgid "View full schedule"
+msgstr "Bekijk volledig schema"
+
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:39
+msgid "Related Sessions"
+msgstr "Gerelateerde Sessies"
+
+#: /var/www/html/tyler/event-framework/components/templates/single-speaker.php:74
+msgid "View session"
+msgstr "Bekijk Sessie"
+
+#: /var/www/html/tyler/event-framework/components/templates/speakers.php:40
+msgid "View profile"
+msgstr "Bekijk profiel"
+
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:39
+msgid "Bookmark and Share"
+msgstr "Markeren en Delen"
+
+#: /var/www/html/tyler/event-framework/components/templates/single-session.php:84
+msgid "Register to the session!"
+msgstr "Aanmelden voor de sessie!"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:6
+msgid "Session Details"
+msgstr "Sessiegegevens"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:33
+msgid "Show in home page"
+msgstr "Toon in startpagina"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:37
+msgid "Date"
+msgstr "Datum"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:41
+msgid "Start Time"
+msgstr "Begintijd"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:43
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:48
+msgid "Format hh:mm"
+msgstr "Format hh:mm"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:46
+msgid "End Time"
+msgstr "Eindtijd"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/session.php:55
+msgid "Registration Text:"
+msgstr "Registratietekst:"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/event-media.php:7
+msgid "Media Content"
+msgstr "Media-inhoud"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/event-media.php:16
+msgid "Video Code"
+msgstr "Videocode"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/event-media.php:20
+msgid "Video Type"
+msgstr "Videotype"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/poi.php:7
+msgid "POI Address Info"
+msgstr "POI Adresgegevens"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/poi.php:18
+msgid "Address"
+msgstr "Adres"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/poi.php:22
+msgid "Manual coordinates"
+msgstr "Handmatige coördinaten"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/poi.php:26
+msgid "Latitude"
+msgstr "Breedtegraad"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/poi.php:30
+msgid "Longitude"
+msgstr "Lengtegraad"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/sponsor.php:6
+msgid "Sponsor Details"
+msgstr "Sponsorgegevens"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/sponsor.php:14
+msgid "Link"
+msgstr "Link"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:6
+msgid "Speaker Details"
+msgstr "Sprekergegevens"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:10
+msgid "Speakers Sections"
+msgstr "Sprekers-afdelingen"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:19
+msgid "Keynote"
+msgstr "Hoofdgedachte"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:69
+msgid "Title Section 1"
+msgstr "Titel-afdeling 1"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:73
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:106
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:138
+msgid "Select and order speakers to show in this section"
+msgstr "Selecteer en orden sprekers die in dit deel getoond worden"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:102
+msgid "Title Section 2"
+msgstr "Titel-afdeling 2:"
+
+#: /var/www/html/tyler/event-framework/components/metaboxes/speaker.php:134
+msgid "Title Section 3"
+msgstr "Titel-afdeling 3:"
+
+#: /var/www/html/tyler/event-framework/helpers/cpt/sessions.php:105
+msgid "More info"
+msgstr "Meer informatie"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:124
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:465
+msgid "Delete this image"
+msgstr "Verwijder deze afbeelding"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:124
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:434
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:465
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:440
+msgid "Upload new files"
+msgstr "Nieuwe bestanden uploaden"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:443
+msgid "Add more file"
+msgstr "Meer bestanden toevoegen"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:471
+msgid "Upload new image"
+msgstr "Nieuwe afbeelding uploaden"
+
+#: /var/www/html/tyler/event-framework/lib/taxonomy-meta.php:479
+msgid "Select a color"
+msgstr "Selecteer een kleur"
+
+#: /var/www/html/tyler/event-framework/lib/style-switcher/style-switcher.php:50
+msgid "Select Skin"
+msgstr "Selecteer een Skin"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:133
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:142
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:193
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:197
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:206
+msgid "Sorry, there has been an error."
+msgstr "Sorry, er is een fout opgetreden."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:134
+msgid "The file does not exist, please try again."
+msgstr "Het bestand bestaat niet, probeer het nog een keer."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:177
+msgid "All done."
+msgstr "Klaar."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:177
+msgid "Have fun!"
+msgstr "Veel plezier!"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:178
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+"Onthoud om de wachtwoorden en rollen van geïmporteerde gebruikers te updaten."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:198
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+"Het geëxporteerde bestand kon niet worden gevonden op <code>%s</code>. Dit "
+"wordt waarschijnljk veroorzaakt door een probleem met toegangsrechten."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:214
+#, php-format
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+"Dit WXR bestand (versie %s) wordt misschien niet ondersteund door de "
+"importeerder. Overweeg een update."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:239
+#, php-format
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+"Importeren van author %s niet gelukt. Hun berichten worden aan de huidige "
+"gebruiker toegekend."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:265
+msgid "Assign Authors"
+msgstr "Toewijzen Auteurs"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:266
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+"Om het gemakkelijker voor je te maken de geïmporteerde inhoud te bewerken en "
+"bewaren, is het mogelijk om de auteur van het geïmporteerde item toe te "
+"wijzen aan een bestaande gebruiker van deze site. Bijvoorbeeld, je kunt "
+"eventueel alle ingangen importeren als <code>admin</code>s ingangen."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:268
+#, php-format
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+"Als er door WordPress een nieuwe gebruiker is aangemaakt, dan zal er een "
+"nieuw willekeurig wachtwoord worden gecreëerd, en de rol van de nieuwe "
+"gebruikers zal ingesteld worden als %s. Het is dan noodzakelijk de gegevens "
+"van de nieuwe gebruikers handmatig aan te passen."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:278
+msgid "Import Attachments"
+msgstr "Importeer Bijlagen"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:281
+msgid "Download and import file attachments"
+msgstr "Download en importeer bestandsbijlagen"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:298
+msgid "Import author:"
+msgstr "Importeer auteur:"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:309
+msgid "or create new user with login name:"
+msgstr "of maak een nieuwe gebruiker met loginnaam:"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:312
+msgid "as a new user:"
+msgstr "als nieuwe gebruiker"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:320
+msgid "assign posts to an existing user:"
+msgstr "wijs berichten toe aan een bestaande gebruiker:"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:322
+msgid "or assign posts to an existing user:"
+msgstr "of wijs berichten toe aan een bestaande gebruiker:"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:323
+msgid "- Select -"
+msgstr "- Selecteer -"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:373
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+"Aanmaken van nieuwe gebruiker voor %s is mislukt. Hun berichten worden "
+"toegewezen aan de huidige gebruiker."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:424
+#, php-format
+msgid "Failed to import category %s"
+msgstr "Importeren van categorie %s mislukt"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:464
+#, php-format
+msgid "Failed to import post tag %s"
+msgstr "Importeren van berichttag %s mislukt"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:510
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:651
+#, php-format
+msgid "Failed to import %s %s"
+msgstr "Importeren mislukt %s %s"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:536
+#, php-format
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "Importeren van &#8220;%s&#8221 mislukt; Ongeldig berichttype %s"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:558
+#, php-format
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr "%s &#8220;%s&#8221; bestaat al."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:617
+#, php-format
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "Importeren van %s &#8220;%s&#8221 mislukt;"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:782
+msgid "Menu item skipped due to missing menu slug"
+msgstr "Menu-item overgeslagen vanwege een ontbrekende menuregel"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:789
+#, php-format
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr "Menu-item overgeslagen vanwege een ongeldige menuregel: %s"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:852
+msgid "Fetching attachments is not enabled"
+msgstr "Het ophalen van bijlagen is niet geactiveerd"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:865
+msgid "Invalid file type"
+msgstr "Ongeldig bestandstype"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:909
+msgid "Remote server did not respond"
+msgstr "Remote server reageert niet"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:915
+#, php-format
+msgid "Remote server returned error response %1$d %2$s"
+msgstr "Remote server retourneerde foutmelding %1$d %2$s"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:922
+msgid "Remote file is incorrect size"
+msgstr "Remote bestand heeft ongeldige grootte"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:927
+msgid "Zero size file downloaded"
+msgstr "Leeg bestand gedownload"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:933
+#, php-format
+msgid "Remote file is too large, limit is %s"
+msgstr "Remote bestand is te groot, limiet is %s"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:1032
+msgid "Import WordPress"
+msgstr "Wordpress Importeren"
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:1039
+#, php-format
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+"Er is een nieuwe versie van deze importer beschikbaar. Update naar versie %s "
+"om verzekerd te zijn van compatibiliteit met nieuwere exportbestanden."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:1054
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+"Howdy! Upload uw WordPress eXtended RSS (WXR) bestand en wij importeren de "
+"berichten, pagina's, reacties, aangepaste velden, categorieën en tags in "
+"deze site."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:1055
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+"Kies een WXR (.xml) bestand om te uploaden, klik daarna op Upload file om te "
+"importeren."
+
+#: /var/www/html/tyler/event-framework/lib/importer/importer.php:1124
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and tags</"
+"strong> from a WordPress export file."
+msgstr ""
+"Importeer <strong>berichten, pagina's, reacties, aangepaste velden, "
+"categorieën en tags uit een exportbestand van WordPress."
+
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:43
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:75
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:83
+msgid "There was an error when reading this WXR file"
+msgstr "Er is een fout opgetreden bij het lezen van dit WXR bestand"
+
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:44
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+"Details worden hierboven getoond. De importer probeert het nogmaals met een "
+"andere parser..."
+
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:87
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:92
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:284
+#: /var/www/html/tyler/event-framework/lib/importer/parsers.php:472
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+"Dit is waarschijnlijk geen WXR bestand; er mist een WXR versienummer, of "
+"deze is ongeldig"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/class-multievent-renderer.php:26
+#: /var/www/html/tyler/event-framework/multievent/includes/class-multievent-renderer.php:29
+#: /var/www/html/tyler/event-framework/multievent/includes/admin/class-multievent-admin.php:139
+#: /var/www/html/tyler/event-framework/multievent/includes/admin/class-multievent-admin.php:141
+msgid "Select Event"
+msgstr "Selecteer Gebeurtenis"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/class-multievent-widgets.php:16
+msgid "Multievent Page"
+msgstr "Multigebeurtenis Pagina"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/class-multievent-widgets.php:18
+msgid ""
+"Widgets in this area will be shown on the right hand side of multievent page."
+msgstr ""
+"Widgets van deze afdeling worden getoond aan de rechterkant van de "
+"multigebeurtenis pagina."
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:28
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:38
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:29
+#: /var/www/html/tyler/event-framework/multievent/includes/admin/class-multievent-admin.php:41
+#: /var/www/html/tyler/event-framework/multievent/includes/admin/forms/multievent-box.php:26
+msgid "Event"
+msgstr "Gebeurtenis"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:31
+msgid "Add New Event"
+msgstr "Voeg Nieuwe Gebeurtenis toe"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:32
+msgid "Edit Event"
+msgstr "Bewerk Gebeurtenis"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:33
+msgid "New Event"
+msgstr "Nieuwe Gebeurtenis"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:34
+msgid "View Event"
+msgstr "Bekijk Gebeurtenis"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:35
+msgid "Search Events"
+msgstr "Zoek Gebeurtenissen"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:36
+msgid "No Event found"
+msgstr "Geen Gebeurtenis gevonden"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:37
+msgid "No Event found in trash"
+msgstr "Geen Gebeurtenis gevonden in prullenbak"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:54
+msgid "Events Locations"
+msgstr "Gebeurtenislocaties"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:55
+msgid "Event Location"
+msgstr "Gebeurtenislocatie"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:56
+msgid "Search Events Locations"
+msgstr "Doorzoek Gebeurtenislocaties"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:57
+msgid "All Events Locations"
+msgstr "Alle Gebeurtenislocaties"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:58
+msgid "Parent Event Location"
+msgstr "Vorige Gebeurtenislocaties"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:59
+msgid "Parent Event Location:"
+msgstr "Vorige Gebeurtenislocatie:"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:60
+msgid "Edit Event Location"
+msgstr "Bewerk Gebeurtenislocaties"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:61
+msgid "Update Event Location"
+msgstr "Bijwerken Gebeurtenislocatie"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:62
+msgid "Add New Event Location"
+msgstr "Voeg Nieuwe Gebeurtenislocatie toe"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/multievent-post-types.php:63
+msgid "New Event Location"
+msgstr "Nieuwe Gebeurtenislocatie"
+
+#: /var/www/html/tyler/event-framework/multievent/includes/admin/class-multievent-admin.php:190
+msgid "This widget area is for event."
+msgstr "Dit widgetgebied is voor gebeurtenissen."
+
+#: /var/www/html/tyler/event-framework/inc/taxonomy-meta.php:10
+#: /var/www/html/tyler/event-framework/inc/taxonomy-meta.php:25
+msgid "Color"
+msgstr "Kleur"
+
+#: /var/www/html/tyler/event-framework/inc/comments.php:11
+msgid "Your comment is awaiting moderation."
+msgstr "Uw reactie wacht op een aanpassing."
+
+#: /var/www/html/tyler/event-framework/inc/comments.php:16
+msgid "Edit"
+msgstr "Bewerk"
+
+#: /var/www/html/tyler/event-framework/inc/comments.php:24
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s om %2$s"
+
+#: /var/www/html/tyler/event-framework/inc/event-admin.php:7
+msgid " Options"
+msgstr "Opties"
+
+#: /var/www/html/tyler/event-framework/inc/event-admin.php:14
+msgid "Theme Options saved"
+msgstr "Thema Opties opgeslagen"
+
+#: /var/www/html/tyler/event-framework/inc/fields/font.php:47
+msgid "Font Size"
+msgstr "Lettergrootte"

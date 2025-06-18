@@ -1,0 +1,12 @@
+@media (max-width: 767px) {
+.heading h1 {
+font-size: 9vw;
+height:auto;
+}
+}
+
+
+@media (max-width: 991px) {
+font-size: 9vw;
+height:auto;
+}

@@ -1,0 +1,158 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tyler\n"
+"POT-Creation-Date: 2014-04-03 17:08+0200\n"
+"PO-Revision-Date: 2014-05-16 17:11+0200\n"
+"Last-Translator: Stanko Metodiev <stanko@metodiew.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /var/www/Tyler\n"
+
+#: /var/www/Tyler/footer.php:22
+msgid "UP"
+msgstr "ARRIBA"
+
+#: /var/www/Tyler/404.php:4
+msgid "404 Not Found"
+msgstr "Error 404"
+
+#: /var/www/Tyler/404.php:10
+msgid ""
+"Apologies, but the page you requested could not be found. Perhaps searching "
+"will help."
+msgstr ""
+"Lo sentimos, pero la página que solicitó no pudo encontrarse. Puede que una "
+"búsqueda le ayude."
+
+#: /var/www/Tyler/comments.php:32
+msgid "Older Comments"
+msgstr "Comentarios antiguos"
+
+#: /var/www/Tyler/comments.php:33
+msgid "Newer Comments"
+msgstr "Comentarios recientes"
+
+#: /var/www/Tyler/comments.php:42
+msgid "Comments are closed."
+msgstr "Los comentarios se han cerrado."
+
+#: /var/www/Tyler/comments.php:53
+msgid "NAME"
+msgstr "NOMBRE"
+
+#: /var/www/Tyler/comments.php:56
+msgid "EMAIL"
+msgstr "E-MAIL"
+
+#: /var/www/Tyler/comments.php:58
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+#: /var/www/Tyler/comments.php:60
+msgid "COMMENT"
+msgstr "COMENTARIO"
+
+#: /var/www/Tyler/speakers.php:39
+msgid "View profile"
+msgstr "Ver perfil"
+
+#: /var/www/Tyler/single-session.php:21 /var/www/Tyler/single-speaker.php:27
+#: /var/www/Tyler/schedule.php:31 /var/www/Tyler/schedule.php:46
+#: /var/www/Tyler/schedule.php:61
+msgid "All"
+msgstr "Todos"
+
+#: /var/www/Tyler/single-session.php:38
+msgid "Bookmark and Share"
+msgstr "Marcar página y compartir"
+
+#: /var/www/Tyler/single-session.php:50 /var/www/Tyler/single-speaker.php:70
+msgid "Location:"
+msgstr "Ubicación:"
+
+#: /var/www/Tyler/single-session.php:51 /var/www/Tyler/single-speaker.php:71
+msgid "Date:"
+msgstr "Fecha:"
+
+#: /var/www/Tyler/single-session.php:52 /var/www/Tyler/single-speaker.php:72
+msgid "Time:"
+msgstr "Hora:"
+
+#: /var/www/Tyler/single-session.php:72
+msgid "Register to the session!"
+msgstr "¡Regístrese en la sesión!"
+
+#: /var/www/Tyler/single-speaker.php:37 /var/www/Tyler/single-speaker.php:87
+msgid "View full schedule"
+msgstr "Ver horario completo"
+
+#: /var/www/Tyler/single-speaker.php:39
+msgid "Related Sessions"
+msgstr "Sesiones relacionadas"
+
+#: /var/www/Tyler/single-speaker.php:74
+msgid "View session"
+msgstr "Ver sesión"
+
+#: /var/www/Tyler/category.php:26
+msgid "Nothing Found"
+msgstr "No se encontró nada"
+
+#: /var/www/Tyler/index.php:17
+msgid "REGISTER NOW"
+msgstr "REGÍSTRESE AHORA"
+
+#: /var/www/Tyler/index.php:25
+msgid "WHEN"
+msgstr "CUÁNDO"
+
+#: /var/www/Tyler/index.php:37
+msgid "WHERE"
+msgstr "DÓNDE"
+
+#: /var/www/Tyler/header.php:48
+msgid "Toggle navigation"
+msgstr "Desactivar navegación"
+
+#: /var/www/Tyler/twitter.php:81
+msgid "Back"
+msgstr "Atrás"
+
+#: /var/www/Tyler/schedule.php:28
+msgid "Filter by track"
+msgstr "Filtrar por pista"
+
+#: /var/www/Tyler/schedule.php:43
+msgid "Filter by location"
+msgstr "Filtrar por ubicación"
+
+#: /var/www/Tyler/schedule.php:58
+msgid "Filter by days"
+msgstr "Filtrar por días"
+
+#: /var/www/Tyler/functions.php:76
+msgid "Navigation Menu"
+msgstr "Menú de navegación"
+
+#: /var/www/Tyler/functions.php:183
+msgid "Order"
+msgstr "Orden"
+
+#: /var/www/Tyler/functions.php:206 /var/www/Tyler/functions.php:209
+#: /var/www/Tyler/functions.php:212 /var/www/Tyler/functions.php:215
+#: /var/www/Tyler/functions.php:218
+msgid " ago"
+msgstr "hace"
+
+#: /var/www/Tyler/functions.php:219
+msgid "on "
+msgstr "en"
+
+#: /var/www/Tyler/functions.php:226
+msgid "Register"
+msgstr "Registrarse"

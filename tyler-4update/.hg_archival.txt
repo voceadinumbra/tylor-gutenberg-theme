@@ -1,0 +1,6 @@
+repo: e392a0182fe46aeb07e8d4ff75e239ec5d359c9e
+node: 7ee4a72b55c6feddc8b34de7b6e033f360f26138
+branch: integration-testing
+latesttag: 1.6.33
+latesttagdistance: 2
+changessincelatesttag: 2
