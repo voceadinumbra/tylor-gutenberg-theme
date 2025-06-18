@@ -89,13 +89,8 @@ if ( is_active_sidebar('multievent-page-sidebar') ) {
             
                 <?php the_post_thumbnail(null, array('class' => 'img-rounded')); ?>
                 <?php the_content(); ?>
-                <hr style="margin-top: 0.25em" />
-                <span class="share pull-right" style="margin: -20px 0 20px;">
-                    <!-- AddThis Button BEGIN -->
-                    <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=300&amp;pubid=xa-529a404744177ed4"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a>
-                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-529a404744177ed4"></script>
-                    <!-- AddThis Button END -->
-                </span>
+                
+                
             </div>
             
             <?php if ( is_active_sidebar('multievent-page-sidebar') ) { ?>

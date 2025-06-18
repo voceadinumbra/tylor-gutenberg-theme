@@ -57,15 +57,12 @@ $event_date          = new EF_Text_Field('ef_eventdate', 'Event Date');
 
 // Social and Connecting
 $social_facebook    = new EF_Text_Field('ef_facebook', 'Facebook URL');
-$social_twitter     = new EF_Text_Field('ef_twitter', 'Twitter URL');
 $social_rss         = new EF_Checkbox_Field('ef_rss', 'Show RSS?');
 $social_email       = new EF_Text_Field('ef_email', 'Email Address');
-$social_google_plus = new EF_Text_Field('ef_google_plus', 'Google+ URL');
 $social_flickr      = new EF_Text_Field('ef_flickr', 'Flickr URL');
 $social_instagram   = new EF_Text_Field('ef_instagram', 'Instagram URL');
 $social_pinterest   = new EF_Text_Field('ef_pinterest', 'Pinterest URL');
 $social_linkedin    = new EF_Text_Field('ef_linkedin', 'LinkedIn URL');
-$social_add_this    = new EF_Text_Field('ef_add_this_pubid', 'AddThis PubID');
 $social_youtube     = new EF_Text_Field('ef_youtube', 'Youtube URL');
 
 // Misc Fields
@@ -95,16 +92,13 @@ $tab_misc->add_field('excel_importer', $excel_importer);
 
 // Add fields to Social and Connecting tab
 $tab_social_connecting->add_field('ef_facebook', $social_facebook);
-$tab_social_connecting->add_field('ef_twitter', $social_twitter);
 $tab_social_connecting->add_field('ef_rss', $social_rss);
 $tab_social_connecting->add_field('ef_email', $social_email);
-$tab_social_connecting->add_field('ef_google_plus', $social_google_plus);
 $tab_social_connecting->add_field('ef_flickr', $social_flickr);
 $tab_social_connecting->add_field('ef_instagram', $social_instagram);
 $tab_social_connecting->add_field('ef_youtube', $social_youtube);
 $tab_social_connecting->add_field('ef_pinterest', $social_pinterest);
 $tab_social_connecting->add_field('ef_linkedin', $social_linkedin);
-$tab_social_connecting->add_field('ef_add_this_pubid', $social_add_this);
 
 /*
  * Add All Main Tabs

@@ -332,10 +332,10 @@ class RW_Taxonomy_Meta {
         // get meta fields for current term
         $metas = isset($metas[$tag->term_id]) ? $metas[$tag->term_id] : array();
 
-        wp_nonce_field(basename(__FILE__), 'rw_taxonomy_meta_nonce');
+        wp_nonce_field(basename(__FILE__), 'rw_taxonomy_meta_nonce');       
+        
 
-        echo "<h3>{$this->_meta['title']}</h3>
-			<table class='form-table'>";
+        echo "<table class='form-table'>";
 
         foreach ($this->_fields as $field) {
             echo '<tr>';
@@ -426,7 +426,7 @@ class RW_Taxonomy_Meta {
             $nonce = wp_create_nonce('rw_ajax_delete_file');
             $rel = "{$this->_meta['id']}!{$_GET['tag_ID']}!{$field['id']}";
 
-            echo '<div style="margin-bottom: 10px"><strong>' . esc_html__('Uploaded files', 'meta_box') . '</strong></div>';
+            echo '<div><strong>' . esc_html__('Uploaded files', 'meta_box') . '</strong></div>';
             echo '<ol>';
             foreach ($meta as $att) {
                 if (wp_attachment_is_image($att))

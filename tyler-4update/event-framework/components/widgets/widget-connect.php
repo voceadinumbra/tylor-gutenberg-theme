@@ -108,4 +108,9 @@ class Ef_Connect_Widget extends WP_Widget {
 }
 
 // Register widget
-register_widget('Ef_Connect_Widget');
+
+
+function function_Ef_Connect_Widget() {
+	return register_widget( 'Ef_Connect_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Connect_Widget');

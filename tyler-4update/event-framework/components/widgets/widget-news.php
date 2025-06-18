@@ -128,4 +128,9 @@ class Ef_Latest_News_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget( 'Ef_Latest_News_Widget' );
+
+
+function function_Ef_Latest_News_Widget() {
+	return register_widget( 'Ef_Latest_News_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Latest_News_Widget');

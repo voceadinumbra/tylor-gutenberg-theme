@@ -184,4 +184,10 @@ function ef_wp_nav_menu_items( $items, $args ) {
 }
 
 // Register Widget
-register_widget( 'Ef_Registration_Widget' );
+
+
+
+function function_Ef_Registration_Widget() {
+	return register_widget( 'Ef_Registration_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Registration_Widget');

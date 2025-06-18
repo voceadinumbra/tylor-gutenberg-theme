@@ -114,4 +114,8 @@ class Ef_Comments_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget( 'Ef_Comments_Widget' );
+
+function function_Ef_Comments_Widget() {
+	return register_widget( 'Ef_Comments_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Comments_Widget');

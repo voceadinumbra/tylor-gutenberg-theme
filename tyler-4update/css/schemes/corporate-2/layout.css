@@ -25,14 +25,7 @@ header ul li.register a {background-color: #e83a56;color: #fff;}
 .sessions.single .location strong {color: #35aadc;}
 .mediabox a.post .desc strong {color: #35aadc;}
 .articles article .image .date {color: #fff;background-color: #e83a56;}
-.sidebar .tyler_comments_display h2 {color: #fff;background: #35aadc;}
-.sidebar .tyler_comments_display li a:hover {border-color: #35aadc;}
-.sidebar .tyler_comments_display li .time {color: #e83a56;}
 .sidebar .widget_text h2 {color: #e83a56;border-bottom: 1px solid #e83a56;}
-.comments-area h2 {color: #fff;background: #35aadc;}
-.comments-area form input[type=submit] {background: #e83a56;color: #fff;}
-.commentlist .comment .comment-content {border: 1px solid #35aadc;}
-.commentlist .comment .comment-content:after {border: 1px solid #35aadc;background: #fff;}
 footer .credits {background: #313131;color: #35aadc;}
 #twitter_fullscreen li {border: 1px solid #35aadc;}
 .twitter .tweet {border:1px solid #e83a56;}

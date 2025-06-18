@@ -33,14 +33,7 @@ h3.sponsor {color: #ea487a;}
 .articles article .image .date {color: #fff;background-color: #ea487a;}
 .articles article:hover .image, .articles article:hover  .post-content {border-color: #ea487a;}
 .articles article .post-content .heading {color: #ea487a;}
-.sidebar .tyler_comments_display h2 {color: #fff;background: #454442;}
-.sidebar .tyler_comments_display li a:hover {border-color: #454442;}
-.sidebar .tyler_comments_display li .time {color: #ea487a;}
 .sidebar .widget_text h2 {color: #ea487a;border-bottom: 1px solid #ea487a;}
-.comments-area h2 {color: #fff;background: #454442;}
-.comments-area form input[type=submit] {background: #ea487a;color: #fff;}
-.commentlist .comment .comment-content {border: 1px solid #454442;}
-.commentlist .comment .comment-content:after {border: 1px solid #454442;background: #fff;}
 footer .credits {background: #313131;color: #ea487a;}
 #twitter_fullscreen li {border: 1px solid #454442;}
 .twitter .tweet {border:1px solid #ea487a;}

@@ -117,4 +117,8 @@ class Ef_Event_Description_Widget extends WP_Widget {
 }
 
 //Register Widget
-register_widget( 'Ef_Event_Description_Widget' );
+
+function function_Ef_Event_Description_Widget() {
+	return register_widget( 'Ef_Event_Description_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Event_Description_Widget');

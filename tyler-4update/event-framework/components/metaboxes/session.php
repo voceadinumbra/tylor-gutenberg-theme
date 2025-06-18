@@ -132,7 +132,7 @@ function ef_metabox_session_speakers($post) {
             while ($ignored_speakers_query->have_posts()) :
                 $ignored_speakers_query->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();

@@ -146,4 +146,8 @@ function load_widget_timer() {
 }
 
 // Register Widget
-register_widget('Ef_Event_Timer_Widget');
+
+function function_Ef_Event_Timer_Widget() {
+	return register_widget( 'Ef_Event_Timer_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Event_Timer_Widget');

@@ -263,7 +263,7 @@ img {
  ------------ */
 @media (min-width: 1024px) {
     .container {
-        width: 1008px;
+        width: var(--siteWidth);
     }
 }
 
@@ -380,7 +380,7 @@ header.sticky #menu-primary {
 
 @media (min-width: 1200px) {
     header {
-        max-width: 1260px;
+        max-width: var(--siteWidth);
         width: 100%;
         margin: 0 auto;
         height: 100px;
@@ -1639,42 +1639,7 @@ form.contact-us textarea {
     list-style-type: none;
     margin: 0 0 40px; padding: 0;
 }
-.sidebar .tyler_comments_display h2 {
-    font-size: 18px; font-weight: 500;
-    color: #fff;
-    text-align: center; text-transform: uppercase;
-    background: #35aadc;
-    padding: 25px; margin: 0 0 8px;
-    border-radius: 4px;
-}
-.sidebar .tyler_comments_display h2:before {
-    background: url("../images/icons.png");
-    background-position: -360px -120px;
-    content: " ";
-    height: 36px; width: 50px;
-    display: inline-block;
-    vertical-align: top;
-    margin-bottom: -1em;
-}
-.sidebar .tyler_comments_display li a {
-    display: block;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    padding: 24px 16px;
-    margin: 8px 0;
-    font-size: 18px;
-    color: #313131;
-    text-decoration: none;
-}
-.sidebar .tyler_comments_display li a:hover {
-    border-color: #35aadc;
-}
-.sidebar .tyler_comments_display li .time {
-    font-size: 16px;
-    color: #e83a56;
-    display: block;
-    margin: 16px 0 0;
-}
+
 
 
 .sidebar .widget_text h2 {
@@ -1698,93 +1663,8 @@ form.contact-us textarea {
     text-align: center;
 }
 
-/* COMMENTS */
-.comments-area {
-    margin: 2em 0;
-}
-.comments-area h2 {
-    font-size: 18px; font-weight: 500;
-    color: #fff;
-    text-align: left; text-transform: uppercase;
-    background: #35aadc;
-    padding: 13px; margin: 0 0 12px;
-    border-radius: 4px;
-}
-.comments-area h2:before {
-    background: url("../images/icons.png");
-    background-position: -360px -120px;
-    content: " ";
-    height: 36px; width: 45px;
-    display: inline-block;
-    vertical-align: top;
-    margin: -3px 0;
-}
 
-.comments-area form input, .comments-area form textarea {
-    width: 100%;
-    margin: 0 0 10px;
-}
-.comments-area form input[type=submit] {
-    font-size: 24px; font-weight: 500;
-    background: #e83a56;
-    color: #fff;
-    text-align: center; text-transform: uppercase;
-    border: none;
-    padding: 14px;
-}
 
-.comments-area .commentlist {
-    position: relative;
-}
-.comments-area .commentlist:before {
-    display: table;
-    content: " ";
-}
-.comments-area .commentlist, .comments-area .commentlist .comment {
-    display: block;
-    list-style-type: none;
-    margin: 0; padding: 0;
-}
-.comments-area .commentlist .comment {
-    position: relative;
-    padding: 0 0 1em; margin: 12px 0;
-    font-size: 16px;
-}
-.commentlist .comment .comment-content {
-    position: relative;
-    border: 1px solid #35aadc;
-    padding: 22px;
-    border-radius: 4px;
-}
-.commentlist .comment .comment-content p {
-    margin: 0;
-}
-.commentlist .comment .comment-content:after {
-    display: block;
-    content: " ";
-    width: 16px; height: 16px;
-    border: 1px solid #35aadc;
-    border-top: 0; border-right: 0;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    position: absolute;
-    background: #fff;
-    bottom: -9px; left: 22px;
-}
-.commentlist .comment .comment-meta {
-    margin-top: 15px;
-    font-weight: 500;
-    color: #393939;
-}
-.commentlist .comment .comment-author .fn:after {
-    content: ", ";
-}
-.commentlist .comment .comment-meta a {
-    color: inherit;
-}
-.commentlist .comment .reply, .commentlist .comment .comment-author img, .commentlist .comment .comment-author .says {
-    display: none;
-}
 
 /*
  FOOTER
@@ -1862,17 +1742,8 @@ footer .ef_footer_text_columns h3 {
 .tkt-slctr-tbl thead th:nth-child(2){text-align:right;}
 #tile_registration iframe{border:0;}
 
-/*
- WOOCOMMERCE
- ------- */
-#tile_registration .products {width:100%; margin: 20px 0 20px 0;}
-#tile_registration .woocommerce .products tr.product:first-child {border-top: 1px solid #ccc;}
-#tile_registration .woocommerce .products tr.product{border-bottom: 1px solid #cccccc;}
-#tile_registration .woocommerce .products td {padding: 5px;}
-#tile_registration .woocommerce td.qty {width: 150px; text-align: center;}
-#tile_registration .woocommerce form.cart {display: inline-block;}
-#tile_registration .woocommerce .products tr.product h3 {margin: 0; font-size: 16px;}
-#tile_registration .woocommerce tr .btn {padding: 5px 15px;}
+
+
 
 /* TICKERA */
 .tickera{

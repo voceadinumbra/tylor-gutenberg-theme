@@ -120,4 +120,8 @@ class Ef_Sponsors_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget( 'Ef_Sponsors_Widget' );
+
+function function_Ef_Sponsors_Widget() {
+	return register_widget( 'Ef_Sponsors_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Sponsors_Widget');

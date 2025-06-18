@@ -76,7 +76,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($selected_speakers_query_1->have_posts()) :
                 $selected_speakers_query_1->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();
@@ -88,7 +88,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($ignored_speakers_query_1->have_posts()) :
                 $ignored_speakers_query_1->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();
@@ -109,7 +109,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($selected_speakers_query_2->have_posts()) :
                 $selected_speakers_query_2->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();
@@ -121,7 +121,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($ignored_speakers_query_2->have_posts()) :
                 $ignored_speakers_query_2->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();
@@ -141,7 +141,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($selected_speakers_query_3->have_posts()) :
                 $selected_speakers_query_3->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();
@@ -153,7 +153,7 @@ function ef_metabox_speakers_full_screen($post) {
             while ($ignored_speakers_query_3->have_posts()) :
                 $ignored_speakers_query_3->the_post();
                 ?>
-                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php the_title(); ?></li>
+                <li class="ui-state-default" data-id="<?php the_ID(); ?>"><?php echo esc_html(get_the_title()); ?></li>
                 <?php
             endwhile;
             wp_reset_query();

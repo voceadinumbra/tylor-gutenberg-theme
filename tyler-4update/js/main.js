@@ -93,11 +93,11 @@ jQuery(function() {
     if(!isIE() || isIE()>7) {
         var initTextFit = function() {
             jQuery('.text-fit').each(function(i, el) {
-                textFit(el);
+              //  textFit(el);
             });
         }
-        initTextFit();
-        jQuery(window).on('resize', initTextFit);
+     //   initTextFit();
+        //jQuery(window).on('resize', initTextFit);
     }
 
 

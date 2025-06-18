@@ -17,12 +17,12 @@ $session_locations = get_terms('session-location');
 <?php while (have_posts()) : the_post(); ?>
     <div class="heading">
         <div class="container">
-            <h1><?php the_title(); ?></h1>
+            <h1><?php echo esc_html(get_the_title()); ?></h1>
         </div>
     </div>
     <div class="container">
         <?php the_content(); ?>
-        <p><br /></p>
+        
         <div class="schedule">
             <ul class="nav nav-tabs pull-right">
                 <?php if (!empty($session_tracks)) { ?>
@@ -71,7 +71,7 @@ $session_locations = get_terms('session-location');
                     <?php } ?>
                 </li>
             </ul>
-            <div class="clearfix"></div>
+            
             <div class="sessions list">
             </div>
         </div>

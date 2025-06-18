@@ -33,16 +33,8 @@ $ef_options = EF_Event_Options::get_theme_options();
             <div class="row">
                 <div class="col-md-8">
                     <?php the_content(); ?>
-                    <!-- AddThis Button BEGIN -->
-                    <p class="clearfix">
-						<?php if( ! empty( $ef_options['ef_add_this_pubid'] ) ) { ?>
-	                        <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=300&amp;pubid=<?php echo $ef_options['ef_add_this_pubid']; ?>">
-	                            <img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="<?php _e('Bookmark and Share', 'dxef'); ?>" style="border:0"/>
-	                        </a>
-						<?php } ?>
-                    </p>
-                    <!-- AddThis Button END -->
-                    <div style="padding:1em 0">
+                    
+                    <div>
 					
 					<?php
 					$full_schedule_page = get_posts( 
@@ -82,9 +74,9 @@ $ef_options = EF_Event_Options::get_theme_options();
                 </div>
             </div>
             <?php if (!empty($registration_code)) { ?>
-                <div style="margin-top: 40px">
+                <div>
                     <h2 class="text-center"><?php _e('Register to the session!', 'dxef'); ?></h2>
-                    <div style="padding: 1em">
+                    <div>
                         <?php echo $registration_code; ?>
                     </div>
                     <p>

@@ -158,4 +158,9 @@ class Ef_Facebook_Rsvp_Widget extends WP_Widget {
 }
 
 //Register Widget
-register_widget('Ef_Facebook_Rsvp_Widget');
+
+
+function function_Ef_Facebook_Rsvp_Widget() {
+	return register_widget( 'Ef_Facebook_Rsvp_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Facebook_Rsvp_Widget');

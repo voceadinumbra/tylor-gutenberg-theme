@@ -20,14 +20,14 @@ $theme_name = EF_Framework_Helper::get_theme_name();
 					<img src="<?php echo EF_Framework_Helper::get_framework_logo_src(); ?>" alt="Event Framework Logo">
 				</div><!-- /ef-options-logo -->
 				<div class="ef-about">
-					<p><?php echo $current_theme->display( 'Name' ); ?> <span><?php echo $current_theme->display( 'Version' ); ?></span></p>
-					<p>Developed by <a href="http://www.showthemes.com" target="_blank">Showthemes</a></p>
+					<p><?php echo $current_theme->display( 'Name' ); ?> </p>
+
+					
 				</div><!-- /about -->
 			</header><!-- /ef-options-header -->
 			
 			<nav class="el-options-links">
-				<ul>
-					<li><a href="https://www.showthemes.com/docs/tyler/documentation-and-theme-guide" target="_blank"><?php _e( 'View Theme Documentation', 'dxef' ); ?></a></li>
+				<ul>					
 					<li class='el-save el-button'><a id="ef-save-options" href="#"><?php _e( 'Save options', 'dxef' ); ?></a></li>
 				</ul>
 			</nav><!-- /el-options-links -->

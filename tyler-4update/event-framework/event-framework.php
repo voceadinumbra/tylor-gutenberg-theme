@@ -57,9 +57,8 @@ class DX_Event_Framework {
      * Register the theme options page
      */
     public function add_theme_options_page() {
-        add_menu_page(__('Showthemes', 'dxef'), __('Showthemes', 'dxef'), 'manage_options', 'ef-options', array($this, 'theme_options_callback'), 'http://www.showthemes.com/ads/logo_mini.png');
+        add_menu_page(__('🖥️ Theme Options', 'dxef'), __('Theme Options', 'dxef'), 'manage_options', 'ef-options', array($this, 'theme_options_callback'), '');
         add_submenu_page('ef-options', __('Theme Options', 'dxef'), __('Theme Options', 'dxef'), 'manage_options', 'ef-options', array($this, 'theme_options_callback'));
-        add_submenu_page('ef-options', __('More Themes', 'dxef'), __('More Themes', 'dxef'), 'manage_options', 'ef-other-themes', array($this, 'theme_otherthemes_callback'));
     }
 
     /**
@@ -71,11 +70,7 @@ class DX_Event_Framework {
         include_once( EF_INC_DIR . 'event-admin.php' );
     }
 
-    public function theme_otherthemes_callback() {
-        $current_theme = wp_get_theme();
-
-        include_once( EF_INC_DIR . 'event-other-themes.php' );
-    }
+    
 
     /**
      * Setup all Custom Post Types
@@ -205,9 +200,8 @@ class DX_Event_Framework {
             wp_enqueue_style('font-awesome', EF_ASSETS_URL . '/css/font-awesome.min.css');
             wp_enqueue_style('ef-normalize', EF_ASSETS_URL . '/css/normalize.css');
             wp_enqueue_style('ef-theme-options', EF_ASSETS_URL . '/css/themeoptions.css');
-        } else if ($hook === 'showthemes_page_ef-other-themes') {
-            wp_enqueue_style('ef-theme-other-themes', EF_ASSETS_URL . 'css/otherthemes.css');
-        }
+        } 
+       
     }
 
     /**

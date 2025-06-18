@@ -851,14 +851,8 @@
  ------- */
     .tkt-slctr-tbl thead th:nth-child(2){width:auto;}
 	
-	/*
- WOOCOMMERCE
- ------- */
-	#tile_registration .woocommerce .products td {padding: 5px; display: inline-block; text-align: center;}
-	#tile_registration .woocommerce .product td.title{display: block;}
-	#tile_registration .woocommerce .product td.qty{width: 100%;}
-	#tile_registration .woocommerce .product td.price {display: block;}
-	#tile_registration .woocommerce .product td.description {text-align: justify;}
+	
+	
 }
 
 @media only screen and (max-width: 500px) {

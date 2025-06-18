@@ -166,4 +166,8 @@ class Ef_Schedule_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget( 'Ef_Schedule_Widget' );
+
+function function_Ef_Schedule_Widget() {
+	return register_widget( 'Ef_Schedule_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Schedule_Widget');

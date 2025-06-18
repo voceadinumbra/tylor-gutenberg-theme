@@ -201,4 +201,8 @@ function tyler_frontend_scripts() {
 add_action('wp_head', 'tyler_frontend_scripts');
 
 //Register Widget
-register_widget('Ef_Explore_Widget');
+
+function function_Ef_Explore_Widget() {
+	return register_widget( 'Ef_Explore_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Explore_Widget');

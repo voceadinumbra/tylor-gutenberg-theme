@@ -244,4 +244,9 @@ function ef_ajax_send_contact_email() {
 }
 
 // Register widget
-register_widget( 'Ef_Contact_Widget' );
+
+
+function function_Ef_Contact_Widget() {
+	return register_widget( 'Ef_Contact_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Contact_Widget');

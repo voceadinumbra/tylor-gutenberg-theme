@@ -24,6 +24,35 @@ a {
 	color: #444;
 }
 
+input, 
+textarea {
+    border: 1px solid #2271b100 !important;
+	box-shadow: initial;
+}
+
+
+input[type=checkbox]:focus, 
+input[type=color]:focus, 
+input[type=date]:focus, 
+input[type=datetime-local]:focus, 
+input[type=datetime]:focus, 
+input[type=email]:focus, 
+input[type=month]:focus, 
+input[type=number]:focus, 
+input[type=password]:focus, 
+input[type=radio]:focus, 
+input[type=search]:focus, 
+input[type=tel]:focus, 
+input[type=text]:focus, 
+input[type=time]:focus, 
+input[type=url]:focus, 
+input[type=week]:focus, 
+select:focus, 
+textarea:focus {
+    border: 1px solid #2271b1 !important;
+	box-shadow: initial;
+}
+
 .ef-options-header {
 	padding: 30px 20px;
 	display: block;
@@ -121,11 +150,6 @@ a {
 			border: none;
 		}
 		
-		.el-options-main .el-option .el-option-input input[type="text"].ef-text {
-			width: 50%;
-			padding: 7px 10px;
-		}
-		
 		select.ef-select {
 			vertical-align: baseline;
 		}
@@ -161,6 +185,7 @@ a {
 
 	.el-options-links ul li.el-save {
 		background: #739e44;
+		margin-bottom: 0;
 	}
 
 .el-options-menu .resp-tab-active {

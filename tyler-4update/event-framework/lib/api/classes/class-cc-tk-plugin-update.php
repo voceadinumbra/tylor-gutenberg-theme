@@ -13,29 +13,9 @@ if (!defined('ABSPATH'))
  *
  */
 
-/**
- * Activation function:
- *
- * 	private function load_plugin_self_updater() {
- * 		$options = get_option( 'wc_api_manager' );
- *
- * 		$upgrade_url = $this->upgrade_url;
- * 		$plugin_name = $this->plugins_basename(); // same as plugin slug. if a theme use a theme name like 'twentyeleven'
- * 		$product_id = get_option( 'wc_api_manager_product_id' );
- * 		$api_key = $options['api_key'];
- * 		$activation_email = $options['activation_email'];
- * 		$renew_license_url = 'https://www.toddlahman.com/my-account';
- * 		$instance = get_option( 'wc_api_manager_instance' );
- * 		$domain = site_url();
- * 		$plugin_or_theme = 'plugin'; // 'theme' or 'plugin'
- * 		// $this->text_domain is used to defined localization for translation
- *
- * 		new WC_API_Manager_Plugin_Update_API_Check( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $plugin_or_theme, $this->text_domain );
- * 	}
- */
+
 class EF_Activation_Update_API_Check {
 
-    private $upgrade_url; // URL to access the Update API Manager.
     private $plugin_name; // same as plugin slug. if a theme use a theme name like 'twentyeleven'
     private $product_id; // Software Title
     private $api_key; // API License Key
@@ -55,9 +35,8 @@ class EF_Activation_Update_API_Check {
      * @return void
      */
 
-    public function __construct($upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $software_version, $plugin_or_theme, $text_domain) {
+    public function __construct( $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $software_version, $plugin_or_theme, $text_domain) {
         // API data
-        $this->upgrade_url = $upgrade_url;
         $this->plugin_name = $plugin_name; // same as plugin slug. if a theme use a theme name like 'twentyeleven'
         $this->product_id = $product_id;
         $this->api_key = $api_key;
@@ -114,12 +93,7 @@ class EF_Activation_Update_API_Check {
         }
     }
 
-    // Upgrade API URL
-    private function create_upgrade_api_url($args) {
-        $upgrade_url = add_query_arg('wc-api', 'upgrade-api', $this->upgrade_url);
-
-        return $upgrade_url . '&' . http_build_query($args);
-    }
+    
 
     /**
      * Check for updates against the remote server.

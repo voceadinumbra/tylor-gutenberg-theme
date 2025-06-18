@@ -165,4 +165,8 @@ class Ef_Speakers_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget( 'Ef_Speakers_Widget' );
+
+function function_Ef_Speakers_Widget() {
+	return register_widget( 'Ef_Speakers_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Speakers_Widget');

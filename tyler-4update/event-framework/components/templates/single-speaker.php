@@ -19,7 +19,7 @@
             <div class="container">
                 <h1>
                     <?php the_post_thumbnail('tyler_speaker', array('title' => get_the_title(), 'class' => 'img-circle')); ?>
-                    <?php the_title(); ?>
+                    <?php echo esc_html(get_the_title()); ?>
                 </h1>
                 <div class="nav">
                     <?php echo get_previous_post_link('%link', '<i class="icon-angle-left"></i>'); ?>
@@ -66,7 +66,7 @@
                             ?>
                             <div class="session">
                                 <a href="<?php the_permalink(); ?>" class="session-inner">
-                                    <span class="title" <?php if (!empty($color)) echo("style='color:$color;'"); ?>><span class="text-fit"><?php the_title(); ?></span></span>
+                                    <span class="title" <?php if (!empty($color)) echo("style='color:$color;'"); ?>><span class="text-fit"><?php echo esc_html(get_the_title()); ?></span></span>
                                     <span class="desc"><?php _e('Location:', 'dxef'); ?> <strong><?php echo(!empty($locations) ? $locations[0]->name : ''); ?></strong></span>
                                     <span class="desc"><?php _e('Date:', 'dxef'); ?> <strong><?php echo(!empty($date) ? date_i18n(get_option('date_format'), $date) : ''); ?></strong></span>
                                     <span class="desc"><?php _e('Time:', 'dxef'); ?> <strong><?php echo $time; ?> - <?php echo $end_time; ?></strong></span>

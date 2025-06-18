@@ -1,5 +1,5 @@
 <?php
-get_header();
+get_header('home');
 
 // Get Theme Options
 //$ef_options = get_option( 'eventframework' );
@@ -16,17 +16,18 @@ if(function_exists('espresso_version')){
 
 ?>
 <!-- LANDING - BIG PICTURE -->
+<div id="hero_video">
 <div class="container widget">
     <div class="landing">
         <div class="bg"<?php if (isset($ef_options['ef_hero'])) { ?> style="background-image: url('<?php echo $ef_options['ef_hero']; ?>')"<?php } ?>></div>
-        <h1><span class="text-fit" <?php if (isset($ef_options['ef_title_color'])) echo 'style="color:' . $ef_options['ef_title_color'] . '"'; ?>><?php if (isset($ef_options['ef_herotitle'])) {
+        <h1><span class="text-fit" <?php if (isset($ef_options['ef_title_color'])) echo 'style="color:' . $ef_options['ef_title_color'] . '"'; ?>><span style="text-shadow: 2px 2px 5px black;"><?php if (isset($ef_options['ef_herotitle'])) {
     echo stripslashes($ef_options['ef_herotitle']);
-} ?></span></h1>
-        <p class="lead text-fit" <?php if (!empty($ef_options['ef_subtitle_color'])) echo 'style="color:' . $ef_options['ef_subtitle_color'] . '"'; ?>>
+} ?></span></span></h1>
+        <p class="lead text-fit" <?php if (!empty($ef_options['ef_subtitle_color'])) echo 'style="color:' . $ef_options['ef_subtitle_color'] . '"'; ?>><span style="text-shadow: 2px 2px 5px black;">
         <?php if (isset($ef_options['ef_herotagline'])) {
             echo esc_attr(stripslashes($ef_options['ef_herotagline']));
         } ?>
-        </p>
+        </span></p>
         <?php
         $widget_ef_registration = get_option('widget_ef_registration');
 
@@ -38,7 +39,7 @@ if(function_exists('espresso_version')){
                 }
                 if (isset($reg_widget['registrationshowcalltoaction']) && $reg_widget['registrationshowcalltoaction'] == 1) {
                     ?>
-                    <a href="<?php echo home_url('/'); ?>#tile_registration" class="btn btn-lg btn-secondary"><?php _e('REGISTER NOW', 'tyler') ?></a>
+                    <!--<a href="https://satnews.regfox.com/smallsat-symposium-2020" class="btn btn-lg btn-secondary"><?php _e('REGISTER NOW', 'tyler') ?></a>-->
             <?php
             break;
         }
@@ -52,10 +53,11 @@ if(function_exists('espresso_version')){
                     <div class="box-inner">
                         <div>
                             <span class="sub"><?php _e('WHEN', 'tyler') ?></span>
-                            <span class="title"><?php if (isset($ef_options['ef_eventdate'])) {
+                            <span class="title"><strong style="font-weight: 400;"><?php if (isset($ef_options['ef_eventdate'])) {
     echo stripslashes($ef_options['ef_eventdate']);
 } ?></span>
-                            <span class="desc"><?php if (isset($ef_options['ef_eventstartingtime'])) {
+</strong>
+                            <span class="desc"> <?php if (isset($ef_options['ef_eventstartingtime'])) {
     echo stripslashes($ef_options['ef_eventstartingtime']);
 } ?></span>
                         </div>
@@ -79,6 +81,7 @@ if(function_exists('espresso_version')){
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

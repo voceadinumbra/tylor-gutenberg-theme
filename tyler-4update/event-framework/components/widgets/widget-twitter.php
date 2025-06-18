@@ -96,8 +96,7 @@ class Ef_Latest_Tweets_Widget extends WP_Widget {
 
 	if (isset($_POST['submitted'])) {
 	    update_option('ef_twitter_widget_twitterlinktext', isset($new_instance['twitterlinktext']) ? $new_instance['twitterlinktext'] : '' );
-	    update_option('ef_twitter_widget_twitterhash', isset($new_instance['twitterhash']) ? $new_instance['twitterhash'] : '' );
-	    update_option('ef_twitter_widget_accesstoken', isset($new_instance['twitteraccesstoken']) ? $new_instance['twitteraccesstoken'] : '' );
+ 	    update_option('ef_twitter_widget_accesstoken', isset($new_instance['twitteraccesstoken']) ? $new_instance['twitteraccesstoken'] : '' );
 	    update_option('ef_twitter_widget_accesstokensecret', isset($new_instance['twitteraccesstokensecret']) ? $new_instance['twitteraccesstokensecret'] : '' );
 	    update_option('ef_twitter_widget_consumerkey', isset($new_instance['twitterconsumerkey']) ? $new_instance['twitterconsumerkey'] : '' );
 	    update_option('ef_twitter_widget_consumersecret', isset($new_instance['twitterconsumersecret']) ? $new_instance['twitterconsumersecret'] : '' );
@@ -163,4 +162,8 @@ class Ef_Latest_Tweets_Widget extends WP_Widget {
 }
 
 // Register Widget
-register_widget('Ef_Latest_Tweets_Widget');
+
+function function_Ef_Latest_Tweets_Widget() {
+	return register_widget( 'Ef_Latest_Tweets_Widget' );
+}
+add_action( 'widgets_init', 'function_Ef_Latest_Tweets_Widget');

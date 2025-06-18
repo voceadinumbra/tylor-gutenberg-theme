@@ -13,10 +13,7 @@ $ef_options = EF_Event_Options::get_theme_options();
         if ( isset( $ef_options['ef_footer_content'] ) ) {
         	echo stripslashes( $ef_options['ef_footer_content'] ); 
         }
-        ?>
-        <div class="footer-tyler-event pbs">
-        	Powered by <a href="https://www.showthemes.com/new-event-wordpress-theme-tyler">Powered by Tyler by Showthemes</a>
-        </div>
+        ?>      
     </div>
 </footer>
 <?php wp_footer(); ?>
