@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "settings": {
+    "color": {
+      "custom": false,
+      "palette": [
+        {
+          "name": "Strong Blue",
+          "slug": "strong-blue",
+          "color": "#0073aa"
+        }
+      ]
+    },
+    "customTemplates": [
+      {
+        "name": "home",
+        "title": "Home Template",
+        "postTypes": ["page"]
+      }
+    ],
+    "typography": {
+      "customFontSize": true,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "12px",
+          "name": "Small"
+        }
+      ]
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    },
+    "layout": {
+    "contentSize": "800px",
+    "wideSize": "1200px"
+    },
+    "styles": {
+        "blocks": {
+            "core/button": {
+            "border": {
+                "radius": "4px"
+            }
+            }
+        }
+    }
+  }  
+}
