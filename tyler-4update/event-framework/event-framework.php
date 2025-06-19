@@ -138,7 +138,6 @@ class DX_Event_Framework {
         include_once( EF_HELPERS_DIR . 'framework-helper.php' );
         include_once( EF_HELPERS_DIR . 'theme-specific.php' );
         include_once( EF_HELPERS_DIR . 'cpt/query-manager.php' );
-        include_once( EF_HELPERS_DIR . 'cpt/pois.php' );
         include_once( EF_HELPERS_DIR . 'cpt/sessions.php' );
         include_once( EF_HELPERS_DIR . 'cpt/speakers.php' );
         include_once( EF_HELPERS_DIR . 'cpt/event-medias.php' );

@@ -36,10 +36,7 @@ function style_switcher_display() {
 		
 		if ( isset( $color_scheme ) && $color_scheme != 'basic' ) {
 			wp_enqueue_style( $color_scheme . '-scheme', get_template_directory_uri() . '/css/schemes/' . $color_scheme . '/layout.css', true );
-			?>
-			<script>
-				var poi_marker = '<?php echo get_template_directory_uri(); ?>/images/schemes/<?php echo $color_scheme; ?>/icon-map-pointer.png';
-			</script>
+			?>			
 			<?php 
 		}
 	}

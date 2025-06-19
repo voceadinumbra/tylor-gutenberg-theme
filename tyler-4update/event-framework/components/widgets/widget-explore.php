@@ -53,7 +53,6 @@ class Ef_Explore_Widget extends WP_Widget {
         }
         $exploretitle = isset($instance['exploretitle']) ? $instance['exploretitle'] : '';
         $gmap_zoom    = isset($instance['gmap_zoom']) ? $instance['gmap_zoom'] : '';
-        $poi_groups   = get_terms('poi-group');
         $gmap_zoom    = ( is_numeric($gmap_zoom) ? $gmap_zoom : 13 );
 
         // Google Map Widget Srcipts
@@ -64,7 +63,6 @@ class Ef_Explore_Widget extends WP_Widget {
         echo apply_filters('ef_widget_render', '', $this->id_base, array(
             'title'      => $exploretitle,
             'gmap_zoom'  => $gmap_zoom,
-            'poi_groups' => $poi_groups
         ));
         echo stripslashes($args['after_widget']);
     }
@@ -117,20 +115,7 @@ class Ef_Explore_Widget extends WP_Widget {
 
 }
 
-/**
- * Display Widget Form
- * 
- * Displays the widget
- * form in the admin panel
- * 
- * @package Event Framework
- * @since 1.0.0
- */
-function tyler_home_pois_fields($fields) {
 
-    global $wpdb;
-    return $fields . ", $wpdb->postmeta.meta_value AS tyler_address, mt2.meta_value AS tyler_latitude, mt1.meta_value AS tyler_longitude";
-}
 
 /**
  * Display Widget Form
@@ -152,46 +137,11 @@ function tyler_frontend_scripts() {
 
     $color_scheme = empty($ef_options['ef_color_palette']) ? 'basic' : $ef_options['ef_color_palette'];
 
-    add_filter('posts_fields', 'tyler_home_pois_fields');
+  
 
-    $pois = get_posts(
-            array(
-                'post_type'        => 'poi',
-                'posts_per_page'   => -1,
-                'suppress_filters' => false,
-                'meta_query'       => array(
-                    array(
-                        'key'     => 'poi_address',
-                        'compare' => 'EXISTS',
-                    ),
-                    array(
-                        'key'     => 'poi_latitude',
-                        'compare' => 'EXISTS',
-                    ),
-                    array(
-                        'key'     => 'poi_longitude',
-                        'compare' => 'EXISTS',
-                    )
-                )
-            )
-    );
-
-    remove_filter('posts_fields', 'tyler_home_pois_fields');
-
-    $pois_arr = array();
-
-    foreach ($pois as $poi) {
-        $pois_arr[] = array(
-            'poi_address'   => sprintf('<strong>%s</strong><br/>%s', $poi->post_title, $poi->poi_address),
-            'poi_latitude'  => $poi->poi_latitude,
-            'poi_longitude' => $poi->poi_longitude,
-            'poi_title'     => $poi->post_title
-        );
-    }
+   
     ?>
 
-        var pois = <?php echo json_encode($pois_arr); ?>;
-        var poi_marker = '<?php echo get_template_directory_uri(); ?>/images/schemes/<?php echo $color_scheme; ?>/icon-map-pointer.png';
         var contact_missingfield_error = <?php echo json_encode(__('Sorry! You\'ve entered an invalid email.', 'tyler')); ?>;
         var contact_wrongemail_error = <?php echo json_encode(__('This field must be filled out.', 'tyler')); ?>;
     </script><?php

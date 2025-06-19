@@ -179,13 +179,9 @@ class EF_Excel_Importer_Field extends EF_Field_Base {
                                         'post_status' => 'publish'
                                     ));
                                     if (!is_wp_error($id) && $id != 0) {
-                                        update_post_meta($id, 'poi_address', $row[1]);
-                                        if (!empty($row[1])) {
-                                            $location = Geocoder::getLocation($row[1]);
-                                            if ($location !== false) {
-                                                update_post_meta($id, 'poi_latitude', $location['lat']);
-                                                update_post_meta($id, 'poi_longitude', $location['lng']);
-                                            }
+                                        
+                                        if (!empty($row[1])) {                                         
+                                            
                                             $categories = $row[2];
                                             if (!empty($categories)) {
                                                 $terms_array = array();
