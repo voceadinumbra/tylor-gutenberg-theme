@@ -140,7 +140,6 @@ class DX_Event_Framework {
         include_once( EF_HELPERS_DIR . 'cpt/query-manager.php' );
         include_once( EF_HELPERS_DIR . 'cpt/sessions.php' );
         include_once( EF_HELPERS_DIR . 'cpt/speakers.php' );
-        include_once( EF_HELPERS_DIR . 'cpt/event-medias.php' );
         include_once( EF_HELPERS_DIR . 'taxonomy.php' );
 
         // Include fields

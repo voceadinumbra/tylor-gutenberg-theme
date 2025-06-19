@@ -103,19 +103,6 @@ function dx_multievent_object_to_array( $result ) {
     return $array;
 }
 
-/**
- * Allow metabox to custom post
- * 
- * Handle to allow metabox to custome post types
- * 
- * @package Event Framework
- * @since 1.0.0
- * 
- */
-function dx_multievent_meta_added_to_posts() {
-	
-	return $pages = array( 'event-media', 'poi', 'session', 'speaker', 'sponsor' );
-}
 
 /**
  * Allow multievent field to widget
