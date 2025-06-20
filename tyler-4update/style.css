@@ -191,12 +191,6 @@ span.wpcf7-list-item { display: block; }
 }
 
 
-.sessions .session .speaker.featured img {
-	width: 150px !important;
-	padding-right: 10px;
-	box-shadow: none;
-	border-width: 0px;
-}
 
 .sessions .session .title {
 	color:#4d4d4d;
@@ -296,7 +290,6 @@ font-weight:500;
 }
 .sessions.list .session .speaker img {
     width: 100px;
-	box-shadow: solid;
 }
 
 
@@ -424,6 +417,16 @@ border:solid;
 }
 
 
+.page-id-71 .so-panel.widget.widget_black-studio-tinymce.widget_black_studio_tinymce 
+{
+    border: 1px solid #7100e2;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px 5px 5px 5px;
+}
+#pgc-71-0-0, #pgc-71-0-1 {
+    width: 50%;
+    width: calc(50% - (0.5 * 30px));
+}
 
 /* checking and testing */
 body.single-speaker .heading h1 {

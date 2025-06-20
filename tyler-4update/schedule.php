@@ -25,7 +25,7 @@ $session_locations = sandeep_get_terms_for_post_type('session-location',"session
         <?php the_content(); ?>
         
         <div class="loader-img">
-            <img alt="Loading" src="<?php echo get_template_directory_uri(); ?>/images/ajax-loader.gif" width="32" height="32" align="center" />
+            <img alt="Loading" src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loader.gif" width="32" height="32" align="center" />
         </div>
         <div class="schedule">
         <div class="track_name">&nbsp;</div>

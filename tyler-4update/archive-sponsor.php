@@ -71,8 +71,8 @@ if ($locations) {
     <?php while (have_posts()) : the_post(); ?>
         <?php
         $exhibitor_location = get_post_meta(get_the_ID(), 'sponsor_location', true);
-        $booth_number = get_field('booth_number');
-        $meeting_space = get_field('meeting_space');
+        $booth_number = function_exists('get_field') ? get_field('booth_number') : null;
+        $meeting_space = function_exists('get_field') ? get_field('meeting_space') : null;
         ?>
         <div class="sponsor-row" data-location="<?php echo esc_attr($exhibitor_location ?: ''); ?>">
             <div class="container">

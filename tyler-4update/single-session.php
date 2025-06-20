@@ -35,31 +35,26 @@ if (have_posts()) : while (have_posts()) : the_post();
                     tyler_previous_post_link_plus(array('order_by' => 'custom', 'meta_key' => 'session_date', 'format' => '%link', 'link' => '<i class="icon-angle-left"></i>'));
                     ?>
 
-                    <?php if(is_singular( 'session' )){
-
-        if ($full_schedule_page && count($full_schedule_page) > 0) { ?>
-    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+<?php if(is_singular( 'session' )){if ($full_schedule_page && count($full_schedule_page) > 0) { ?>
+<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
 <?php } 
-                    }
-                    ?>
+}
+?>
 
 
-                    <?php if(is_singular( 'sessiontwo' )){?>
-
-                            <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-                        <?php } ?>
-
-
+<?php if(is_singular( 'sessiontwo' )){?>
+<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+<?php } ?>
             
-                        <?php if(is_singular( 'sessionthree' )){?>
-
+<?php if(is_singular( 'sessionthree' )){?>
 <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
 <?php } ?>
 
-
-
 <?php if(is_singular( 'sessionfour' )){?>
+<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+<?php } ?>
 
+<?php if(is_singular( 'sessionfive' )){?>
 <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
 <?php } ?>
                             

@@ -22,7 +22,7 @@ get_header(); ?>
 
     <div class="loader-img" id="workshops-loader">
         <img alt="<?php esc_attr_e('Loading', 'textdomain'); ?>" 
-             src="<?php echo esc_url(get_template_directory_uri() . '/images/ajax-loader.gif'); ?>" 
+             src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/ajax-loader.gif'); ?>" 
              width="32" height="32" />
     </div>
 

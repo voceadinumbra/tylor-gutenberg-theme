@@ -7,9 +7,9 @@ get_header();
 
 if (have_posts()) :
     while (have_posts()) : the_post();
-        $categories = get_the_category();
-        $booth_number = get_field('booth_number');
-        $meeting_space = get_field('meeting_space');
+        $categories = get_the_category();        
+        $booth_number = function_exists('get_field') ? get_field('booth_number') : null;
+        $meeting_space = function_exists('get_field') ? get_field('meeting_space') : null;
         $post_meta_data = get_post_custom();
         $location_id = $post_meta_data['sponsor_location'][0] ?? null;
         $location = $location_id ? get_term_by('id', $location_id, 'session-location') : null;

@@ -51,7 +51,7 @@ include 'event-framework/event-framework.php';
 add_filter('ef_theme_options_logo', 'tyler_set_theme_options_logo');
 
 function tyler_set_theme_options_logo($url) {
-    return get_template_directory_uri() . '/images/schemes/basic/logo.png';
+    return get_template_directory_uri() . '/assets/images/schemes/basic/logo.png';
 }
 
 // Display the logo based on selected Color Scheme
@@ -64,7 +64,7 @@ function tyler_set_theme_logo() {
     if (!empty($ef_options['ef_logo']) && $ef_options['ef_logo'] != 'http://') {
         $logo_url = $ef_options['ef_logo'];
     } else {
-        $logo_url = get_template_directory_uri() . "/images/schemes/$color_scheme/logo.png";
+        $logo_url = get_template_directory_uri() . "/assets/images/schemes/$color_scheme/logo.png";
     }
 
     return $logo_url;
@@ -119,11 +119,11 @@ function tyler_enqueue_scripts() {
     $ef_options      = EF_Event_Options::get_theme_options();
     // styles
     wp_enqueue_style('tyler-google-font', '//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700');
-    wp_enqueue_style('tyler-bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css');
-    wp_enqueue_style('tyler-blueimp-gallery', get_template_directory_uri() . '/css/blueimp-gallery.min.css');
-    wp_enqueue_style('tyler-jquery-scrollpane', get_template_directory_uri() . '/css/jquery.scrollpane.css');
-    wp_enqueue_style('tyler-icons', get_template_directory_uri() . '/css/icon.css');
-    wp_enqueue_style('tyler-layout', get_template_directory_uri() . '/css/layout.css');
+    wp_enqueue_style('tyler-bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css');
+    wp_enqueue_style('tyler-blueimp-gallery', get_template_directory_uri() . '/assets/css/blueimp-gallery.min.css');
+    wp_enqueue_style('tyler-jquery-scrollpane', get_template_directory_uri() . '/assets/css/jquery.scrollpane.css');
+    wp_enqueue_style('tyler-icons', get_template_directory_uri() . '/assets/css/icon.css');
+    wp_enqueue_style('tyler-layout', get_template_directory_uri() . '/assets/css/layout.css');
 
     if (is_child_theme()) {
         wp_enqueue_style('tyler-parent-style', trailingslashit(get_template_directory_uri()) . 'style.css');
@@ -133,7 +133,7 @@ function tyler_enqueue_scripts() {
     // Color Schemes
     $color_scheme = empty($ef_options['ef_color_palette']) ? 'basic' : $ef_options['ef_color_palette'];
     if (isset($color_scheme) && $color_scheme != 'basic') {
-        wp_enqueue_style($color_scheme . '-scheme', get_template_directory_uri() . '/css/schemes/' . $color_scheme . '/layout.css');
+        wp_enqueue_style($color_scheme . '-scheme', get_template_directory_uri() . '/assets/css/schemes/' . $color_scheme . '/layout.css');
     }
 
     
@@ -668,9 +668,6 @@ function tyler_adjacent_post_link_plus($args = '', $format = '%link &raquo;', $p
     return true;
 }
 
-
-
-
 add_action('init', 'tyler_components_init');
 
 function tyler_components_init() {
@@ -715,7 +712,7 @@ function tc_enqueue_scripts()
 	/**
 	 * Changed by Sandeep @codeable 
 	 **/
-	$session_templates = ["schedule.php", "schedule-session-two.php", "schedule-session-three.php", "schedule-session-four.php"];
+	$session_templates = ["schedule.php", "schedule-session-two.php", "schedule-session-three.php", "schedule-session-four.php", "schedule-session-five.php"];
 	if (in_array(get_page_template_slug(), $session_templates)) {
 		// replace the parent's schedule.js file with the child's file
 		wp_dequeue_script('tyler-schedule');
@@ -734,22 +731,11 @@ function tc_child_meta_boxes($callback)
 	// add locations to the sponsor edit page
 	add_meta_box('metabox-sponsor-locations', __('Locations', 'tyler-child'), 'tc_metabox_sponsor', 'sponsor', 'normal', 'default');
 
-	// add settings for breaks to the session edit page
-	/**
-	 * Changed by Sandeep @codeable 
-	 * add_meta_box(
-	 *	'metabox-session-sponsors',
-	 *	__('Breaks', 'tyler-child'),
-	 *	'tc_metabox_session',
-	 *	'session',
-	 *	'normal',
-	 *	'default'
-	 *	);
-	 */	add_meta_box(
+	add_meta_box(
 		'metabox-session-sponsors',
 		__('Breaks', 'tyler-child'),
 		'tc_metabox_session',
-		['session', "sessiontwo", "sessionthree", "sessionfour"],
+		['session', "sessiontwo", "sessionthree", "sessionfour","sessionfive"],
 		'normal',
 		'default'
 	);
@@ -776,7 +762,7 @@ function tc_save_meta_box($post_id, $post, $update)
 	if ($post->post_type == "sponsor")
 		tc_save_post_meta($post_id, "sponsor_location");
 
-	if (in_array($post->post_type, ["session", "sessiontwo", "sessionthree", "sessionfour"])) {
+	if (in_array($post->post_type, ["session", "sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
 		tc_save_post_meta($post_id, "session_sponsor");
 		tc_save_post_meta($post_id, "no_links");
 	}
@@ -1040,7 +1026,7 @@ function tc_ajax_get_schedule()
 	 * Added by Sandeep @codeable 
 	 */
 	$session_type = sanitize_text_field($_POST["session_type"]);
-	$session_types = ["session", "sessiontwo", "sessionthree", "sessionfour"];
+	$session_types = ["session", "sessiontwo", "sessionthree", "sessionfour","sessionfive"];
 	if (!in_array($session_type, $session_types)) {
 		echo json_encode($ret);
 		die();
@@ -1181,38 +1167,19 @@ function tc_ajax_get_schedule()
 add_action('wp_ajax_get_schedule', 'tc_ajax_get_schedule');
 add_action('wp_ajax_nopriv_get_schedule', 'tc_ajax_get_schedule');
 
-//	function tc_excerpt_more($more) {
-//		$post = get_post();
-//		if ($post->post_type == "sponsor")
-//			return ' <a href="'. get_permalink($post->ID) . '">' . __('Read More', 'tyler-child') . '</a>';
-//		return $more;
-//	}
-//	add_filter('excerpt_more', 'tc_excerpt_more', 21);
-
-
 
 
 add_action('add_meta_boxes', 'wpt_add_event_metaboxes');
 function wpt_add_event_metaboxes()
 {
-	/*** Changed by Sandeep @codeable 
-	 * 
-	 * add_meta_box(
-		'workshop_post_show_id',
-		'Show Post on Workshop page',
-		'workshop_post_show',
-		'session',
-		'side',
-		'high'
-	);
-	 */
+	
 	add_meta_box(
 		'workshop_post_show_id',
 		'Show Post on Workshop page',
 		'workshop_post_show',
 
 
-		['session', "sessiontwo", "sessionthree", "sessionfour"],
+		['session', "sessiontwo", "sessionthree", "sessionfour","sessionfive"],
 		'side',
 		'high'
 	);
@@ -1254,19 +1221,8 @@ function workshop_post_show($post)
 
 function wpt_save_events_meta($post_id, $post)
 {
-	// $to = 'danko.zloporubovic@gmail.com';
-	// $subject = 'The subject';
-	// $body = 'The email body content';
-	// $headers = array('Content-Type: text/html; charset=UTF-8','From: My Site Name &lt;support@example.com');
 
-	// wp_mail( $to, $subject, $body, $headers );
-	/**
-	 * Changed by Sandeep @codeable 
-	 * if($post->post_type!="session"){
-	 * return ;
-	 * }
-	 */
-	if (!in_array($post->post_type, ["session", "sessiontwo", "sessionthree", "sessionfour"])) {
+	if (!in_array($post->post_type, ["session", "sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
 		return;
 	}
 	// Return if the user doesn't have edit permissions.
@@ -1376,7 +1332,7 @@ add_action('rest_api_init', function () {
 
 /** Added by Sandeep @codeable */
 add_action('init', function () {
-	$post_types = [2 => "two", 3 => "three", 4 => "four"];
+	$post_types = [2 => "two", 3 => "three", 4 => "four", 5 => "five"];
 	foreach ($post_types as $num => $type) {
 		register_post_type('session' . $type, array(
 			'labels' => array(
@@ -1393,6 +1349,8 @@ add_action('init', function () {
 				'menu_name' => __('Sessions ' . $num, 'dxef')
 			),
 			'public' => true,
+			'show_in_rest' => true,
+			'supports' => ['editor'],
 			'publicly_queryable' => true,
 			'show_ui' => true,
 			'show_in_menu' => true,
@@ -1415,7 +1373,7 @@ add_action('init', function () {
 	}
 }, 60);
 add_action('add_meta_boxes', function () {
-	foreach (["sessiontwo", 'sessionthree', "sessionfour"] as  $type) {
+	foreach (["sessiontwo", 'sessionthree', "sessionfour","sessionfive"] as  $type) {
 		add_meta_box(
 			'metabox-session',
 			__('Session Details', 'dxef'),
@@ -1435,7 +1393,7 @@ add_action('add_meta_boxes', function () {
 	}
 });
 add_action('save_post', function ($id) {
-	if (isset($_POST['post_type']) && in_array($_POST['post_type'], ["sessiontwo", "sessionthree", 'sessionfour'])) {
+	if (isset($_POST['post_type']) && in_array($_POST['post_type'], ["sessiontwo", "sessionthree", 'sessionfour',"sessionfive"])) {
 		if (isset($_POST['session_home']))
 			update_post_meta($id, 'session_home', $_POST['session_home']);
 		else
@@ -1480,7 +1438,7 @@ add_action('save_post', function ($id) {
 add_action('admin_enqueue_scripts', function ($hook) {
 	global $post_type;
 	if (in_array($hook, array('post.php', 'post-new.php'))) {
-		if (in_array($post_type, ["sessiontwo", "sessionthree", "sessionfour"])) {
+		if (in_array($post_type, ["sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
 			wp_enqueue_script('jquery-ui-datepicker');
 			wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
 			wp_enqueue_script('jquery-ui-sortable');
@@ -1644,3 +1602,199 @@ function get_eventframework_option($key) {
 
     return ''; // return empty string if not found
 }
+
+
+
+/**
+ * Register block styles.
+*/
+
+if ( ! function_exists( 'tyler_block_styles' ) ) :
+	/**
+	 * Register custom block styles
+	 */
+	function tyler_block_styles() {
+
+		register_block_style(
+			'core/details',
+			array(
+				'name'         => 'arrow-icon-details',
+				'label'        => __( 'Arrow icon', 'tyler' ),
+				/*
+				 * Styles for the custom Arrow icon style of the Details block
+				 */
+				'inline_style' => '
+				.is-style-arrow-icon-details {
+					padding-top: var(--wp--preset--spacing--10);
+					padding-bottom: var(--wp--preset--spacing--10);
+				}
+
+				.is-style-arrow-icon-details summary {
+					list-style-type: "\2193\00a0\00a0\00a0";
+				}
+
+				.is-style-arrow-icon-details[open]>summary {
+					list-style-type: "\2192\00a0\00a0\00a0";
+				}',
+			)
+		);
+		register_block_style(
+			'core/post-terms',
+			array(
+				'name'         => 'pill',
+				'label'        => __( 'Pill', 'tyler' ),
+				/*
+				 * Styles variation for post terms
+				 * https://github.com/WordPress/gutenberg/issues/24956
+				 */
+				'inline_style' => '
+				.is-style-pill a,
+				.is-style-pill span:not([class], [data-rich-text-placeholder]) {
+					display: inline-block;
+					background-color: var(--wp--preset--color--base-2);
+					padding: 0.375rem 0.875rem;
+					border-radius: var(--wp--preset--spacing--20);
+				}
+
+				.is-style-pill a:hover {
+					background-color: var(--wp--preset--color--contrast-3);
+				}',
+			)
+		);
+		register_block_style(
+			'core/list',
+			array(
+				'name'         => 'checkmark-list',
+				'label'        => __( 'Checkmark', 'tyler' ),
+				/*
+				 * Styles for the custom checkmark list block style
+				 * https://github.com/WordPress/gutenberg/issues/51480
+				 */
+				'inline_style' => '
+				ul.is-style-checkmark-list {
+					list-style-type: "\2713";
+				}
+
+				ul.is-style-checkmark-list li {
+					padding-inline-start: 1ch;
+				}',
+			)
+		);
+		register_block_style(
+			'core/navigation-link',
+			array(
+				'name'         => 'arrow-link',
+				'label'        => __( 'With arrow', 'tyler' ),
+				/*
+				 * Styles for the custom arrow nav link block style
+				 */
+				'inline_style' => '
+				.is-style-arrow-link .wp-block-navigation-item__label:after {
+					content: "\2197";
+					padding-inline-start: 0.25rem;
+					vertical-align: middle;
+					text-decoration: none;
+					display: inline-block;
+				}',
+			)
+		);
+		register_block_style(
+			'core/heading',
+			array(
+				'name'         => 'asterisk',
+				'label'        => __( 'With asterisk', 'tyler' ),
+				'inline_style' => "
+				.is-style-asterisk:before {
+					content: '';
+					width: 1.5rem;
+					height: 3rem;
+					background: var(--wp--preset--color--contrast-2, currentColor);
+					clip-path: path('M11.93.684v8.039l5.633-5.633 1.216 1.23-5.66 5.66h8.04v1.737H13.2l5.701 5.701-1.23 1.23-5.742-5.742V21h-1.737v-8.094l-5.77 5.77-1.23-1.217 5.743-5.742H.842V9.98h8.162l-5.701-5.7 1.23-1.231 5.66 5.66V.684h1.737Z');
+					display: block;
+				}
+
+				/* Hide the asterisk if the heading has no content, to avoid using empty headings to display the asterisk only, which is an A11Y issue */
+				.is-style-asterisk:empty:before {
+					content: none;
+				}
+
+				.is-style-asterisk:-moz-only-whitespace:before {
+					content: none;
+				}
+
+				.is-style-asterisk.has-text-align-center:before {
+					margin: 0 auto;
+				}
+
+				.is-style-asterisk.has-text-align-right:before {
+					margin-left: auto;
+				}
+
+				.rtl .is-style-asterisk.has-text-align-left:before {
+					margin-right: auto;
+				}",
+			)
+		);
+	}
+endif;
+
+add_action( 'init', 'tyler_block_styles' );
+
+/**
+ * Enqueue block stylesheets.
+ */
+
+if ( ! function_exists( 'tyler_block_stylesheets' ) ) :
+	/**
+	 * Enqueue custom block stylesheets
+	 *
+	 * @since Twenty Twenty-Four 1.0
+	 * @return void
+	 */
+	function tyler_block_stylesheets() {
+		/**
+		 * The wp_enqueue_block_style() function allows us to enqueue a stylesheet
+		 * for a specific block. These will only get loaded when the block is rendered
+		 * (both in the editor and on the front end), improving performance
+		 * and reducing the amount of data requested by visitors.
+		 *
+		 * See https://make.wordpress.org/core/2021/12/15/using-multiple-stylesheets-per-block/ for more info.
+		 */
+		wp_enqueue_block_style(
+			'core/button',
+			array(
+				'handle' => 'tyler-button-style-outline',
+				'src'    => get_parent_theme_file_uri( 'assets/css/button-outline.css' ),
+				'ver'    => wp_get_theme( get_template() )->get( 'Version' ),
+				'path'   => get_parent_theme_file_path( 'assets/css/button-outline.css' ),
+			)
+		);
+	}
+endif;
+
+add_action( 'init', 'tyler_block_stylesheets' );
+
+/**
+ * Register pattern categories.
+ */
+
+if ( ! function_exists( 'tyler_pattern_categories' ) ) :
+	/**
+	 * Register pattern categories
+	 *
+	 * @since Twenty Twenty-Four 1.0
+	 * @return void
+	 */
+	function tyler_pattern_categories() {
+
+		register_block_pattern_category(
+			'tyler_page',
+			array(
+				'label'       => _x( 'Pages', 'Block pattern category', 'tyler' ),
+				'description' => __( 'A collection of full page layouts.', 'tyler' ),
+			)
+		);
+	}
+endif;
+
+add_action( 'init', 'tyler_pattern_categories' );

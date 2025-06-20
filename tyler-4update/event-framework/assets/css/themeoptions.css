@@ -224,7 +224,7 @@ textarea:focus {
 	display: none;
 	width: 40px;
 	height: 40px;
-    background: transparent url('../images//ajax-loader.gif') no-repeat center center; 
+    background: transparent url('../assets/images//ajax-loader.gif') no-repeat center center; 
 }
 
 /* Options Image Preview

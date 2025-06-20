@@ -35,7 +35,7 @@ function style_switcher_display() {
 		}
 		
 		if ( isset( $color_scheme ) && $color_scheme != 'basic' ) {
-			wp_enqueue_style( $color_scheme . '-scheme', get_template_directory_uri() . '/css/schemes/' . $color_scheme . '/layout.css', true );
+			wp_enqueue_style( $color_scheme . '-scheme', get_template_directory_uri() . '/assets/css/schemes/' . $color_scheme . '/layout.css', true );
 			?>			
 			<?php 
 		}
