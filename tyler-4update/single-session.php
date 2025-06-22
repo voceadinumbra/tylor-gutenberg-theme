@@ -35,28 +35,28 @@ if (have_posts()) : while (have_posts()) : the_post();
                     tyler_previous_post_link_plus(array('order_by' => 'custom', 'meta_key' => 'session_date', 'format' => '%link', 'link' => '<i class="icon-angle-left"></i>'));
                     ?>
 
-<?php if(is_singular( 'session' )){if ($full_schedule_page && count($full_schedule_page) > 0) { ?>
-<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-<?php } 
-}
-?>
+                    <?php if(is_singular( 'session' )){if ($full_schedule_page && count($full_schedule_page) > 0) { ?>
+                    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+                    <?php } 
+                    }
+                    ?>
 
 
-<?php if(is_singular( 'sessiontwo' )){?>
-<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-<?php } ?>
-            
-<?php if(is_singular( 'sessionthree' )){?>
-<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-<?php } ?>
+                    <?php if(is_singular( 'sessiontwo' )){?>
+                    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+                    <?php } ?>
+                                
+                    <?php if(is_singular( 'sessionthree' )){?>
+                    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+                    <?php } ?>
 
-<?php if(is_singular( 'sessionfour' )){?>
-<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-<?php } ?>
+                    <?php if(is_singular( 'sessionfour' )){?>
+                    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+                    <?php } ?>
 
-<?php if(is_singular( 'sessionfive' )){?>
-<a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
-<?php } ?>
+                    <?php if(is_singular( 'sessionfive' )){?>
+                    <a href="<?php echo get_permalink($full_schedule_page[0]->ID); ?>" title="<?php _e('All', 'tyler'); ?>"><i class="icon-th-large"></i></a>
+                    <?php } ?>
                             
                  
                     <?php
@@ -84,23 +84,22 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     'meta_key'   => '_wp_page_template',
                                     'meta_value' => 'schedule.php'
                                 )
-                        );                       
-                   
-                    if (isset($trackis) && is_array($trackis)) 
-                    {
-                        extract($trackis);                       
-                    }
-                    else                
-                    {
-                        $trackis = "http://simon-p.local/agenda-main/";
-                    }
+                        );                      
+
+                    $trackis = $trackis ?? "https://2025.smallsateurope.com/agenda-main/";
 
                         ?>
 
-                <?php foreach ($tracks as $track) { ?>                
-                    <?php echo "<a href=\"" . $trackis . "?track=" . $track->term_id . "\">"; ?><span class="single-session-link btn btn-primary" <?php if (!empty($track->color)) echo "style='background-color: $track->color;'"; ?>><?php echo $track->name; ?></span></a>
-                        <?php } ?>
-                    </div>
+                <?php foreach ($tracks as $track) { ?>               
+                    <a href="<?php echo $trackis . "?track=" . $track->term_id; ?>">
+                        <span class="single-session-link btn btn-primary" <?php if (!empty($track->color)) echo "style='background-color: $track->color;'"; ?>>
+                            <?php echo $track->name; ?>
+                        </span>
+                    </a>
+                <?php } ?>
+
+
+                </div>
                 </div>
 
                 <div class="col-md-4 sessions single">

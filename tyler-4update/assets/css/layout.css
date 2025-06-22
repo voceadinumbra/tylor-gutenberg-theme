@@ -248,7 +248,7 @@ img {
 .nav-tabs > li > a:after {
     content: " ";
     display: inline-block;
-    background: url("../assets/images/icons.png");
+    background: url("../images/icons.png");
     background-position: -120px -60px;
     width: 12px; height: 8px;
     font-size: 0.75em;
@@ -380,7 +380,6 @@ header.sticky #menu-primary {
     header {        
         width: 100%;
         margin: 0 auto;
-        height: 100px;
     }
     header #logo {
         position: relative;
@@ -451,7 +450,7 @@ header.sticky #menu-primary {
     background-color: #e83a56;
 }
 .timecounter:before {
-    background: url("../assets/images/icons.png");
+    background: url("../images/icons.png");
     background-position: 0 -60px;
     width: 37px; height: 37px;
     content: " ";
@@ -636,7 +635,7 @@ h2 + .btn-header {
 }
 #scroll-up:before {
     display: inline-block;
-    background: url("../assets/images/icons.png");
+    background: url("../images/icons.png");
     background-position: -90px -60px;
     width: 16px; height: 9px;
     content: " ";
@@ -772,7 +771,7 @@ h2 + .btn-header {
     top: 14px; right: 14px;
     display: block;
     content: " ";
-    background: url("../assets/images/icons.png");
+    background: url("../images/icons.png");
     background-position: -420px 0;
     width: 48px; height: 48px;
     z-index: 30;
@@ -864,7 +863,7 @@ h2 + .btn-header {
 }
 .connect:before {
     content: " ";
-    background: url("../assets/images/icons.png");
+    background: url("../images/icons.png");
     background-position: 0 -120px;
     width: 38px; height: 38px;
     position: absolute;
@@ -1282,7 +1281,7 @@ h2 + .btn-header {
     display: inline-block;
     width: 50px; height: 50px;
     margin-left: -25px;
-    background: url(../assets/images/icons.png);
+    background: url("../images/icons.png");
     background-position: -420px -60px;
     z-index: 11;
 }

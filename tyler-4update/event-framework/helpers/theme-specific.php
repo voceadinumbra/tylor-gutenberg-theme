@@ -47,12 +47,14 @@ class EF_Theme_Specific_Helper {
 	/**
 	 * Read default widgets or options from framework
 	 */
-	
-	private static function load_default_widgets() {
+
+	 private static function load_default_widgets() {
 		if( file_exists( EF_DEFAULT_DIR . '/widgets.php' ) ) {
 			include_once EF_DEFAULT_DIR . '/widgets.php';
 		}
 	}
+	
+	
 	
 	private static function load_default_theme_options() {
 		if( file_exists( EF_DEFAULT_DIR . '/options.php' ) ) {

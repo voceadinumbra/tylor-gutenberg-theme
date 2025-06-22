@@ -6,6 +6,10 @@ add_theme_support('align-wide');
 add_theme_support('editor-styles');
 add_theme_support('responsive-embeds');
 add_theme_support('wp-block-styles');
+add_theme_support('block-templates');
+add_theme_support('block-template-parts');
+add_theme_support('core-block-patterns'); // often enabled for FSE themes
+add_theme_support('post-meta');
 add_theme_support('editor-color-palette', [
     [
         'name'  => __('Strong Blue', 'theme'),
@@ -161,6 +165,9 @@ function tyler_enqueue_scripts() {
     // full schedule
     if (get_page_template_slug() == 'schedule.php') {
         wp_enqueue_script('tyler-schedule', get_template_directory_uri() . '/js/schedule.js', array('jquery'));
+		wp_localize_script('tyler-schedule', 'ajax_object', array(
+		'ajaxurl' => admin_url('admin-ajax.php')
+	));
     }
 }
 
@@ -174,14 +181,14 @@ function tyler_admin_enqueue_scripts($hook) {
     if (in_array($hook, array('post.php', 'post-new.php'))) {
         if ($post_type == 'session') {
             wp_enqueue_script('jquery-ui-datepicker');
-            wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
+            wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/assets/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
             wp_enqueue_script('jquery-ui-sortable');
-            wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/css/sortable.css');
+            wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/assets/css/sortable.css');
         } else if (get_page_template_slug() == 'speakers.php') {
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_script('tyler-page-speakers-full-screen', get_template_directory_uri() . '/js/page-speakers-full-screen.js');
-            wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/css/sortable.css');
-            wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
+            wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/assets/css/sortable.css');
+            wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/assets/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
         }
     }
 }
@@ -687,7 +694,7 @@ function tyler_components_init() {
     ));
 }
 
-// widgets
+// widgets XYZ
 
 add_filter('ef_widget_render', 'tyler_ef_widget_render', 10, 3);
 
@@ -709,15 +716,15 @@ function tc_enqueue_scripts()
 {
 	wp_enqueue_style('tyler-style', get_template_directory_uri() . '/style.css');
 	wp_enqueue_script('tc-scripts', get_stylesheet_directory_uri() . '/js/scripts.js', array('jquery'), '1', true);
-	/**
-	 * Changed by Sandeep @codeable 
-	 **/
-	$session_templates = ["schedule.php", "schedule-session-two.php", "schedule-session-three.php", "schedule-session-four.php", "schedule-session-five.php"];
+ 	$session_templates = ["schedule.php", "schedule-session-two.php", "schedule-session-three.php", "schedule-session-four.php", "schedule-session-five.php"];
 	if (in_array(get_page_template_slug(), $session_templates)) {
-		// replace the parent's schedule.js file with the child's file
-		wp_dequeue_script('tyler-schedule');
-		wp_enqueue_script('tc-schedule', get_stylesheet_directory_uri() . '/js/schedule.js', array('jquery'));
+		
+		wp_enqueue_script('tyler-schedule', get_template_directory_uri() . '/js/schedule.js', array('jquery'));
 	}
+	
+	wp_localize_script('tyler-schedule', 'ajax_object', array(
+		'ajaxurl' => admin_url('admin-ajax.php')
+	));
 	
 }
 add_action('wp_enqueue_scripts', 'tc_enqueue_scripts', 15);
@@ -947,6 +954,7 @@ function tc_register_taxonomies()
 	// add a taxonomy to sponsors, called type. this will be used to set sponsors as exhibitors and supporting organizations.
 	register_taxonomy('sponsor-type', 'sponsor', array(
 		'hierarchical' => true,
+		'show_in_rest' => true,
 		'labels' => array(
 			'name' => __('Types', 'tyler-child'),
 			'singular_name' => __('Type', 'tyler-child'),
@@ -1237,8 +1245,9 @@ function wpt_save_events_meta($post_id, $post)
 	// }
 
 	// Now that we're authenticated, time to save the data.
-	// This sanitizes the data from the field and saves it into an array $events_meta.
-	$events_meta['session_workshop'] = esc_textarea($_POST['session_workshop']);
+	// This sanitizes the data from the field and saves it into an array $events_meta.	
+	$events_meta['session_workshop'] = isset($_POST['session_workshop']) ? esc_textarea($_POST['session_workshop']) : '';
+
 
 	// Cycle through the $events_meta array.
 	// Note, in this example we just have one item, but this is helpful if you have multiple.
@@ -1314,6 +1323,7 @@ add_action('rest_api_init', function () {
 		'speaker',
 		'speaker_title',
 		array(
+			'show_in_rest' => true,
 			'get_callback' => 'get_post_meta_cb',
 			'update_callback' => 'update_post_meta_cb',
 			'schema' => null
@@ -1323,6 +1333,7 @@ add_action('rest_api_init', function () {
 		'speaker',
 		'company_name',
 		array(
+			'show_in_rest' => true,
 			'get_callback' => 'get_post_meta_cb',
 			'update_callback' => 'update_post_meta_cb',
 			'schema' => null
@@ -1349,6 +1360,7 @@ add_action('init', function () {
 				'menu_name' => __('Sessions ' . $num, 'dxef')
 			),
 			'public' => true,
+			'menu_position' => 215, // Change this number to adjust the order
 			'show_in_rest' => true,
 			'supports' => ['editor'],
 			'publicly_queryable' => true,
@@ -1440,9 +1452,9 @@ add_action('admin_enqueue_scripts', function ($hook) {
 	if (in_array($hook, array('post.php', 'post-new.php'))) {
 		if (in_array($post_type, ["sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
 			wp_enqueue_script('jquery-ui-datepicker');
-			wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
+			wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/assets/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
 			wp_enqueue_script('jquery-ui-sortable');
-			wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/css/sortable.css');
+			wp_enqueue_style('tyler-sortable', get_template_directory_uri() . '/assets/css/sortable.css');
 		}
 	}
 });
@@ -1798,3 +1810,223 @@ if ( ! function_exists( 'tyler_pattern_categories' ) ) :
 endif;
 
 add_action( 'init', 'tyler_pattern_categories' );
+
+
+
+
+
+
+// Add to your theme's functions.php
+// Updated AJAX handler for all 5 session types
+
+add_action('wp_ajax_get_sessions', 'handle_get_sessions');
+add_action('wp_ajax_nopriv_get_sessions', 'handle_get_sessions');
+
+function handle_get_sessions() {
+    try {	
+        $session_type = sanitize_text_field($_POST['session_type']);
+        
+        // Validate session type - now includes all 5 CPTs
+        $valid_types = ['session', 'sessiontwo', 'sessionthree', 'sessionfour', 'sessionfive'];
+        if (!in_array($session_type, $valid_types)) {
+            wp_send_json_error('Invalid session type: ' . $session_type);
+            return;
+        }
+        
+        // Get the data using your existing functions
+        $sessions = get_sessions_for_type($session_type);
+        $tracks = sandeep_get_terms_for_post_type('session-track', $session_type);
+        $locations = sandeep_get_terms_for_post_type('session-location', $session_type);
+        $dates = sandeep_get_session_dates($session_type);
+        
+        wp_send_json_success([
+            'sessions' => $sessions,
+            'tracks' => $tracks,
+            'locations' => $locations,
+            'dates' => $dates,
+            'session_type' => $session_type // For debugging
+        ]);
+        
+    } catch (Exception $e) {
+        wp_send_json_error('Error loading sessions: ' . $e->getMessage());
+    }
+
+
+}
+
+// Helper function that works for all 5 session types
+function get_sessions_for_type($session_type) {
+
+
+
+
+
+    $args = [
+        'post_type' => $session_type,
+        'post_status' => 'publish',
+        'posts_per_page' => 20,
+        'meta_query' => [
+            [
+                'key' => 'session_date',
+                'compare' => 'EXISTS'
+            ]
+        ]
+    ];
+    
+    $posts = get_posts($args);
+    $sessions = [];
+    
+    foreach ($posts as $post) {
+        // Get session metadata
+        $track_terms = get_the_terms($post->ID, 'session-track');
+        $location_terms = get_the_terms($post->ID, 'session-location');
+
+		$start_time = get_post_meta($post->ID, 'session_time', true);
+		$end_time = get_post_meta($post->ID, 'session_end_time', true);
+		$wp_time_format = get_option('time_format');
+
+		if (!empty($start_time)) {
+			$time_parts = explode(':', $start_time);
+			if (count($time_parts) == 2)
+				$start_time = date($wp_time_format, mktime($time_parts[0], $time_parts[1], 0));
+		}		
+
+		if (!empty($end_time)) {
+			$time_parts = explode(':', $end_time);
+			if (count($time_parts) == 2)
+				$end_time   = date($wp_time_format, mktime($time_parts[0], $time_parts[1], 0));
+		}
+        
+        $sessions[] = [
+            'id' => $post->ID,
+            'title' => $post->post_title,
+            'description' => $post->post_excerpt ?: wp_trim_words($post->post_content, 30),
+            'date' => get_post_meta($post->ID, 'session_date', true),
+            'time' => get_post_meta($post->ID, 'session_time', true),
+			'start_time' => $start_time,
+			'end_time' => $end_time,			      
+            'track_id' => $track_terms ? $track_terms[0]->term_id : 0,
+            'track_name' => $track_terms ? $track_terms[0]->name : 'No Track',
+            'location_id' => $location_terms ? $location_terms[0]->term_id : 0,
+            'location_name' => $location_terms ? $location_terms[0]->name : 'No Location',
+            'url' => get_permalink($post->ID),
+            'session_type' => $session_type
+        ];
+    }
+    
+    return $sessions;
+}
+
+// Keep your existing helper functions
+if (!function_exists('sandeep_get_terms_for_post_type')) {
+    function sandeep_get_terms_for_post_type($taxonomy, $post_type) {
+        return get_terms([
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false
+        ]);
+    }
+}
+
+if (!function_exists('sandeep_get_session_dates')) {
+    function sandeep_get_session_dates($post_type) {
+        global $wpdb;
+        
+        $results = $wpdb->get_results($wpdb->prepare("
+            SELECT DISTINCT pm.meta_value 
+            FROM {$wpdb->postmeta} pm 
+            INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id 
+            WHERE pm.meta_key = 'session_date' 
+            AND p.post_type = %s 
+            AND p.post_status = 'publish'
+            ORDER BY pm.meta_value ASC
+        ", $post_type));
+        
+        return $results;
+    }
+}
+
+
+//XYZ
+
+// Register the custom block
+function register_speakers_block() {
+    wp_register_script(
+        'speaker-block',
+        get_stylesheet_directory_uri() . '/assets/js/speaker-block.js',
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'wp-core-data', 'wp-components'),
+        filemtime(get_stylesheet_directory() . '/assets/js/speaker-block.js')
+    );
+
+    register_block_type('tyler-child/speakers-list', array(
+        'editor_script' => 'speaker-block',
+        'render_callback' => 'render_speakers_block'
+    ));
+}
+add_action('init', 'register_speakers_block');
+
+// Render callback for the speakers block
+function render_speakers_block($attributes) {
+    $speakers = get_posts(array(
+        'post_type' => 'speaker',
+        'posts_per_page' => -1,  
+		'post_status' => 'publish', 
+		'suppress_filters' => false, 		
+		'orderby' => 'menu_order title',
+		'order' => 'ASC'
+
+
+    ));
+
+    if (empty($speakers)) {
+        return '<p>' . esc_html__('No speakers found.', 'tyler-child') . '</p>';
+    }
+
+    ob_start();
+    ?>
+    <div class="speakers-list-block">
+        <?php foreach ($speakers as $speaker) : 
+            $speaker_title = get_post_meta($speaker->ID, 'speaker_title', true);
+            $company_name = get_post_meta($speaker->ID, 'company_name', true);
+        ?>
+            <a href="<?php echo esc_url(get_permalink($speaker->ID)); ?>" class="speaker-row-container">
+                <div class="speaker-row">
+                    <div class="speaker-img-container">
+                        <?php echo get_the_post_thumbnail($speaker->ID, 'thumbnail', [
+                            'title' => esc_attr($speaker->post_title),
+                            'class' => 'img-speaker',
+                            'alt' => esc_attr($speaker->post_title)
+                        ]); ?>
+                    </div>
+                    <div class="speaker-details">
+                        <h2><?php echo esc_html($speaker->post_title); ?></h2>
+                        <?php if (!empty($speaker_title)) : ?>
+                            <p class="position_title"><?php echo esc_html($speaker_title); ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($company_name)) : ?>
+                            <p class="speaker_company"><?php echo esc_html($company_name); ?></p>
+                        <?php endif; ?>
+                        <span class="hidden speaker_title">
+                            <?php 
+                            echo esc_html($speaker->post_title);
+                            if (!empty($speaker_title)) {
+                                echo ', ' . esc_html($speaker_title);
+                            }
+                            if (!empty($company_name)) {
+                                echo ', ' . esc_html($company_name);
+                            }
+                            ?>
+                        </span>
+                        <span class="hidden desc">
+                            <?php 
+                            $content = apply_filters('the_content', $speaker->post_content);
+                            echo $content; 
+                            ?>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}

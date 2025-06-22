@@ -1,4 +1,13 @@
 
+/*
+Gutenberg Editor CSS
+*/
+
 html :where(.editor-styles-wrapper) {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.block-editor-block-patterns-list__item .block-editor-block-patterns-list__item-title
+{
+    font-size: 20px
 }

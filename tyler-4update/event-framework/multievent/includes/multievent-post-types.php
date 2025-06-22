@@ -50,6 +50,7 @@ function dx_multievent_initialize() {
 	register_taxonomy ( 'multievent-location', 'multievent', array (
 			
 			'hierarchical' => true,
+			'show_in_rest' => true,
 			'labels' => array (
 					'name'				=> __ ( 'Events Locations', 'dxef' ),
 					'singular_name'		=> __ ( 'Event Location', 'dxef' ),

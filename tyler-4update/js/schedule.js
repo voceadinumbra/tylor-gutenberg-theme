@@ -80,6 +80,7 @@ function updateSchedule(timestamp, location, track) {
     type: "POST",
     dataType: "json",
     url: ajaxurl,
+    //url: ajax_object.ajaxurl,
     data: {
       action: "get_schedule",
       /**

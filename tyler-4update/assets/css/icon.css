@@ -2,7 +2,7 @@
 [class*=" icon-"] {
     display: inline-block;
     line-height: 1;
-    background: url("../assets/images/icons-lg.png") no-repeat top left;
+    background: url("../images/icons-lg.png") no-repeat top left;
     background-size: 480px auto;
     width: 1em; height: 1em;
     max-width: 60px; max-height: 60px;

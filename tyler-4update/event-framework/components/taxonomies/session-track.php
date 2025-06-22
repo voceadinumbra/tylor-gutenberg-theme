@@ -1,6 +1,8 @@
 <?php
 register_taxonomy ( 'session-track', 'session', array (
 		'hierarchical' => true,
+		'public' => true,
+		'show_in_rest' => true,
 		'labels' => array (
 				'name' => __ ( 'Session Tracks', 'dxef' ),
 				'singular_name' => __ ( 'Session Track', 'dxef' ),

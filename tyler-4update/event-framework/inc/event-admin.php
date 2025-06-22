@@ -18,12 +18,7 @@ $theme_name = EF_Framework_Helper::get_theme_name();
 			<header class="ef-options-header">
 				<div class="ef-options-logo">
 					<img src="<?php echo EF_Framework_Helper::get_framework_logo_src(); ?>" alt="Event Framework Logo">
-				</div><!-- /ef-options-logo -->
-				<div class="ef-about">
-					<p><?php echo $current_theme->display( 'Name' ); ?> </p>
-
-					
-				</div><!-- /about -->
+				</div><!-- /ef-options-logo -->			
 			</header><!-- /ef-options-header -->
 			
 			<nav class="el-options-links">

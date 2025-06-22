@@ -1,0 +1,378 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"default"}} -->
+<main class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+
+    <!-- wp:group {"className":"heading","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"backgroundColor":"light-gray","layout":{"type":"full"}} -->
+    <div class="wp-block-group heading has-light-gray-background-color has-background" style="padding-top:2rem;padding-bottom:2rem">
+
+        <!-- wp:group {"layout":{"type":"constrained"}} -->
+            <div class="wp-block-group">
+                <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"2.5rem","fontWeight":"700"}}} /-->
+            </div>
+        <!-- /wp:group -->
+        
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:2rem;padding-bottom:2rem">
+        
+        <!-- wp:post-content /-->
+        
+        <!-- wp:html -->
+        <div class="loader-img" style="display: none; text-align: center; margin: 20px 0;">
+            <img alt="Loading" src="/wp-content/themes/your-theme/assets/images/ajax-loader.gif" width="32" height="32" />
+        </div>
+        
+        <div class="schedule-container">
+            <div class="schedule-filters">
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="track-filter">Filter by Track:</label>
+                        <select id="track-filter" class="filter-select">
+                            <option value="0">All Tracks</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="location-filter">Filter by Location:</label>
+                        <select id="location-filter" class="filter-select">
+                            <option value="0">All Locations</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="date-filter">Filter by Date:</label>
+                        <select id="date-filter" class="filter-select">
+                            <option value="0">All Dates</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sessions-list">
+                <!-- Sessions will be loaded here via JavaScript -->
+            </div>
+        </div>
+
+        <style>
+        .schedule-container {
+            margin-top: 2rem;
+        }
+        
+        .schedule-filters {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            font-size: 1rem;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #007cba;
+            box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+        }
+        .sessions.list {
+            margin-bottom: 15px;
+        }
+
+        .sessions.list .session-inner {
+            position: relative;
+        }
+
+        .sessions.list .more {
+            position: absolute;  
+            z-index: 20;
+            padding: 0 19px;
+            color: #fff;
+        }
+
+        .sessions.list a.title {
+            display: block;
+            margin: 0;
+            padding: 0 150px 0 0;
+            height: auto;
+            font-size: 16px;
+            line-height: normal;
+        }
+        
+        .sessions-list {
+            min-height: 400px;
+        }
+        
+        .session-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .session-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .session-title {
+            color: #333;
+        }
+        
+        .session-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .session-meta span {
+            background: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .session-description {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .no-sessions {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-controls {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+
+            .sessions.list a.title {
+            padding: 0;
+            }
+        }
+        </style>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sessionType = 'sessionthree';
+            let allSessions = [];
+            let filteredSessions = [];
+            
+            // Initialize filters and load data
+            initializeSchedule();
+            
+            function initializeSchedule() {
+                showLoader();
+                
+                // Load session data via AJAX
+                fetch('/wp-admin/admin-ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `action=get_sessions&session_type=${sessionType}`
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        if (data.success) {
+                            allSessions = data.data.sessions || [];
+                            populateFilters(data.data.tracks || [], data.data.locations || [], data.data.dates || []);
+                            filterSessions();
+                        } else {
+                            console.error('AJAX Error:', data.data);
+                            showError('Failed to load sessions: ' + (data.data || 'Unknown error'));
+                        }
+                    } catch (parseError) {
+                        console.error('JSON Parse Error:', parseError);
+                        console.error('Response text:', text);
+                        showError('The AJAX handler is not set up yet. Please add the backend code to your functions.php file.');
+                    }
+                    hideLoader();
+                })
+                .catch(error => {
+                    console.error('Network Error:', error);
+                    showError('Network error: ' + error.message);
+                    hideLoader();
+                });
+                
+                // Add event listeners for filters
+                document.getElementById('track-filter').addEventListener('change', filterSessions);
+                document.getElementById('location-filter').addEventListener('change', filterSessions);
+                document.getElementById('date-filter').addEventListener('change', filterSessions);
+            }
+            
+            function populateFilters(tracks, locations, dates) {
+                const trackFilter = document.getElementById('track-filter');
+                const locationFilter = document.getElementById('location-filter');
+                const dateFilter = document.getElementById('date-filter');
+                
+                // Populate tracks
+                tracks.forEach(track => {
+                    const option = document.createElement('option');
+                    option.value = track.term_id;
+                    option.textContent = track.name;
+                    trackFilter.appendChild(option);
+                });
+                
+                // Populate locations
+                locations.forEach(location => {
+                    const option = document.createElement('option');
+                    option.value = location.term_id;
+                    option.textContent = location.name;
+                    locationFilter.appendChild(option);
+                });
+                
+                // Populate dates
+                dates.forEach(date => {
+                    if (date.meta_value !== "1580688000") {
+                        const option = document.createElement('option');
+                        option.value = date.meta_value;
+                        option.textContent = formatDate(date.meta_value);
+                        dateFilter.appendChild(option);
+                    }
+                });
+            }
+            
+            function filterSessions() {
+                const trackFilter = document.getElementById('track-filter').value;
+                const locationFilter = document.getElementById('location-filter').value;
+                const dateFilter = document.getElementById('date-filter').value;
+                
+                
+                filteredSessions = allSessions.filter(session => {
+                    // Convert to strings for comparison since HTML select values are strings
+                    const trackMatch = trackFilter === '0' || String(session.track_id) === String(trackFilter);
+                    const locationMatch = locationFilter === '0' || String(session.location_id) === String(locationFilter);
+                    const dateMatch = dateFilter === '0' || String(session.date) === String(dateFilter);                   
+                   
+                    
+                    return trackMatch && locationMatch && dateMatch;
+                });
+                
+                displaySessions();
+            }
+            
+            
+           
+            function displaySessions() {
+                const container = document.querySelector('.sessions-list');
+                
+                if (filteredSessions.length === 0) {
+                    container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
+                    return;
+                }
+                
+                const sessionsHTML = filteredSessions.map(session => `
+                    <div class="sessions list session-item session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
+
+
+                    <span class="time">${session.start_time} - ${session.end_time}</span>
+                    <div class="session-inner">
+                        
+                        <a href="${session.url}" class="title">
+                            <div class="session-title">${session.title}</div>
+                        </a>
+                        
+                        <span class="speakers-thumbs"></span>
+
+                        <a href="${session.url}" class="more">
+                            More info<i class="icon-angle-right"></i>
+                        </a>
+                    </div>
+
+
+                        
+                        
+                        
+
+
+
+
+                    </div>
+                `).join('');
+                
+                container.innerHTML = sessionsHTML;
+            }
+            
+            
+/*
+<div class="session-meta">
+    <span><strong>Track:</strong> ${session.track_name}</span>
+    <span><strong>Location:</strong> ${session.location_name}</span>
+    <span><strong>Date:</strong> ${formatDate(session.date)}</span>
+    <span><strong>Time:</strong> ${session.time}</span>
+</div> 
+
+*/
+
+            function formatDate(timestamp) {
+                const date = new Date(timestamp * 1000);
+                return date.toLocaleDateString();
+            }
+            
+            function showLoader() {
+                document.querySelector('.loader-img').style.display = 'block';
+            }
+            
+            function hideLoader() {
+                document.querySelector('.loader-img').style.display = 'none';
+            }
+            
+            function showError(message) {
+                const container = document.querySelector('.sessions-list');
+                container.innerHTML = `<div class="error-message" style="background: #ffebee; color: #c62828; padding: 1rem; border-radius: 4px; margin: 1rem 0;">${message}</div>`;
+            }
+        });
+        </script>
+        <!-- /wp:html -->
+        
+    </div>
+    <!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

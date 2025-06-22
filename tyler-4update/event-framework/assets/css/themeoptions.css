@@ -64,16 +64,6 @@ textarea:focus {
 	width: 50%;
 }
 
-.ef-options-header .ef-about {
-	float: right;
-	width: 50%;
-	text-align: right;
-}
-	.ef-options-header .ef-about p {
-		padding: 0;
-		margin: 0;
-	}
-
 .el-options-links {
 	clear: both;
 	display: block;

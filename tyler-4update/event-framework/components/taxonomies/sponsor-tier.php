@@ -1,6 +1,7 @@
 <?php
 register_taxonomy ( 'sponsor-tier', 'sponsor', array (
 		'hierarchical' => true,
+		'show_in_rest' => true,
 		'labels' => array (
 				'name' => __ ( 'Tiers', 'dxef' ),
 				'singular_name' => __ ( 'Tier', 'dxef' ),

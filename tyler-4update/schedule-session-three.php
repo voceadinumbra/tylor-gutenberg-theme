@@ -12,16 +12,8 @@
 $session_dates = sandeep_get_session_dates("sessionthree");
 $session_tracks = sandeep_get_terms_for_post_type('session-track',"sessionthree");
 $session_locations = sandeep_get_terms_for_post_type('session-location',"sessionthree");
-
 ?>
-<pre>
-<?php
-// print_r($session_dates);
-  print_r($session_tracks);
-//print_r($session_locations);
 
-?>
-</pre>
 
 <?php while (have_posts()) : the_post(); ?>
     <div class="heading">

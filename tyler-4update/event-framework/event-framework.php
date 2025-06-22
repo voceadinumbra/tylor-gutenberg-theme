@@ -49,8 +49,10 @@ class DX_Event_Framework {
 
         add_action('admin_enqueue_scripts', array($this, 'dx_multievent_enqueue_script_stype'));
 
-        // Add search to widget page
+         // Add search to widget page
         add_action('widgets_admin_page', array($this, 'dx_multievent_widget_html'));
+
+        
     }
 
     /**
@@ -94,8 +96,10 @@ class DX_Event_Framework {
      * Include all widgets
      */
     public function setup_widgets() {
-        include_once ( EF_INC_DIR . 'widgets.php' );
+    //    include_once ( EF_INC_DIR . 'widgets.php' );
     }
+
+
 
     public function ef_widgets_init() {
         register_sidebar(array(

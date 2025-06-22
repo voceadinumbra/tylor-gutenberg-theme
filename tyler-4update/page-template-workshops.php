@@ -97,7 +97,7 @@ function prepare_workshop_data($post) {
         'title'        => get_the_title($post->ID),
         'permalink'    => get_permalink($post->ID),
         'date'         => $session_date,
-        'start_time'   => $session_time,
+        'start_time'   => $session_time ,
         'end_time'     => $session_end_time,
         'sponsor_logo' => $sponsor_logo,
         'track_color'  => $track_color,

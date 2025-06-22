@@ -1,6 +1,7 @@
 <?php
 register_taxonomy ( 'session-location', 'session', array (
 		'hierarchical' => true,
+		'show_in_rest' => true,
 		'labels' => array (
 				'name' => __ ( 'Session Locations', 'dxef' ),
 				'singular_name' => __ ( 'Session Location', 'dxef' ),
