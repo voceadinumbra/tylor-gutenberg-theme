@@ -244,17 +244,14 @@
                 
                 // Add event listeners for filters
                 document.getElementById('track-filter').addEventListener('change', function() {
-                    console.log('Track filter changed to:', this.value);
                     updateURL();
                     filterSessions();
                 });
                 document.getElementById('location-filter').addEventListener('change', function() {
-                    console.log('Location filter changed to:', this.value);
                     updateURL();
                     filterSessions();
                 });
                 document.getElementById('date-filter').addEventListener('change', function() {
-                    console.log('Date filter changed to:', this.value);
                     updateURL();
                     filterSessions();
                 });
@@ -326,12 +323,8 @@
             function updateURL() {
                 const trackFilter = document.getElementById('track-filter').value;
                 const locationFilter = document.getElementById('location-filter').value;
-                const dateFilter = document.getElementById('date-filter').value;
-                
-                console.log('updateURL called');
-                console.log('Current URL:', window.location.href);
-                console.log('Filter values:', { track: trackFilter, location: locationFilter, date: dateFilter });
-                
+                const dateFilter = document.getElementById('date-filter').value;                
+               
                 // Simple test - just add a test parameter first
                 let newUrl = window.location.pathname;
                 let params = [];
@@ -350,11 +343,8 @@
                     newUrl += '?' + params.join('&');
                 }
                 
-                console.log('Attempting to change URL to:', newUrl);
-                
                 try {
                     window.history.pushState({}, '', newUrl);
-                    console.log('URL change successful. New URL:', window.location.href);
                 } catch (error) {
                     console.error('Error updating URL:', error);
                 }

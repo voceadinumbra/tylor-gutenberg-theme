@@ -1787,17 +1787,8 @@ footer .ef_footer_text_columns h3 {
     clear:both;
 }
 
-/*
-MEDIA CUSTOMIZATION
-------- */
-.blueimp-gallery>.close {
-	width: 100px;
-    height: 100px;
-    margin-top: 10px;
-    margin-right: 50px;
-    display: block;
-	font-size: 150px;
-}
+
+
 
 .loader-img{display:none; text-align:center;}
 

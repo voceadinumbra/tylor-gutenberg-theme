@@ -1,21 +1,4 @@
-function initGallery(){
-    // init gallery
-    if(!isIE() || isIE() > 8) {
-        var mediaboxLinks = jQuery('.mediabox a.post');
-        mediaboxLinks.click(function (event) {
-            event.preventDefault();
-            blueimp.Gallery(mediaboxLinks, {
-                index: this,
-                event: event,
-                titleElement: 'strong',
-                youTubeClickToPlay: false
-            });
-        });
-    }
-    else {
-        jQuery('.mediabox a.post').attr('target','_blank');
-    }   
-}  
+
 
 jQuery(function(){
 
@@ -26,48 +9,7 @@ jQuery(function(){
         jQuery('#tile_media .carousel-inner').empty();
     });
 
-    jQuery('#tile_media .btn-group-header .btn').click(function(e){
-        var data_id = jQuery(this).attr('data-id');
-        
-        jQuery.ajax({
-            type: "POST",
-            dataType: "json",
-            url: ajaxurl,
-            data: {
-                'action': 'get_media',
-                'data-id': data_id
-            },
-            success: function(data) {
-                var medias = '';
-                if(data.media)
-                    jQuery.each(data.media, function(index, media_chunk) {
-                        var class_active = index == 0 ? ' class="active"' : '';
-                        var active = index == 0 ? 'active' : '';
-                        jQuery('#tile_media .carousel-indicators').append('<li data-target="#mediabox-carousel" data-slide-to="' + index + '"' + class_active + '></li>');
-                        medias += '<div class="item ' + active + '">';
-                        for(var key in media_chunk){
-                            var media = media_chunk[key];
-
-                            if(media.post_video_code != '')
-                                medias += '<a class="post video" ' + media.post_video_attributes + '">';
-                            else
-                                medias += '<a class="post" href="' + media.post_image_big_url + '">';
-                            medias += '<span class="wrapper">' + media.post_image + '</span>';
-                            medias += '<span class="desc">';
-                            medias += '<strong>' + media.post_title + '</strong>';
-                            medias += media.post_content;
-                            medias += '</span>';
-                            medias += '</a>';
-                        }
-                        medias += '</div>';
-                    });
-                jQuery('#tile_media .carousel-inner').append(medias);
-                initGallery();
-            }
-        });
-        
-        e.preventDefault();
-    });
+   
     
     jQuery('#tile_media .btn-group-header .btn:first').trigger('click');
     
