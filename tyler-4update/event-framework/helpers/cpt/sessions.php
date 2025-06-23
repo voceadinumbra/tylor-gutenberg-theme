@@ -213,7 +213,6 @@ class EF_Session_Helper {
                 'end_time'   => $end_time,
                 'date'       => $session_date,
                 'location'   => $location ? $location->name : '',
-                'color'      => $track ? EF_Taxonomy_Helper::ef_get_term_meta('session-track-metas', $track, 'session_track_color') : '',
                 'speakers'   => $speakers
             ));
         }

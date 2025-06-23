@@ -9,7 +9,7 @@
         <?php wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
-            <div class="upnav"><strong>Expo &amp; Sponsorship Sales:</strong>&nbsp;&nbsp;<a href="https://calendly.com/raj-smallsat-europe/expo-sponsorship-meeting" target="_blank">Schedule a Call</a>&nbsp;&nbsp;or&nbsp;&nbsp;+44 7773 770269</div>
+        <div class="upnav"><strong>Expo &amp; Sponsorship Sales:</strong>&nbsp;&nbsp;<a href="https://calendly.com/raj-smallsat-europe/expo-sponsorship-meeting" target="_blank">Schedule a Call</a>&nbsp;&nbsp;or&nbsp;&nbsp;+44 7773 770269</div>
         <header class="nav transition">
             <a href="<?php echo esc_url(home_url()); ?>" id="logo">
                 <img src="<?php echo tyler_set_theme_logo(); ?>" alt="Logo <?php bloginfo('name'); ?>" title="<?php bloginfo('name'); ?>" />

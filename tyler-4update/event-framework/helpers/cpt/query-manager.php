@@ -12,7 +12,6 @@ class EF_Query_Manager {
 		
 		$tracks = wp_get_post_terms(get_the_ID(), 'session-track', array('fields' => 'all'));
 		foreach ($tracks as &$track)
-			$track->color = EF_Taxonomy_Helper::ef_get_term_meta('session-track-metas', $track->term_id, 'session_track_color');
 		unset($track);
 		$locations = wp_get_post_terms(get_the_ID(), 'session-location', array('fields' => 'all'));
 		$date = get_post_meta(get_the_ID(), 'session_date', true);

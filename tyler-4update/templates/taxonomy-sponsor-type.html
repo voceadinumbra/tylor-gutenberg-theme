@@ -1,0 +1,56 @@
+    <!-- wp:template-part {"slug":"header"} /-->
+
+    <!-- wp:group {"className":"heading"} -->
+    <div class="wp-block-group heading">
+        <!-- wp:group {"className":"container"} -->
+        <div class="wp-block-group container">
+            <!-- wp:query-title {"type":"archive","level":1} /-->
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"sponsor","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+    <div class="wp-block-query">
+        <!-- wp:post-template -->
+        <!-- wp:group {"className":"sponsor-row"} -->
+        <div class="wp-block-group sponsor-row">
+            <!-- wp:group {"className":"container"} -->
+            <div class="wp-block-group container">
+                <!-- wp:post-title {"level":2,"isLink":false} /-->
+                <!-- wp:html -->
+                <br clear="all">
+                <!-- /wp:html -->
+            </div>
+            <!-- /wp:group -->
+            
+            <!-- wp:group {"className":"container clearfix"} -->
+            <div class="wp-block-group container clearfix">
+                <!-- wp:post-featured-image {"sizeSlug":"medium","className":"img-sponsor"} /-->
+                <!-- wp:post-excerpt /-->
+                <!-- wp:read-more {"content":"Read More"} /-->
+            </div>
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
+        <!-- /wp:post-template -->
+
+        <!-- wp:query-no-results -->
+        <!-- wp:group {"className":"container"} -->
+        <div class="wp-block-group container">
+            <!-- wp:paragraph -->
+            <p>No sponsors found.</p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:group -->
+        <!-- /wp:query-no-results -->
+
+        <!-- wp:query-pagination -->
+        <!-- wp:query-pagination-previous /-->
+        <!-- wp:query-pagination-numbers /-->
+        <!-- wp:query-pagination-next /-->
+        <!-- /wp:query-pagination -->
+    </div>
+    <!-- /wp:query -->
+
+    <!-- wp:template-part {"slug":"footer"} /-->

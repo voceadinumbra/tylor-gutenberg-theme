@@ -4,8 +4,6 @@ $theme_name = EF_Framework_Helper::get_theme_name();
 ?>
 
 <div class="wrap">
-	<h2><?php _e( $theme_name . ' Options', 'dxef' ) ?></h2>
-	
 	<div class="custom-wrapper">
 		<div class="ef-theme-options">
 

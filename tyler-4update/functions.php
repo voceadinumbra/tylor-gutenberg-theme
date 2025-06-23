@@ -789,7 +789,12 @@ function tc_metabox_sponsor($post)
 	// allowing selection of session locations for exhibitors (type of sponsors)
 	wp_nonce_field(basename(__FILE__), "meta-box-nonce");
 	$post_meta_data = get_post_custom($post->ID);
-	$sponsor_location = $post_meta_data['sponsor_location'][0];
+	if (isset($post_meta_data['sponsor_location']) && is_array($post_meta_data['sponsor_location']) && isset($post_meta_data['sponsor_location'][0])) {
+		$sponsor_location = $post_meta_data['sponsor_location'][0];
+	} else {
+		$sponsor_location = '';
+	}
+
 ?>
 	<table class='form-table'>
 		<tbody>
@@ -917,7 +922,7 @@ function tc_metabox_speaker($post)
 					<label for='first_name'><?php _e('First Name', 'tyler-child'); ?></label>
 				</th>
 				<td>
-					<input type='text' name='first_name' id='first_name' value='<?php echo esc_attr($post_meta_data['first_name'][0]); ?>'>
+					<input type='text' name='first_name' id='first_name' value='<?php echo isset($post_meta_data['first_name'][0]) ? $post_meta_data['first_name'][0] : ''; ?>'>
 				</td>
 			</tr>
 			<tr>
@@ -925,7 +930,7 @@ function tc_metabox_speaker($post)
 					<label for='last_name'><?php _e('Last Name', 'tyler-child'); ?></label>
 				</th>
 				<td>
-					<input type='text' name='last_name' id='last_name' value='<?php echo esc_attr($post_meta_data['last_name'][0]); ?>' required>
+					<input type='text' name='last_name' id='last_name' value='<?php echo isset($post_meta_data['last_name'][0]) ? $post_meta_data['last_name'][0] : ''; ?>' required>
 				</td>
 			</tr>
 			<tr>
@@ -933,7 +938,7 @@ function tc_metabox_speaker($post)
 					<label for='speaker_title'><?php _e('Title', 'tyler-child'); ?></label>
 				</th>
 				<td>
-					<input type='text' name='speaker_title' id='speaker_title' value='<?php echo esc_attr($post_meta_data['speaker_title'][0]); ?>'>
+					<input type='text' name='speaker_title' id='speaker_title' value='<?php echo isset($post_meta_data['speaker_title'][0]) ? $post_meta_data['speaker_title'][0] : ''; ?>'>
 				</td>
 			</tr>
 			<tr>
@@ -941,7 +946,7 @@ function tc_metabox_speaker($post)
 					<label for='company_name'><?php _e('Company', 'tyler-child'); ?></label>
 				</th>
 				<td>
-					<input type='text' name='company_name' id='company_name' value='<?php echo esc_attr($post_meta_data['company_name'][0]); ?>'>
+					<input type='text' name='company_name' id='company_name' value='<?php echo isset($post_meta_data['company_name'][0]) ? $post_meta_data['company_name'][0] : ''; ?>'>
 				</td>
 			</tr>
 		</tbody>
@@ -954,7 +959,7 @@ function tc_register_taxonomies()
 	// add a taxonomy to sponsors, called type. this will be used to set sponsors as exhibitors and supporting organizations.
 	register_taxonomy('sponsor-type', 'sponsor', array(
 		'hierarchical' => true,
-		'show_in_rest' => true,
+		'show_in_rest' => true,		
 		'labels' => array(
 			'name' => __('Types', 'tyler-child'),
 			'singular_name' => __('Type', 'tyler-child'),
@@ -1162,7 +1167,6 @@ function tc_ajax_get_schedule()
 			'workshop'   => get_post_meta(get_the_ID(), 'session_workshop', true),
 			'date'       => $session_date,
 			'location'   => $location ? $location->name : '',
-			'color'      => $track ? EF_Taxonomy_Helper::ef_get_term_meta('session-track-metas', $track, 'session_track_color') : '',
 			'speakers'   => $speakers,
 			'no_links'	 => get_post_meta(get_the_ID(), 'no_links', true),
 			'sponsor_logo' => $sponsor_logo

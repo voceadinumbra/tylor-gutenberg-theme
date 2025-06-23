@@ -470,16 +470,7 @@ class RW_Taxonomy_Meta {
 
         echo "<a href='#' style='float: left; clear: both; margin-top: 10px' id='rw_upload_{$field['id']}' class='rw_upload button'>" . __('Upload new image') . "</a>";
     }
-
-    function show_field_color($field, $meta) {
-        if (empty($meta))
-            $meta = '#';
-        $this->show_field_begin($field, $meta);
-        echo "<input type='text' name='{$field['id']}' id='{$field['id']}' value='$meta' size='8' style='{$field['style']}' />
-			  <a href='#' id='select-{$field['id']}'>" . __('Select a color', 'dxef') . "</a>
-			  <div style='display:none' id='picker-{$field['id']}'></div>";
-        $this->show_field_end($field, $meta);
-    }
+ 
 
     function show_field_checkbox_list($field, $meta) {
         if (!is_array($meta))

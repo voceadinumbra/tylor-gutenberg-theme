@@ -59,10 +59,7 @@
                                     $end_time = date(get_option("time_format"), mktime($time_parts[0], $time_parts[1], 0));
                             }
                             $tracks = wp_get_post_terms(get_the_ID(), 'session-track', array('fields' => 'ids', 'count' => 1));
-                            if ($tracks && count($tracks) > 0)
-                                $color = EF_Taxonomy_Helper::ef_get_term_meta('session-track-metas', $tracks[0], 'session_track_color');
-                            else
-                                $color = '';
+                            
                             ?>
                             <div class="session">
                                 <a href="<?php the_permalink(); ?>" class="session-inner">

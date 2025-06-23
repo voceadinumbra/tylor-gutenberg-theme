@@ -272,9 +272,19 @@ img {
 header {
     background: #fff;
     text-align: center;
-    height: 147px;
+    min-height: 100px;
     font-size: 16px;
 }
+
+li.red-menu { 
+    background-color: #ff0000; 
+    color: #ffffff; 
+}
+
+li.red-menu a:hover {
+    background-color: #b50101;   
+}
+
 header .navbar, header .navbar-collapse {
     border: none;
 }
@@ -347,6 +357,7 @@ header ul .expand > ul {
 header ul ul li {
 
     font-size: 0.875em;
+    width: 100%;
 }
 header ul ul li a {
     padding: 7px 14px;
@@ -380,6 +391,10 @@ header.sticky #menu-primary {
     header {        
         width: 100%;
         margin: 0 auto;
+        
+    }
+    header:not(.wp-block-template-part) {
+        max-width: var(--siteWidth);
     }
     header #logo {
         position: relative;
@@ -407,7 +422,7 @@ header.sticky #menu-primary {
     position: relative;
     display: table;
 }
-.heading h1 {
+.heading .speaker_info {
     display: table-cell;
     vertical-align: middle;
     color: #fff;

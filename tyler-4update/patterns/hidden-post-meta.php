@@ -12,13 +12,19 @@
 	<div class="wp-block-group">
 		<!-- wp:post-date {"format":"M j, Y","isLink":true} /-->
 
+		
+
+		<?php
+		/*
+
 		<!-- wp:paragraph {"textColor":"contrast-2"} -->
 		<p class="has-contrast-2-color has-text-color">—</p>
 		<!-- /wp:paragraph -->
-
+		
 		<!-- wp:paragraph {"fontSize":"small","textColor":"contrast-2"} -->
 		<p class="has-small-font-size has-contrast-2-color has-text-color"><?php echo esc_html_x( 'by', 'Prefix for the post author block: By author name', 'tyler' ); ?></p>
 		<!-- /wp:paragraph -->
+		*/ ?>
 
 		<!-- wp:post-author-name {"isLink":true} /-->
 

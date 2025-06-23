@@ -89,7 +89,6 @@ class DX_Event_Framework {
 
         // Include libraries
         include_once( EF_PARENT_DIR . 'lib/taxonomy-meta.php' );
-        include_once( EF_INC_DIR . 'taxonomy-meta.php' );
     }
 
     /**

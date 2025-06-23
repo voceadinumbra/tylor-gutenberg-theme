@@ -17,6 +17,7 @@ register_post_type ( 'sponsor', array (
 		'show_ui' => true,
 		'capability_type' => 'post',
 		'hierarchical' => false,
+		'show_in_rest' => true,
 		'rewrite' => true,
 		'query_var' => false,
 		'supports' => array (

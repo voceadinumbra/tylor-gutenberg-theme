@@ -27,7 +27,7 @@ if (have_posts()) :
 
 <div class="heading">
     <div class="container">
-        <h1>
+         <div class="speaker_info">
             <?php
             the_post_thumbnail('tyler_speaker', [
                 'title' => esc_attr(get_the_title()),
@@ -37,18 +37,20 @@ if (have_posts()) :
             ?>
             <div class="speaker_details">
                 <div class="speaker_name">
-                    <?php
-                    the_title();
-                    if (!empty($speaker_title)) {
-                        echo ', ' . esc_html($speaker_title);
-                    }
-                    ?>
+                    <h1>
+                        <?php
+                        the_title();
+                        if (!empty($speaker_title)) {
+                            echo ', ' . esc_html($speaker_title);
+                        }
+                        ?>
+                    </h1>
                 </div>
                 <?php if (!empty($company_name)) : ?>
                     <div class="speaker_company"><?php echo esc_html($company_name); ?></div>
                 <?php endif; ?>
             </div>
-        </h1>
+                </div>
         <nav class="nav">
             <?php previous_post_link('%link', '<i class="icon-angle-left"></i>'); ?>
             <a href="<?php echo esc_url(home_url('/speakers')); ?>" title="<?php esc_attr_e('All', 'tyler'); ?>">
@@ -96,9 +98,7 @@ if (have_posts()) :
 
                     // Get track color
                     $tracks = wp_get_post_terms(get_the_ID(), 'session-track', ['fields' => 'ids', 'count' => 1]);
-                    $color = $tracks && class_exists('EF_Taxonomy_Helper')
-                        ? EF_Taxonomy_Helper::ef_get_term_meta('session-track-metas', $tracks[0], 'session_track_color')
-                        : '';
+                    
                 ?>
                     <div class="session">
                         <a href="<?php the_permalink(); ?>" class="session-inner">
