@@ -5,11 +5,13 @@
 
     <!-- wp:group {"className":"heading","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"backgroundColor":"light-gray","layout":{"type":"full"}} -->
     <div class="wp-block-group heading has-light-gray-background-color has-background" style="padding-top:2rem;padding-bottom:2rem">
-                <!-- wp:group {"layout":{"type":"constrained"}} -->
+
+        <!-- wp:group {"layout":{"type":"constrained"}} -->
             <div class="wp-block-group">
                 <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"2.5rem","fontWeight":"700"}}} /-->
             </div>
         <!-- /wp:group -->
+        
     </div>
     <!-- /wp:group -->
 
@@ -97,11 +99,7 @@
             border-color: #007cba;
             box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
         }
-        
-        .sessions-list {
-            min-height: 400px;
-        }
-                .sessions.list {
+        .sessions.list {
             margin-bottom: 15px;
         }
 
@@ -125,6 +123,10 @@
             line-height: normal;
         }
         
+        .sessions-list {
+            min-height: 400px;
+        }
+        
         .session-item {
             border: 1px solid #e0e0e0;
             border-radius: 8px;
@@ -141,9 +143,6 @@
         }
         
         .session-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
             color: #333;
         }
         
@@ -182,6 +181,10 @@
             .filter-group {
                 min-width: 100%;
             }
+
+            .sessions.list a.title {
+            padding: 0;
+            }
         }
         </style>
 
@@ -217,6 +220,10 @@
                         if (data.success) {
                             allSessions = data.data.sessions || [];
                             populateFilters(data.data.tracks || [], data.data.locations || [], data.data.dates || []);
+                            
+                            // Set initial filter values from URL parameters
+                            setInitialFiltersFromURL();
+                            
                             filterSessions();
                         } else {
                             console.error('AJAX Error:', data.data);
@@ -236,9 +243,21 @@
                 });
                 
                 // Add event listeners for filters
-                document.getElementById('track-filter').addEventListener('change', filterSessions);
-                document.getElementById('location-filter').addEventListener('change', filterSessions);
-                document.getElementById('date-filter').addEventListener('change', filterSessions);
+                document.getElementById('track-filter').addEventListener('change', function() {
+                    console.log('Track filter changed to:', this.value);
+                    updateURL();
+                    filterSessions();
+                });
+                document.getElementById('location-filter').addEventListener('change', function() {
+                    console.log('Location filter changed to:', this.value);
+                    updateURL();
+                    filterSessions();
+                });
+                document.getElementById('date-filter').addEventListener('change', function() {
+                    console.log('Date filter changed to:', this.value);
+                    updateURL();
+                    filterSessions();
+                });
             }
             
             function populateFilters(tracks, locations, dates) {
@@ -273,6 +292,74 @@
                 });
             }
             
+            function setInitialFiltersFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                // Set track filter from URL parameter
+                const trackParam = urlParams.get('track');
+                if (trackParam) {
+                    const trackFilter = document.getElementById('track-filter');
+                    if (trackFilter.querySelector(`option[value="${trackParam}"]`)) {
+                        trackFilter.value = trackParam;
+                    }
+                }
+                
+                // Set location filter from URL parameter
+                const locationParam = urlParams.get('location');
+                if (locationParam) {
+                    const locationFilter = document.getElementById('location-filter');
+                    if (locationFilter.querySelector(`option[value="${locationParam}"]`)) {
+                        locationFilter.value = locationParam;
+                    }
+                }
+                
+                // Set date filter from URL parameter
+                const dateParam = urlParams.get('date');
+                if (dateParam) {
+                    const dateFilter = document.getElementById('date-filter');
+                    if (dateFilter.querySelector(`option[value="${dateParam}"]`)) {
+                        dateFilter.value = dateParam;
+                    }
+                }
+            }
+            
+            function updateURL() {
+                const trackFilter = document.getElementById('track-filter').value;
+                const locationFilter = document.getElementById('location-filter').value;
+                const dateFilter = document.getElementById('date-filter').value;
+                
+                console.log('updateURL called');
+                console.log('Current URL:', window.location.href);
+                console.log('Filter values:', { track: trackFilter, location: locationFilter, date: dateFilter });
+                
+                // Simple test - just add a test parameter first
+                let newUrl = window.location.pathname;
+                let params = [];
+                
+                if (trackFilter !== '0') {
+                    params.push('track=' + trackFilter);
+                }
+                if (locationFilter !== '0') {
+                    params.push('location=' + locationFilter);
+                }
+                if (dateFilter !== '0') {
+                    params.push('date=' + dateFilter);
+                }
+                
+                if (params.length > 0) {
+                    newUrl += '?' + params.join('&');
+                }
+                
+                console.log('Attempting to change URL to:', newUrl);
+                
+                try {
+                    window.history.pushState({}, '', newUrl);
+                    console.log('URL change successful. New URL:', window.location.href);
+                } catch (error) {
+                    console.error('Error updating URL:', error);
+                }
+            }
+            
             function filterSessions() {
                 const trackFilter = document.getElementById('track-filter').value;
                 const locationFilter = document.getElementById('location-filter').value;
@@ -284,7 +371,7 @@
                     const trackMatch = trackFilter === '0' || String(session.track_id) === String(trackFilter);
                     const locationMatch = locationFilter === '0' || String(session.location_id) === String(locationFilter);
                     const dateMatch = dateFilter === '0' || String(session.date) === String(dateFilter);                   
-                  
+                   
                     
                     return trackMatch && locationMatch && dateMatch;
                 });
@@ -292,6 +379,8 @@
                 displaySessions();
             }
             
+            
+           
             function displaySessions() {
                 const container = document.querySelector('.sessions-list');
                 
@@ -323,6 +412,17 @@
                 container.innerHTML = sessionsHTML;
             }
             
+            
+/*
+<div class="session-meta">
+    <span><strong>Track:</strong> ${session.track_name}</span>
+    <span><strong>Location:</strong> ${session.location_name}</span>
+    <span><strong>Date:</strong> ${formatDate(session.date)}</span>
+    <span><strong>Time:</strong> ${session.time}</span>
+</div> 
+
+*/
+
             function formatDate(timestamp) {
                 const date = new Date(timestamp * 1000);
                 return date.toLocaleDateString();

@@ -90,9 +90,7 @@ html, body {
     color: #242424;
     height: 100%;
 }
-body.header-sticky {
-    padding-top: 46px;
-}
+
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -371,21 +369,8 @@ header ul ul ul {
     background-color: #818181;
     border: none; border-radius: 0;
 }
-header.sticky {
-    position: fixed;
-    top:0; left: 0; right: 0;
-    max-width: 100%;
-    z-index: 1000;
-    height: 46px;
-}
-header.sticky #logo {
-    display: none;
-}
-header.sticky #menu-primary {
-    position: relative;
-    float: none;
-    margin: 0;
-}
+
+
 
 @media (min-width: 1200px) {
     header {        

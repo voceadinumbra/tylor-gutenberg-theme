@@ -35,6 +35,12 @@ add_theme_support('editor-font-sizes', [
     ]
 ]);
 
+wp_enqueue_style( 'wp-block-library' );
+function mytheme_enqueue_scripts() {
+    wp_enqueue_script( 'wp-navigation' );
+}
+add_action( 'wp_enqueue_scripts', 'mytheme_enqueue_scripts' );
+
 function mytheme_block_editor_styles() {
     add_editor_style('css/editor-style.css');
 }
@@ -1376,7 +1382,7 @@ add_action('init', function () {
 			),
 			'taxonomies' => ['session-location', 'session-track'], // Associate taxonomies
 			'capability_type' => 'post',
-			'has_archive' => false,
+			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => 5,
 			'supports' => array(

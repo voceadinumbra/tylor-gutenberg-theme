@@ -16,7 +16,7 @@ $ef_options = EF_Event_Options::get_theme_options();
         ?>      
     </div>
 </footer>
-<?php wp_footer(); ?>
+
 
 <!-- SCROLL UP BTN -->
 <a href="#" id="scroll-up"><?php _e('UP', 'tyler'); ?></a>
@@ -35,5 +35,7 @@ $ef_options = EF_Event_Options::get_theme_options();
 <!-- backdrop -->
 <div id="backdrop"></div>
 
+
+<?php wp_footer(); ?>
 </body>
 </html>

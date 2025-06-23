@@ -8,7 +8,8 @@
     body.header-menu-open {
         padding-top: 0;
     }
-    header,header.sticky {
+    header
+    {
         position: fixed;
         top:0; left: 0;
         width: 100%;
@@ -28,7 +29,8 @@
         -o-transition: none;
         transition: none;
     }
-    header #logo, header.sticky #logo {
+    header #logo
+    {
         display: block;
         float: left;
         position: relative;
@@ -494,10 +496,12 @@
     body {
         padding-top: 65px;
     }
-    header #logo, header.sticky #logo {
+    header #logo
+     {
         margin: 16px 0 0 9px;
     }
-    header #logo img, header.sticky #logo img {
+    header #logo img
+     {
         max-height: 33px;
     }
     header .navbar-header > * {

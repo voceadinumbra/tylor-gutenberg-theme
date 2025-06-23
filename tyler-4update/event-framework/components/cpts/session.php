@@ -18,12 +18,13 @@ register_post_type ( 'session', array (
 		'show_ui' => true,
 		'show_in_menu' => true,
     	'show_in_rest' => true,
+		
 		'query_var' => true,
 		'rewrite' => array (
 				'slug' => 'sessions' 
 		),
 		'capability_type' => 'post',
-		'has_archive' => false,
+		'has_archive' => true,
 		'hierarchical' => false,
 		'menu_position' => 5,
 		'supports' => array (

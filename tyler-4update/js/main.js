@@ -9,10 +9,10 @@ function isIE () {
     
 jQuery(function() {
     /**
-         * initialize scroll settings
-         * - sticky header
-         * - scroll up btn
-         */
+     * initialize scroll settings
+     * - sticky header
+     * - scroll up btn
+     */
     var initTylerScroll = function() {
         var header = jQuery('header'),
         scrollTop = jQuery(document).scrollTop(),
@@ -23,13 +23,7 @@ jQuery(function() {
         ? header.height()
         : 1;
 
-        // only for "medium" devices
-        if(windowWidth<992)  {
-            jQuery('#scroll-up').fadeOut();
-            header.removeClass('sticky');
-            jQuery(document.body).removeClass('header-sticky');
-            return;
-        }
+         
 
         // show "scroll up" btn
         if(windowWidth > 1024 && scrollTop >= windowHeight/2) {
@@ -39,14 +33,7 @@ jQuery(function() {
             jQuery('#scroll-up').fadeOut();
         }
 
-        // sticky header
-        if (scrollTop >= limit) {
-            header.addClass('sticky');
-            jQuery(document.body).addClass('header-sticky');
-        } else if (scrollTop <= limit) {
-            header.removeClass('sticky');
-            jQuery(document.body).removeClass('header-sticky');
-        }
+        
     }
     jQuery(window).ready(initTylerScroll);
     jQuery(window).scroll(initTylerScroll);

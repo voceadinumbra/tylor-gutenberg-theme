@@ -634,6 +634,12 @@ span.share.pull-right[style] {
     padding:5px 0px;
 }
 
+/*  Gutenberg related fixes  */
+
+.wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+    padding-right: 0 !important;
+}
+
 @media only screen and (max-width: 991px) {
 .heading .speaker_info { padding:27px 0px; }
 

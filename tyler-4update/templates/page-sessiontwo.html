@@ -1,11 +1,15 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
 
-    <!-- wp:group {"className":"heading","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"backgroundColor":"light-gray","layout":{"type":"constrained"}} -->
+    <!-- wp:group {"className":"heading","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"backgroundColor":"light-gray","layout":{"type":"full"}} -->
     <div class="wp-block-group heading has-light-gray-background-color has-background" style="padding-top:2rem;padding-bottom:2rem">
-        <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"2.5rem","fontWeight":"700"}}} /-->
+                <!-- wp:group {"layout":{"type":"constrained"}} -->
+            <div class="wp-block-group">
+                <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"2.5rem","fontWeight":"700"}}} /-->
+            </div>
+        <!-- /wp:group -->
     </div>
     <!-- /wp:group -->
 
@@ -16,7 +20,7 @@
         
         <!-- wp:html -->
         <div class="loader-img" style="display: none; text-align: center; margin: 20px 0;">
-            <img alt="Loading" src="/wp-content/themes/your-theme/assets/images/ajax-loader.gif" width="32" height="32" />
+            <img alt="Loading" src="/wp-content/themes/tyler-4update/assets/images/ajax-loader.gif" width="32" height="32" />
         </div>
         
         <div class="schedule-container">
@@ -96,6 +100,30 @@
         
         .sessions-list {
             min-height: 400px;
+        }
+
+                .sessions.list {
+            margin-bottom: 15px;
+        }
+
+        .sessions.list .session-inner {
+            position: relative;
+        }
+
+        .sessions.list .more {
+            position: absolute;  
+            z-index: 20;
+            padding: 0 19px;
+            color: #fff;
+        }
+
+        .sessions.list a.title {
+            display: block;
+            margin: 0;
+            padding: 0 150px 0 0;
+            height: auto;
+            font-size: 16px;
+            line-height: normal;
         }
         
         .session-item {
@@ -274,15 +302,22 @@
                 }
                 
                 const sessionsHTML = filteredSessions.map(session => `
-                    <div class="session-item" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
-                        <div class="session-title">${session.title}</div>
-                        <div class="session-meta">
-                            <span><strong>Track:</strong> ${session.track_name}</span>
-                            <span><strong>Location:</strong> ${session.location_name}</span>
-                            <span><strong>Date:</strong> ${formatDate(session.date)}</span>
-                            <span><strong>Time:</strong> ${session.time}</span>
-                        </div>
-                        <div class="session-description">${session.description}</div>
+                    <div class="sessions list session-item session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
+
+                    <span class="time">${session.start_time} - ${session.end_time}</span>
+                    <div class="session-inner">
+                        
+                        <a href="${session.url}" class="title">
+                            <div class="session-title">${session.title}</div>
+                        </a>
+                        
+                        <span class="speakers-thumbs"></span>
+
+                        <a href="${session.url}" class="more">
+                            More info<i class="icon-angle-right"></i>
+                        </a>
+                    </div>                     
+
                     </div>
                 `).join('');
                 
