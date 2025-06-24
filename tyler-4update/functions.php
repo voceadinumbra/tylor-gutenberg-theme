@@ -2288,3 +2288,114 @@ function get_fallback_session_fields() {
         'locations' => wp_get_post_terms($post_id, 'session_location') // Adjust taxonomy name as needed
     );
 }
+
+
+
+/**
+ * Add speaker meta fields functionality for FSE template
+ */
+
+// Enqueue script for speaker archive functionality
+function enqueue_speaker_archive_script() {
+    if (is_post_type_archive('speaker')) {
+        wp_enqueue_script(
+            'speaker-archive-script',
+            get_stylesheet_directory_uri() . '/js/speaker-archive.js',
+            array('jquery'),
+            '1.0.2', // Updated version
+            true
+        );
+        
+        // Get all speakers data and pass to JavaScript
+        $speakers_query = new WP_Query(array(
+            'post_type' => 'speaker',
+            'posts_per_page' => -1,
+            'post_status' => 'publish'
+        ));
+        
+        $speakers_data = array();
+        if ($speakers_query->have_posts()) {
+            while ($speakers_query->have_posts()) {
+                $speakers_query->the_post();
+                $post_id = get_the_ID();
+                
+                // Get all meta data for debugging
+                $all_meta = get_post_meta($post_id);
+                $post_meta_data = get_post_custom($post_id);
+
+                    
+                
+                // Try multiple ways to get the custom fields
+                $speaker_title = '';
+                $company_name = '';
+                
+                // Method 1: Original way with get_post_custom
+                if (isset($post_meta_data['speaker_title'][0])) {
+                    $speaker_title = $post_meta_data['speaker_title'][0];
+                }
+                if (isset($post_meta_data['company_name'][0])) {
+                    $company_name = $post_meta_data['company_name'][0];
+                }
+                
+                // Method 2: Try with get_post_meta if above didn't work
+                if (empty($speaker_title)) {
+                    $speaker_title = get_post_meta($post_id, 'speaker_title', true);
+                }
+                if (empty($company_name)) {
+                    $company_name = get_post_meta($post_id, 'company_name', true);
+                }
+                
+                // Method 3: Try with underscore prefix (some plugins use this)
+                if (empty($speaker_title)) {
+                    $speaker_title = get_post_meta($post_id, '_speaker_title', true);
+                }
+                if (empty($company_name)) {
+                    $company_name = get_post_meta($post_id, '_company_name', true);
+                }
+                
+                // Method 4: Try ACF fields if ACF is active
+                if (function_exists('get_field')) {
+                    if (empty($speaker_title)) {
+                        $speaker_title = get_field('speaker_title', $post_id);
+                    }
+                    if (empty($company_name)) {
+                        $company_name = get_field('company_name', $post_id);
+                    }
+                }
+
+                    $post_meta_data = get_post_custom();
+                    $speaker_title = $post_meta_data['speaker_title'][0] ?? '';
+                    $company_name = $post_meta_data['company_name'][0] ?? '';
+                
+                $speakers_data[] = array(
+                    'id' => $post_id,
+                    'title' => get_the_title(),
+                    'permalink' => get_permalink(),
+                    'speaker_title' => $speaker_title ?: '',
+                    'company_name' => $company_name ?: '',
+                    'content' => get_the_content(),
+                    // Debug data
+                    'all_meta_keys' => array_keys($all_meta),
+                    'post_meta_data_keys' => array_keys($post_meta_data)
+                );
+            }
+            wp_reset_postdata();
+        }
+        
+        // Localize script with speakers data
+        wp_localize_script('speaker-archive-script', 'speakersData', array(
+            'speakers' => $speakers_data,
+            'debug' => true
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_speaker_archive_script');
+
+// Add custom body class for speaker archive
+function add_speaker_archive_body_class($classes) {
+    if (is_post_type_archive('speakers')) {
+        $classes[] = 'speaker-archive-page';
+    }
+    return $classes;
+}
+add_filter('body_class', 'add_speaker_archive_body_class');

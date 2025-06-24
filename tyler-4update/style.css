@@ -640,6 +640,12 @@ span.share.pull-right[style] {
     padding-right: 0 !important;
 }
 
+.post-type-archive-speaker a.speaker-row-container {
+    display: block;
+    width: 100%;
+    margin: 0 -1px;
+}
+
 
 
 @media only screen and (max-width: 991px) {
