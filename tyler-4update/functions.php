@@ -2038,3 +2038,253 @@ function render_speakers_block($attributes) {
     <?php
     return ob_get_clean();
 }
+
+
+
+
+/**
+ * FSE Session Template Shortcodes and functionality
+ */
+
+// Session Navigation Links
+function session_navigation_shortcode() {
+    if (!is_singular()) return '';
+    
+    $output = '';
+    
+    // Previous post link
+    $prev_post = get_adjacent_post(true, '', true, 'category_name');
+    if (!empty($prev_post)) {
+        $output .= '<a href="' . esc_url($prev_post->guid) . '">' . esc_html($prev_post->post_title) . '</a>';
+    }
+    
+    // Next post link  
+    $next_post = get_adjacent_post(true, '', false, 'category_name');
+    if (!empty($next_post)) {
+        $output .= '<a href="' . esc_url($next_post->guid) . '">' . esc_html($next_post->post_title) . '</a>';
+    }
+    
+    return $output;
+}
+add_shortcode('session_navigation', 'session_navigation_shortcode');
+
+// Previous Link with Custom Ordering
+function session_prev_link_shortcode() {
+    if (!is_singular()) return '';
+    
+    if (function_exists('tyler_previous_post_link_plus')) {
+        ob_start();
+        tyler_previous_post_link_plus(array(
+            'order_by' => 'custom', 
+            'meta_key' => 'session_date', 
+            'format' => '%link', 
+            'link' => '<i class="icon-angle-left"></i>'
+        ));
+        return ob_get_clean();
+    }
+    
+    return '';
+}
+add_shortcode('session_prev_link', 'session_prev_link_shortcode');
+
+// Schedule Link
+function session_schedule_link_shortcode() {
+    if (!is_singular()) return '';
+    
+    $post_type = get_post_type();
+    $post_type_obj = get_post_type_object($post_type);
+    $schedule_page = '';
+    
+    if ($post_type_obj && isset($post_type_obj->rewrite['slug'])) {
+        $schedule_page = $post_type_obj->rewrite['slug'];        
+    }
+    
+    return '<a href="/' . esc_html($schedule_page) . '" title="' . esc_attr__('All', 'tyler') . '"><i class="icon-th-large"></i></a>';
+}
+add_shortcode('session_schedule_link', 'session_schedule_link_shortcode');
+
+// Next Link with Custom Ordering
+function session_next_link_shortcode() {
+    if (!is_singular()) return '';
+    
+    if (function_exists('tyler_next_post_link_plus')) {
+        ob_start();
+        tyler_next_post_link_plus(array(
+            'order_by' => 'custom', 
+            'meta_key' => 'session_date', 
+            'format' => '%link', 
+            'link' => '<i class="icon-angle-right"></i>'
+        ));
+        return ob_get_clean();
+    }
+    
+    return '';
+}
+add_shortcode('session_next_link', 'session_next_link_shortcode');
+
+// Session Tracks
+function session_tracks_shortcode() {
+    if (!is_singular()) return '';
+    
+    // Get session fields (you'll need to adapt this to your setup)
+    $single_session_fields = array();
+    if (class_exists('EF_Query_Manager')) {
+        $single_session_fields = EF_Query_Manager::get_single_session_fields();
+    }
+    
+    if (empty($single_session_fields['tracks'])) return '';
+    
+    $tracks = $single_session_fields['tracks'];
+    $schedule_page = '';
+    
+    $post_type = get_post_type();
+    $post_type_obj = get_post_type_object($post_type);
+    
+    if ($post_type_obj && isset($post_type_obj->rewrite['slug'])) {
+        $schedule_page = $post_type_obj->rewrite['slug'];        
+    }
+    
+    $output = '<div>';
+    
+    foreach ($tracks as $track) {
+        $style = '';
+        if (!empty($track->color)) {
+            $style = "style='background-color: " . esc_attr($track->color) . ";'";
+        }
+        
+        $output .= '<a href="/' . esc_html($schedule_page) . '?track=' . esc_attr($track->term_id) . '" class="track-buttons">';
+        $output .= '<span class="single-session-link btn btn-primary" ' . $style . '>';
+        $output .= esc_html($track->name);
+        $output .= '</span>';
+        $output .= '</a>';
+    }
+    
+    $output .= '</div>';
+    
+    return $output;
+}
+add_shortcode('session_tracks', 'session_tracks_shortcode');
+
+// Session Details (Date, Time)
+function session_details_shortcode() {
+    if (!is_singular()) return '';
+    
+    // Get session fields
+    $single_session_fields = array();
+    if (class_exists('EF_Query_Manager')) {
+        $single_session_fields = EF_Query_Manager::get_single_session_fields();
+    }
+    
+    $output = '';
+    
+    // Date
+    if (!empty($single_session_fields['date'])) {
+        $date = $single_session_fields['date'];
+        $output .= '<span class="date">' . __('Date:', 'tyler') . ' <strong>' . date_i18n(get_option('date_format'), $date) . '</strong></span>';
+    }
+    
+    // Time
+    if (!empty($single_session_fields['time']) && !empty($single_session_fields['end_time'])) {
+        $time = $single_session_fields['time'];
+        $end_time = $single_session_fields['end_time'];
+        $output .= '<span class="time">' . __('Time:', 'tyler') . ' <strong>' . esc_html($time) . ' - ' . esc_html($end_time) . '</strong></span>';
+    }
+    
+    return $output;
+}
+add_shortcode('session_details', 'session_details_shortcode');
+
+// Session Speakers
+function session_speakers_shortcode() {
+    if (!is_singular()) return '';
+    
+    // Get session fields
+    $single_session_fields = array();
+    if (class_exists('EF_Query_Manager')) {
+        $single_session_fields = EF_Query_Manager::get_single_session_fields();
+    }
+    
+    if (empty($single_session_fields['speakers_list'])) return '';
+    
+    $speakers_list = $single_session_fields['speakers_list'];
+    $output = '<span class="speakers-thumbs">';
+    
+    foreach ($speakers_list as $speaker_id) {
+        $post_meta_data = get_post_custom($speaker_id);
+        $speaker_name = get_the_title($speaker_id);
+        $speaker_name_only = get_the_title($speaker_id);
+        $speaker_title = '';
+        $speaker_company = '';
+        
+        if (!empty($post_meta_data['speaker_title'][0])) {
+            $speaker_title = $post_meta_data['speaker_title'][0];
+            $speaker_name .= ", " . $speaker_title;
+        }
+        
+        if (!empty($post_meta_data['company_name'][0])) {
+            $speaker_company = $post_meta_data['company_name'][0];
+            $speaker_name .= ", " . $speaker_company;
+        }
+        
+        $featured_class = '';
+        if (!empty($post_meta_data['speaker_keynote'][0]) && $post_meta_data['speaker_keynote'][0] == 1) {
+            $featured_class = ' featured';
+        }
+        
+        $output .= '<a href="' . esc_url(get_permalink($speaker_id)) . '" class="speaker' . $featured_class . '">';
+        $output .= get_the_post_thumbnail($speaker_id, 'post-thumbnail', array('title' => get_the_title($speaker_id)));
+        $output .= '<span class="name">';
+        $output .= '<span><span class="speaker_name">' . esc_html($speaker_name_only) . '</span>';
+        $output .= '<span class="speaker_title"><br>' . esc_html($speaker_title) . '</span>';
+        $output .= '<span class="speaker_company"><br>' . esc_html($speaker_company) . '</span></span>';
+        $output .= '</span>';
+        $output .= '<span class="hidden speaker_title">' . esc_html($speaker_name) . '</span>';
+
+
+
+        $output .= '</a>';
+    }
+    
+    $output .= '</span>';
+    
+    return $output;
+}
+add_shortcode('session_speakers', 'session_speakers_shortcode');
+
+// Session Registration
+function session_registration_shortcode() {
+    if (!is_singular()) return '';
+    
+    $registration_code = get_post_meta(get_the_ID(), 'session_registration_code', true);
+    $registration_title = get_post_meta(get_the_ID(), 'session_registration_title', true);
+    $registration_text = get_post_meta(get_the_ID(), 'session_registration_text', true);
+    
+    if (empty($registration_code)) return '';
+    
+    $output = '<div>';
+    $output .= '<h2 class="text-center">' . esc_html($registration_title) . '</h2>';
+    $output .= '<div>' . wp_kses_post($registration_code) . '</div>';
+    
+    if (!empty($registration_text)) {
+        $output .= '<p>' . esc_html($registration_text) . '</p>';
+    }
+    
+    $output .= '</div>';
+    
+    return $output;
+}
+add_shortcode('session_registration', 'session_registration_shortcode');
+
+// Helper function to get session fields if EF_Query_Manager is not available
+function get_fallback_session_fields() {
+    $post_id = get_the_ID();
+    
+    return array(
+        'date' => get_post_meta($post_id, 'session_date', true),
+        'time' => get_post_meta($post_id, 'session_time', true),
+        'end_time' => get_post_meta($post_id, 'session_end_time', true),
+        'speakers_list' => get_post_meta($post_id, 'session_speakers', true),
+        'tracks' => wp_get_post_terms($post_id, 'session_track'), // Adjust taxonomy name as needed
+        'locations' => wp_get_post_terms($post_id, 'session_location') // Adjust taxonomy name as needed
+    );
+}

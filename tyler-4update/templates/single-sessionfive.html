@@ -1,0 +1,129 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<style>
+    .heading .nav p {
+            display: inline;
+    }
+    html .wp-block-post-featured-image :where(img) {
+    width: initial;
+}
+hr {
+    border-top: 2px solid #d2d2d2;
+    margin: 32px 0;
+}
+
+    a.track-buttons {
+    margin-right: 8px;
+    margin-top: 8px;
+        display: inline-block;
+}
+
+span.date {
+    display: block;
+}
+
+:root :where(.is-layout-flow) > p {
+    line-height: 1.58;
+    margin: 6px 0 12px;
+}
+
+h1.wp-block-post-title
+{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-block-start: 20px !important;
+    margin-block-end: 10px;
+}
+
+@media (max-width: 767px) {
+    .heading h1 {
+        font-size: 6vw;
+        width: 100%;
+        display: block;
+                text-align: center;
+    }
+    .heading .wp-block-group.container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .heading .nav {
+    display: flex;
+    width: 100%;
+}
+
+}
+</style>
+
+<!-- wp:group {"className":"heading","layout":{"type":"constrained"}} -->
+<div class="wp-block-group heading">
+    <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+    <div class="wp-block-group container">
+        <!-- wp:post-title {"level":1} /-->
+        
+        <!-- wp:shortcode -->
+        [session_navigation]
+        <!-- /wp:shortcode -->
+        
+        <!-- wp:group {"className":"nav","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+        <div class="wp-block-group nav">
+            <!-- wp:shortcode -->
+            [session_prev_link]
+            <!-- /wp:shortcode -->
+            
+            <!-- wp:shortcode -->
+            [session_schedule_link]
+            <!-- /wp:shortcode -->
+            
+            <!-- wp:shortcode -->
+            [session_next_link]
+            <!-- /wp:shortcode -->
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+<div class="wp-block-group container">
+    <!-- wp:post-featured-image {"sizeSlug":"tyler-content"} /-->
+    
+    
+    <!-- wp:columns {"style":{"spacing":{"blockGap":"30px"}},"className":"row"} -->
+    <div class="wp-block-columns row" style="gap: 30px;">
+        <!-- wp:column {"width":"66.66%","className":"col-md-8"} -->
+        <div class="wp-block-column col-md-8" style="flex-basis:66.66%">
+            <!-- wp:post-content /-->
+            
+            <!-- wp:shortcode -->
+            [session_tracks]
+            <!-- /wp:shortcode -->
+        </div>
+        <!-- /wp:column -->
+        
+        <!-- wp:column {"width":"33.33%","className":"col-md-4 sessions single"} -->
+        <div class="wp-block-column col-md-4 sessions single" style="flex-basis:33.33%">
+            <!-- wp:group {"className":"session","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group session">
+                <!-- wp:shortcode -->
+                [session_details]
+                <!-- /wp:shortcode -->
+                
+                <!-- wp:shortcode -->
+                [session_speakers]
+                <!-- /wp:shortcode -->
+            </div>
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:column -->
+    </div>
+    <!-- /wp:columns -->
+    
+    <!-- wp:shortcode -->
+    [session_registration]
+    <!-- /wp:shortcode -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
