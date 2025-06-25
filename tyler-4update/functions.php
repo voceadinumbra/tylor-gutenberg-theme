@@ -50,9 +50,7 @@ add_action('after_setup_theme', 'mytheme_block_editor_styles');
 
 // ******************* Add Libraries ****************** //
 require_once get_template_directory() . '/editor/class-imagely-editor.php';
-require_once('event-framework/lib/facebook/facebook.php');
 require_once('event-framework/lib/geocode.php');
-require_once('event-framework/lib/simplexlsx.class.php');
 require_once('event-framework/lib/recaptchalib.php');
 require_once('event-framework/lib/api/functions.php');
 
@@ -80,23 +78,7 @@ function tyler_set_theme_logo() {
     return $logo_url;
 }
 
-function tyler_setup_social_networks() {
-    global $facebook;
 
-    $facebookAppID  = get_option('ef_facebook_rsvp_widget_appid');
-    $facebookSecret = get_option('ef_facebook_rsvp_widget_secret');
-
-    if (!empty($facebookAppID) && !empty($facebookSecret))
-        $facebook = new Facebook(array(
-            'appId'  => $facebookAppID,
-            'secret' => $facebookSecret,
-        ));
-
-
-   
-}
-
-add_action('init', 'tyler_setup_social_networks');
 
 add_action('after_setup_theme', 'tyler_after_theme_setup');
 
@@ -130,7 +112,6 @@ function tyler_enqueue_scripts() {
     // styles
     wp_enqueue_style('tyler-google-font', '//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700');
     wp_enqueue_style('tyler-bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css');
-    wp_enqueue_style('tyler-jquery-scrollpane', get_template_directory_uri() . '/assets/css/jquery.scrollpane.css');
     wp_enqueue_style('tyler-icons', get_template_directory_uri() . '/assets/css/icon.css');
     wp_enqueue_style('tyler-layout', get_template_directory_uri() . '/assets/css/layout.css');
 
@@ -150,8 +131,6 @@ function tyler_enqueue_scripts() {
     // scripts
     wp_enqueue_script('jquery');
     wp_enqueue_script('tyler-bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), false, true);
-    wp_enqueue_script('tyler-jquery-mousewheel', get_template_directory_uri() . '/js/jquery.mousewheel.js', array('jquery'), false, true);
-    wp_enqueue_script('tyler-jquery-jscrollpane', get_template_directory_uri() . '/js/jquery.jscrollpane.min.js', array('jquery'), false, true);
     wp_enqueue_script('tyler-script', get_template_directory_uri() . '/js/main.js', array('jquery'), false, true);
 
     // home
@@ -1672,8 +1651,7 @@ if ( ! function_exists( 'tyler_block_styles' ) ) :
 				.is-style-pill span:not([class], [data-rich-text-placeholder]) {
 					display: inline-block;
 					background-color: var(--wp--preset--color--base-2);
-					padding: 0.375rem 0.875rem;
-					border-radius: var(--wp--preset--spacing--20);
+					padding: 0.375rem 0.875rem;					
 				}
 
 				.is-style-pill a:hover {

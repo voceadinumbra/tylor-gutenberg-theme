@@ -154,12 +154,10 @@ class DX_Event_Framework {
         include_once( EF_FIELDS_DIR . 'content-generator.php' );
         include_once( EF_FIELDS_DIR . 'font.php' );
         include_once( EF_FIELDS_DIR . 'image.php' );
-        include_once( EF_FIELDS_DIR . 'importer.php' );
         include_once( EF_FIELDS_DIR . 'radio.php' );
         include_once( EF_FIELDS_DIR . 'select.php' );
         include_once( EF_FIELDS_DIR . 'text.php' );
         include_once( EF_FIELDS_DIR . 'textarea.php' );
-        include_once( EF_FIELDS_DIR . 'excel-importer.php' );
 
         // Include event components
         include_once( EF_INC_DIR . 'theme-options/options-tab.php' );

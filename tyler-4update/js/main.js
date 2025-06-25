@@ -143,13 +143,7 @@ jQuery(function() {
         jQuery(this).parents('.col').toggleClass('expand');
     });
 
-    // init scrollbars
-    jQuery('.scrollable').jScrollPane();
-
-    /**
-         * placeholder fix
-         * @see https://gist.github.com/hagenburger/379601
-         */
+   
     jQuery('[placeholder]').focus(function() {
         var input = jQuery(this);
         if (input.val() == input.attr('placeholder')) {

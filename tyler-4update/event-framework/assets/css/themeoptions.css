@@ -206,9 +206,7 @@ textarea:focus {
 	display: block;
 }
 
-#ef-importer-misc-importer {
-	color: #057A1D;
-}
+
 
 .ajax-loader {
 	display: none;
@@ -225,13 +223,4 @@ textarea:focus {
 	max-width: 170px;
 	max-height: 130px;
 	margin-top: 20px;
-}
-.ef-excel-importer input.ef-upload-button.button {
-    margin: 0;
-}
-.ef-excel-importer .import-excel-section{
-    margin: 20px 0;
-}
-.ef-excel-importer .import-excel-section label{
-    display:block;
 }

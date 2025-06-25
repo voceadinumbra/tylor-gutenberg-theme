@@ -4,7 +4,7 @@ Theme URI: https://www.codeable.io/
 Author:  Codeable
 Author URI: https://www.codeable.io/
 Description: Name Tyler is kept to make sure that noithing breaks when the theme is activated with the old content. 
-Version: 600.0.3
+Version: 600.0.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: tyler
@@ -644,6 +644,12 @@ span.share.pull-right[style] {
     display: block;
     width: 100%;
     margin: 0 -1px;
+}
+
+@media (max-width: 1024px) {
+    li.speaker.type-speaker {
+        min-width: 100%;
+    }
 }
 
 

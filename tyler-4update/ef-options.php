@@ -11,7 +11,6 @@ $tab_general_site_options = new EF_Options_Tab();
 $tab_homepage_options     = new EF_Options_Tab();
 
 
-$tab_misc              = new EF_Options_Tab();
 $tab_social_connecting = new EF_Options_Tab();
 
 
@@ -65,10 +64,6 @@ $social_pinterest   = new EF_Text_Field('ef_pinterest', 'Pinterest URL');
 $social_linkedin    = new EF_Text_Field('ef_linkedin', 'LinkedIn URL');
 $social_youtube     = new EF_Text_Field('ef_youtube', 'Youtube URL');
 
-// Misc Fields
-$misc_importer = new EF_Importer_Field('misc-importer', 'Demo Data ', "Import test data. Success message will follow.");
-$excel_importer = new EF_Excel_Importer_Field('excel-importer', __('Excel Data', 'cpt'), __('Import data from Excel files. Allowed extension: xlsx. Success message will follow.', 'cpt'));
-
 // Add fields to General Site Options
 $tab_general_site_options->add_field('ef_color_palette', $color_palette);
 $tab_general_site_options->add_field('ef_logo', $logo);
@@ -86,9 +81,6 @@ $tab_homepage_options->add_field('ef_eventlocation', $event_location);
 $tab_homepage_options->add_field('ef_eventstartingtime', $event_starting_time);
 $tab_homepage_options->add_field('ef_eventdate', $event_date);
 
-// Add fields to Misc tab
-$tab_misc->add_field('misc_importer', $misc_importer);
-$tab_misc->add_field('excel_importer', $excel_importer);
 
 // Add fields to Social and Connecting tab
 $tab_social_connecting->add_field('ef_facebook', $social_facebook);
@@ -106,4 +98,3 @@ $tab_social_connecting->add_field('ef_linkedin', $social_linkedin);
 $theme_options->add_tab('General Site Options', $tab_general_site_options);
 $theme_options->add_tab('Homepage Options', $tab_homepage_options);
 $theme_options->add_tab('Social Networks', $tab_social_connecting);
-$theme_options->add_tab('Misc', $tab_misc);
