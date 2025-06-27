@@ -56,137 +56,7 @@
             </div>
         </div>
 
-        <style>
-        .schedule-container {
-            margin-top: 2rem;
-        }
-        
-        .schedule-filters {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        
-        .filter-controls {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            min-width: 200px;
-        }
-        
-        .filter-group label {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .filter-select {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: white;
-            font-size: 1rem;
-        }
-        
-        .filter-select:focus {
-            outline: none;
-            border-color: #007cba;
-            box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
-        }
-        .sessions.list {
-            margin-bottom: 15px;
-        }
 
-        .sessions.list .session-inner {
-            position: relative;
-        }
-
-        .sessions.list .more {
-            position: absolute;  
-            z-index: 20;
-            padding: 0 19px;
-            color: #fff;
-        }
-
-        .sessions.list a.title {
-            display: block;
-            margin: 0;
-            padding: 0 150px 0 0;
-            height: auto;
-            font-size: 16px;
-            line-height: normal;
-        }
-        
-        .sessions-list {
-            min-height: 400px;
-        }
-        
-        .session-item {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .session-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        .session-title {
-            color: #333;
-        }
-        
-        .session-meta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .session-meta span {
-            background: #f0f0f0;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-        }
-        
-        .session-description {
-            line-height: 1.6;
-            color: #555;
-        }
-        
-        .no-sessions {
-            text-align: center;
-            padding: 3rem;
-            color: #666;
-            font-style: italic;
-        }
-        
-        @media (max-width: 768px) {
-            .filter-controls {
-                flex-direction: column;
-            }
-            
-            .filter-group {
-                min-width: 100%;
-            }
-
-            .sessions.list a.title {
-            padding: 0;
-            }
-        }
-        </style>
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -370,37 +240,66 @@
             }
             
             
-           
-            function displaySessions() {
-                const container = document.querySelector('.sessions-list');
-                
-                if (filteredSessions.length === 0) {
-                    container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
-                    return;
-                }
-                
-                const sessionsHTML = filteredSessions.map(session => `
-                    <div class="sessions list session-item session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
-
+ function displaySessions() {
+    const container = document.querySelector('.sessions-list');
+    
+    if (filteredSessions.length === 0) {
+        container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
+        return;
+    }
+    
+    // Group sessions by date
+    const sessionsByDate = {};
+    filteredSessions.forEach(session => {
+        const dateKey = session.date;
+        if (!sessionsByDate[dateKey]) {
+            sessionsByDate[dateKey] = [];
+        }
+        sessionsByDate[dateKey].push(session);
+    });
+    
+    // Sort dates
+    const sortedDates = Object.keys(sessionsByDate).sort((a, b) => {
+        return parseInt(a) - parseInt(b);
+    });
+    
+    // Generate HTML with date groupings
+    let sessionsHTML = '';
+    
+    sortedDates.forEach(dateKey => {
+        const sessions = sessionsByDate[dateKey];
+        const formattedDate = formatDate(dateKey);
+        
+        // Add date header
+        sessionsHTML += `<div class="date-group">`;
+        sessionsHTML += `<h3 class="date-header">${formattedDate}</h3>`;
+        sessionsHTML += `<div class="date-sessions">`;
+        
+        // Add sessions for this date
+        sessions.forEach(session => {
+            sessionsHTML += `
+                <div class="sessions list session-item session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
                     <span class="time">${session.start_time} - ${session.end_time}</span>
                     <div class="session-inner">
-                        
                         <a href="${session.url}" class="title">
                             <div class="session-title">${session.title}</div>
                         </a>
-                        
                         <span class="speakers-thumbs"></span>
-
                         <a href="${session.url}" class="more">
                             More info<i class="icon-angle-right"></i>
                         </a>
                     </div>                     
+                </div>
+            `;
+        });
+        
+        sessionsHTML += `</div>`; // Close date-sessions
+        sessionsHTML += `</div>`; // Close date-group
+    });
+    
+    container.innerHTML = sessionsHTML;
+}
 
-                    </div>
-                `).join('');
-                
-                container.innerHTML = sessionsHTML;
-            }
             
             
 /*

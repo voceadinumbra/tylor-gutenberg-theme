@@ -3,7 +3,7 @@ Theme Name: Tyler
 Theme URI: https://www.codeable.io/
 Author:  Codeable
 Author URI: https://www.codeable.io/
-Description: Name Tyler is kept to make sure that noithing breaks when the theme is activated with the old content. 
+Description: Name Tyler is kept to make sure that nothing breaks when the theme is activated with the old content. 
 Version: 600.0.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,16 +14,12 @@ html {
   --red: #a24e34;
   --green: #01f3e6;
   --yellow: #f0e765;
-
   --error: var(--red);
   --errorBorder: 1px dashed var(--red);
   --ok: var(--green);
   --warning: var(--yellow);
-
   --siteWidth: 1260px;
 }
-
-
 
 .landing 
 {
@@ -339,6 +335,7 @@ border:solid;
 	
 }
 
+
 .sponsor-list-container {
     margin: 20px 0;
     display: flex;
@@ -634,6 +631,22 @@ span.share.pull-right[style] {
     padding:5px 0px;
 }
 
+a.download-link {
+    display: block;
+    padding: .75em 1em;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #0086b2;
+    border-radius: 5px;
+    font-family: Helvetica;
+    font-size: 16px;
+    color: #ffffff;
+    background: #009fd4;
+    background: linear-gradient(to bottom, #009fd4, #0086b2);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+    margin-bottom: 20px;
+}
+
 /*  Gutenberg related fixes  */
 
 .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
@@ -646,13 +659,73 @@ span.share.pull-right[style] {
     margin: 0 -1px;
 }
 
+h3.date-header {
+    color: #3f3f3f;
+    font-family: "Ubuntu", Helvetica, Arial, sans-serif;
+}
+
+    .heading .nav p {
+            display: inline;
+    }
+    html .wp-block-post-featured-image :where(img) {
+    width: initial;
+}
+hr {
+    border-top: 2px solid #d2d2d2;
+    margin: 32px 0 !important
+}
+
+    a.track-buttons {
+    margin-right: 8px;
+    margin-top: 8px;
+        display: inline-block;
+}
+
+span.date {
+    display: block;
+}
+
+:root :where(.is-layout-flow) > p {
+    line-height: 1.58;
+    margin: 6px 0 12px;
+}
+
+h1.wp-block-post-title
+{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-block-start: 20px !important;
+    margin-block-end: 10px !important;
+}
+
+.schedule-container p {
+    margin: 0;
+}
+
 @media (max-width: 1024px) {
     li.speaker.type-speaker {
         min-width: 100%;
     }
 }
 
+@media (max-width: 767px) {
+    .heading h1 {
+        font-size: 6vw;
+        width: 100%;
+        display: block;
+                text-align: center;
+    }
+    .heading .wp-block-group.container {
+        display: flex;
+        flex-direction: column;
+    }
 
+    .heading .nav {
+    display: flex;
+    width: 100%;
+}
+
+}
 
 @media only screen and (max-width: 991px) {
 .heading .speaker_info { padding:27px 0px; }
@@ -750,3 +823,152 @@ text-shadow: 4px 4px 7px #000000;
         height:auto;
     }
 }
+
+
+
+        .schedule-container {
+            margin-top: 2rem;
+        }
+        
+        .schedule-filters {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            font-size: 1rem;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #007cba;
+            box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+        }
+        .sessions.list {
+            margin-bottom: 15px;
+        }
+
+        .sessions.list .session-inner {
+            position: relative;
+        }
+
+        .sessions.list .more {
+            position: absolute;  
+            z-index: 20;
+            padding: 0 19px;
+            color: #fff;
+        }
+
+        .sessions.list a.title {
+            display: block;
+            margin: 0;
+            padding: 0 150px 0 0;
+            height: auto;
+            font-size: 16px;
+            line-height: normal;
+        }
+        
+        .sessions-list {
+            min-height: 400px;
+        }
+        
+        .session-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .session-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .session-title {
+            color: #333;
+        }
+        
+        .session-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .session-meta span {
+            background: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .session-description {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .no-sessions {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-controls {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+
+            .sessions.list a.title {
+            padding: 0;
+            }
+        }
+
+
+
+        @media (max-width: 1080px) {
+            .post-type-archive-sessiontwo .sessions.list.session-item.session {
+                display: flex;
+                flex-direction: column;
+            }
+            .post-type-archive-sessiontwo .sessions.list .time {
+                width: 100%;
+            }
+            .post-type-archive-sessiontwo .sessions.list .more {
+                position: relative;
+                margin-top: 19px;
+            }
+
+        }

@@ -2,6 +2,16 @@
  * stick date titles to top
  * @param stickies
  */
+
+// Add this to the top of your schedule.js file
+if (typeof ajaxurl === 'undefined') {
+    var ajaxurl = window.location.origin + '/wp-admin/admin-ajax.php';
+}
+if (typeof session_type === 'undefined') {
+    var session_type = 'sessiontwo';
+}
+
+
 function stickyTitles(stickies) {
   var self = this,
     isLoaded = false;
