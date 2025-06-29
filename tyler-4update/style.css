@@ -572,6 +572,12 @@ body.single-sponsor img.img-sponsor {
 	margin: 0 0 20px 20px;
 }
 
+:root :where(.is-layout-constrained) > p,
+:root :where(.is-layout-constrained) > h2 {
+    margin-block-start: 6px;
+    margin-block-end: 12px;
+}
+
 .ui-widget-overlay {
 	opacity: 0.7 !important;
 	background-color: black !important;
@@ -607,11 +613,12 @@ div.container-speakers {
 }
 
 img.session_sponsor {
-	float: right;
-	max-width: 250px;
-	min-width: 50px;
-	max-height: 75px;
-	height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 250px;
+    min-width: 50px;
+    max-height: 75px;
+    height: auto;
 }
 
 span.share.pull-right[style] {
@@ -971,10 +978,7 @@ text-shadow: 4px 4px 7px #000000;
             border-color: #007cba;
             box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
         }
-        .sessions.list {
-            margin-bottom: -2px;
-            border-bottom: 2px solid #d2d2d2;
-        }
+        
 
         
 

@@ -2400,11 +2400,151 @@ function tyler_schedule_filter_shortcode($atts) {
             $(document).ready(function() {
                 window.session_type = '<?php echo esc_js($session_type); ?>';
                 $('#<?php echo esc_js($unique_id); ?>').attr('data-current-session-type', '<?php echo esc_js($session_type); ?>');
+
+                // Initialize active state management
+                initializeScheduleFilterStates('<?php echo esc_js($unique_id); ?>');
                 
                 if (typeof updateSchedule === 'function') {
                     updateSchedule(null, null, null);
                 }
             });
+            // Function to handle active states for filter dropdowns
+ function initializeScheduleFilterStates(containerId) {
+    const container = $('#' + containerId);
+    let isMobile = window.innerWidth <= 768;
+    
+    // Update mobile state on resize
+    $(window).on('resize', function() {
+        isMobile = window.innerWidth <= 768;
+    });
+    
+    // Handle dropdown item clicks
+    container.find('.nav-tabs li ul li a').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const clickedLink = $(this);
+        const parentDropdown = clickedLink.closest('.nav-tabs > li');
+        const dropdownList = clickedLink.closest('ul');
+        
+        // Remove active class from all items in this dropdown
+        dropdownList.find('li').removeClass('active');
+        
+        // Add active class to selected item
+        clickedLink.parent('li').addClass('active');
+        
+        // Handle parent dropdown active state
+        if (clickedLink.data('track') === 0 || 
+            clickedLink.data('location') === 0 || 
+            clickedLink.data('timestamp') === 0) {
+            // If "All" is selected, remove active from parent
+            parentDropdown.removeClass('active');
+            // Update parent link text to default
+            updateParentLinkText(parentDropdown, true);
+        } else {
+            // Add active class to parent dropdown
+            parentDropdown.addClass('active');
+            // Update parent link text to show selection
+            updateParentLinkText(parentDropdown, false, clickedLink.text());
+        }
+        
+        // Close dropdown after selection on mobile
+        if (isMobile) {
+            parentDropdown.removeClass('open');
+            dropdownList.slideUp(200);
+        }
+        
+        // Trigger the existing filter functionality
+        const track = clickedLink.data('track');
+        const location = clickedLink.data('location');
+        const timestamp = clickedLink.data('timestamp');
+        
+        // Call existing update function
+        if (typeof updateSchedule === 'function') {
+            updateSchedule(timestamp, location, track);
+        }
+    });
+    
+    // Handle dropdown toggle with improved mobile support
+    container.find('.nav-tabs > li > a').on('click touchstart', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parentLi = $(this).parent('li');
+        const dropdown = parentLi.find('ul');
+        const isOpen = parentLi.hasClass('open');
+        
+        // Close all other dropdowns
+        container.find('.nav-tabs > li').not(parentLi).removeClass('open');
+        container.find('.nav-tabs > li ul').not(dropdown).slideUp(200);
+        
+        // Toggle current dropdown
+        if (isOpen) {
+            parentLi.removeClass('open');
+            dropdown.slideUp(200);
+        } else {
+            parentLi.addClass('open');
+            dropdown.slideDown(200);
+            
+            // On mobile, scroll dropdown into view if needed
+            if (isMobile) {
+                setTimeout(function() {
+                    const dropdownRect = dropdown[0].getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+                    
+                    if (dropdownRect.bottom > viewportHeight) {
+                        const scrollAmount = dropdownRect.bottom - viewportHeight + 20;
+                        window.scrollBy(0, scrollAmount);
+                    }
+                }, 250);
+            }
+        }
+    });
+    
+    // Enhanced click outside handling for mobile
+    $(document).on('click touchstart', function(e) {
+        const navTabs = container.find('.nav-tabs');
+        
+        if (!navTabs.is(e.target) && navTabs.has(e.target).length === 0) {
+            container.find('.nav-tabs > li').removeClass('open');
+            container.find('.nav-tabs ul').slideUp(200);
+        }
+    });
+    
+    // Prevent body scroll when dropdown is open on mobile
+    container.find('.nav-tabs ul').on('touchmove', function(e) {
+        if (isMobile) {
+            e.stopPropagation();
+        }
+    });
+}
+
+        // Function to update parent link text
+        function updateParentLinkText(parentDropdown, isDefault, selectedText) {
+    const parentLink = parentDropdown.find('> a');
+    const originalText = parentLink.data('original-text') || parentLink.text();
+    const isMobile = window.innerWidth <= 768;
+    
+    // Store original text if not already stored
+    if (!parentLink.data('original-text')) {
+        parentLink.data('original-text', originalText);
+    }
+    
+    if (isDefault) {
+        parentLink.text(originalText);
+    } else {
+        // On mobile, show shorter text to prevent overflow
+        if (isMobile && selectedText.length > 15) {
+            parentLink.text(selectedText.substring(0, 12) + '...');
+        } else if (isMobile) {
+            parentLink.text(selectedText);
+        } else {
+            // Show full text on desktop
+            parentLink.text(originalText + ': ' + selectedText);
+        }
+    }
+}
+
         })(jQuery);
         </script>
         <?php
@@ -2413,12 +2553,14 @@ function tyler_schedule_filter_shortcode($atts) {
     ob_start();
     ?>
     <div id="<?php echo esc_attr($unique_id); ?>" class="schedule-wrapper" data-session-type="<?php echo esc_attr($session_type); ?>">
-        <ul class="nav nav-tabs pull-right" data-session-type="<?php echo esc_attr($session_type); ?>">
-            <?php if (!empty($session_tracks)) { ?>
-            <li>
-                <a href="javascript:void(0)"><?php _e('Filter by track', 'tyler'); ?></a>
-                <ul>
-                    <li><a href="#" data-track="0"><?php _e('All', 'tyler'); ?></a></li>
+        
+    <ul class="nav nav-tabs pull-right" data-session-type="<?php echo esc_attr($session_type); ?>">
+    <?php if (!empty($session_tracks)) { ?>
+    <li class="filter-dropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle"><?php _e('Filter by track', 'tyler'); ?></a>
+        <ul class="dropdown-menu">
+            <li class="active"><a href="#" data-track="0"><?php _e('All', 'tyler'); ?></a></li>
+
                     <?php foreach ($session_tracks as $session_track) { ?>
                         <li><a href="#" data-track="<?php echo esc_attr($session_track->term_id); ?>" data-workshop=""><?php echo esc_html($session_track->name); ?></a></li>
                     <?php } ?>
@@ -2438,7 +2580,7 @@ function tyler_schedule_filter_shortcode($atts) {
             </li>
             <?php } ?>
             
-            <li class="active">
+            <li>
                 <a href="javascript:void(0)" data-timestamp="0"><?php _e('Filter by days', 'tyler'); ?></a>
                 <?php if (!empty($session_dates)) { ?>
                     <ul>
@@ -2453,6 +2595,162 @@ function tyler_schedule_filter_shortcode($atts) {
         </ul>
         
         <div class="sessions list" data-session-type="<?php echo esc_attr($session_type); ?>"></div>
+        <style>
+/* Enhanced dropdown styles with mobile fixes */
+#<?php echo esc_attr($unique_id); ?> .nav-tabs {
+    position: relative;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown > a.dropdown-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* Better touch targets for mobile */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown.active > a.dropdown-toggle {
+    background-color: #0073aa;
+    color: white;
+    font-weight: 600;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown.open > a.dropdown-toggle {
+    background-color: #005a87;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li {
+    display: block;
+    margin: 0;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li a {
+    display: block;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    /* Better touch targets */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li:hover a {
+    background-color: #f5f5f5;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li.active a {
+    background-color: #0073aa;
+    color: white;
+    font-weight: 600;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li:first-child a {
+    border-radius: 4px 4px 0 0;
+}
+
+#<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li:last-child a {
+    border-radius: 0 0 4px 4px;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown {
+        flex: 1;
+        min-width: 0;
+        position: static;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown > a.dropdown-toggle {
+        font-size: 14px;
+        padding: 10px 8px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: auto;
+        width: auto;
+        min-width: auto;
+        max-width: none;
+        max-height: 60vh;
+        overflow-y: auto;
+        margin-top: 5px;
+        /* Center the dropdown */
+        transform: translateX(0);
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li a {
+        padding: 15px 20px;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu li:last-child a {
+        border-bottom: none;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown {
+        width: 100%;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs > li.filter-dropdown > a.dropdown-toggle {
+        width: 100%;
+        text-align: center;
+        padding: 12px 15px;
+        white-space: normal;
+    }
+    
+    #<?php echo esc_attr($unique_id); ?> .nav-tabs ul.dropdown-menu {
+        left: 5px;
+        right: 5px;
+        max-height: 50vh;
+    }
+}
+</style>
     </div>
     <?php
     
@@ -2795,16 +3093,18 @@ function tyler_enqueue_ajax_script() {
                                         });
                                     }
 
-                                    html += \'<div class="session\' + concurrent + \'"><span class="time">\' + session.time + " - " + session.end_time + \'</span><div class="session-inner">\';
-                                    html += \'<img class="session_sponsor" src="\' + session.sponsor_logo + \'" style="">\';
+                                    html += \'<div class="session\' + concurrent + \'"><span class="time">\' + session.time + " - " + session.end_time + \'</span><div class="session-inner">\';                                    
                                     
                                     if (session.no_links != 1) {
-                                        html += \'<a href="\' + session.url + \'" class="title"\' + color + \'><span>\' + session.post_title + "</span></a>";
+                                        html += \'<a href="\' + session.url + \'" class="title"\' + color + \'><span>\' + session.post_title + \'</span><img class="session_sponsor" src="\' + session.sponsor_logo + \'" ></a>\';
                                     } else {
                                         html += \'<span class="title"\' + color + \'><span>\' + session.post_title + "</span></span>";
                                     }
+
                                     
-                                    html += \'<span class="location">\' + session.location + \'</span><span class="speakers-thumbs">\' + speakers + "</span>";
+                                        
+                                    
+                                    html += \'<span class="speakers-thumbs">\' + speakers + "</span>";
                                     
                                     if (session.no_links != 1) {
                                         html += \'<a href="\' + session.url + \'" class="more">\' + data.strings["more_info"] + \' <i class="icon-angle-right"></i></a>\';

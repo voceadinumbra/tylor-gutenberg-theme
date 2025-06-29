@@ -1058,6 +1058,10 @@ h2 + .btn-header {
     border-bottom: 2px solid #d2d2d2;
 }
 
+.sessions.list .session:last-child {
+    border-bottom: 0;
+}
+
 .sessions.list .time {
     display: block;
     float: left;
@@ -1783,146 +1787,43 @@ footer .ef_footer_text_columns h3 {
 
 
 
-/* TICKERA */
-.tickera{
-    color: #000;
-    font-size: 20px;
-}
-.tickera .event_tickets{
-    width: 100%;
-}
-.tickera .event_tickets td{
-    padding: 15px 0;
-    text-align: left;
-}
-.tickera .event_tickets a{
-    color: #000000;
-}
-.tickera .ares-select{
-    width: 100px;
-}
-#tickera_cart{
-    max-width: 1000px;
-    margin: 30px auto;
-    margin-bottom: 60px;
-}
-#tickera_cart .tickera_additional_info{
-    margin-top: 30px;
-}
-#tickera_cart .info_section .description{
-    margin: 0;
-    padding: 10px;
-}
-.tc_cart_errors{
-    max-width: 1000px;
-    margin: 109px auto 0 auto;
-}
-#tickera_cart .fields-wrap input[type=text]{
-    padding: 5px;
-    width: 25%;
-}
-#tickera_cart .tickera_additional_info h3{
-    margin-bottom: 10px;
-}
-#tickera_cart .fields-wrap label span{
-    font-size: 14px;
-}
-#tickera_cart .tickera_additional_info h5{
-    clear:both;
-}
-
 
 
 
 .loader-img{display:none; text-align:center;}
 
-/* TICKERA START */
-.order-details td,
-.order-details th {
-    padding: 10px;
-}
 
-.tickera-payment-gateways input[type="radio"] {
-    margin: 0 5px 0 0;
-}
 
-.tickera select {
-    font-size: 18px;
-    background: #f1f1f1;
-    border: none;
-    box-sizing: border-box;
-    padding: 0.9em;
-    border-radius: 2px;
-    outline: none;
-    margin: 0 0 1em;
-}
-
-.tickera_additional_info label input {
-    margin: 8px 5px 0 0;
-}
-
-.tickera input[type="submit"] {
-    border-radius: 0;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 12px 30px;
-    margin: 0 0 0.15em;
-    transition: background .8s ease, opacity .8s ease;
-    color: #fff;
-    background-color: #e83a56;
-    border-color: rgba(232,58,86,0.5);
-}
-
-.tickera textarea {
-    font-size: 18px;
-    background: #f1f1f1;
-    border: none;
-    box-sizing: border-box;
-    padding: 0.9em;
-    border-radius: 2px;
-    outline: none;
-    margin: 0 0 1em;
-    height: 200px;
-    width: 100%;
-}
-
-#tickera_cart.tickera input[type="text"],
-#tickera_cart .coupon-code .coupon_code {
-    padding: 20px 8px;
-    height: 45px;
-}
 
 .coupon-code {
     float: left;
     margin-right: 10px;
 }
 
-.tickera_buyer_info textarea {
-    
-}
 
-.tickera_additional_info br {
-    display: none;
-}
-
-@media (max-width: 660px) {
-    
-    #tickera_cart.tickera input[type="text"], 
-    #tickera_cart .coupon-code #coupon_code,
-    #tickera_cart .coupon-code,
-    #tickera_cart input[type="submit"] {
-        width: 100% !important;
-        margin: 0 0 10px 0;
-    }
-    
-    #tickera_cart .coupon-code #coupon_code {
-        margin-bottom: 0;
-    }
+@media (max-width: 660px) 
+{    
+  
     
     .order-details td, .order-details th {
         font-size: 0.8em;
     }
+
+    .sessions.list .session {
+    display: flex;
+    flex-direction: column;
+}
     
 }
-/* TICKERA END */
+
+@media (max-width: 480px) 
+{     
+
+html .sessions.list .more {
+    position: relative;
+}
+.sessions.list .session .title {
+    padding: 0;
+}
     
+}

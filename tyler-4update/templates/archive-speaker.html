@@ -1,73 +1,81 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"className":"heading","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","className":"speakers-page","layout":{"type":"default"}} -->
+<main class="wp-block-group speakers-page">
+
+<!-- wp:group {"className":"heading","layout":{"type":"default"}} -->
 <div class="wp-block-group heading">
-    <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group container">
-        <!-- wp:heading {"level":1,"className":"speakers-title"} -->
-        <h1 class="wp-block-heading speakers-title">Speakers</h1>
-        <!-- /wp:heading -->
-    </div>
-    <!-- /wp:group -->
+<!-- wp:group {"className":"container","layout":{"type":"default"}} -->
+<div class="wp-block-group container">
+<!-- wp:heading {"level":1,"className":"speakers-title"} -->
+<h1 class="wp-block-heading speakers-title">Speakers</h1>
+<!-- /wp:heading -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"container container-speakers","layout":{"type":"default"}} -->
-<div class="wp-block-group container container-speakers">
-    <!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"speakers","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"displayLayout":{"type":"flex","columns":2},"className":"speakers-query"} -->
-    <div class="wp-block-query speakers-query">
-        <!-- wp:post-template {"className":"speakers-post-template"} -->
-        <!-- wp:group {"tagName":"a","className":"speaker-row-container","layout":{"type":"constrained"}} -->
-        <a class="wp-block-group speaker-row-container">
-            <!-- wp:group {"className":"speaker-row","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-            <div class="wp-block-group speaker-row">
-                <!-- wp:group {"className":"speaker-img-container","layout":{"type":"constrained"}} -->
-                <div class="wp-block-group speaker-img-container">
-                    <!-- wp:post-featured-image {"isLink":false,"className":"img-speaker","style":{"layout":{"selfStretch":"fit","flexSize":null}}} /-->
-                </div>
-                <!-- /wp:group -->
+<!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+<div class="wp-block-group container">
 
-                <!-- wp:group {"className":"speaker-details","layout":{"type":"constrained"}} -->
-                <div class="wp-block-group speaker-details">
-                    <!-- wp:post-title {"level":2,"isLink":false} /-->
-                    
-                    <!-- wp:group {"className":"speaker-meta-fields","layout":{"type":"constrained"}} -->
-                    <div class="wp-block-group speaker-meta-fields">
-                        <!-- wp:paragraph {"className":"position_title","style":{"display":{"all":"none"}}} -->
-                        <p class="position_title" style="display:none;"></p>
-                        <!-- /wp:paragraph -->
-                        
-                        <!-- wp:paragraph {"className":"speaker_company","style":{"display":{"all":"none"}}} -->
-                        <p class="speaker_company" style="display:none;"></p>
-                        <!-- /wp:paragraph -->
-                        
-                        <!-- wp:paragraph {"className":"hidden speaker_title"} -->
-                        <p class="hidden speaker_title"></p>
-                        <!-- /wp:paragraph -->
-                        
-                        <!-- wp:group {"className":"hidden desc","layout":{"type":"constrained"}} -->
-                        <div class="wp-block-group hidden desc">
-                            <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
-                        </div>
-                        <!-- /wp:group -->
-                    </div>
-                    <!-- /wp:group -->
-                </div>
-                <!-- /wp:group -->
-            </div>
-            <!-- /wp:group -->
-        </a>
-        <!-- /wp:group -->
-        <!-- /wp:post-template -->
-
-        <!-- wp:query-no-results -->
-        <!-- wp:paragraph -->
-        <p>No speakers found.</p>
-        <!-- /wp:paragraph -->
-        <!-- /wp:query-no-results -->
-    </div>
-    <!-- /wp:query -->
+<!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"speakers","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"displayLayout":{"type":"flex","columns":2},"className":"speakers-query"} -->
+<div class="wp-block-query speakers-query">
+<!-- wp:post-template {"className":"speakers-post-template"} -->
+<!-- wp:group {"tagName":"a","className":"speaker-row-container","layout":{"type":"constrained"}} -->
+<a class="wp-block-group speaker-row-container">
+<!-- wp:group {"className":"speaker-row","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group speaker-row">
+<!-- wp:group {"className":"speaker-img-container","layout":{"type":"constrained"}} -->
+<div class="wp-block-group speaker-img-container">
+<!-- wp:post-featured-image {"isLink":false,"className":"img-speaker","style":{"layout":{"selfStretch":"fit","flexSize":null},"border":{"radius":"0"}}} /-->
 </div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"speaker-details","layout":{"type":"constrained"}} -->
+<div class="wp-block-group speaker-details">
+<!-- wp:post-title {"level":2,"isLink":false} /-->
+
+<!-- wp:group {"className":"speaker-meta-fields","layout":{"type":"constrained"}} -->
+<div class="wp-block-group speaker-meta-fields">
+<!-- wp:paragraph {"className":"position_title","style":{"display":{"all":"none"}}} -->
+<p class="position_title" style="display:none;"></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"speaker_company","style":{"display":{"all":"none"}}} -->
+<p class="speaker_company" style="display:none;"></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"hidden speaker_title"} -->
+<p class="hidden speaker_title"></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"className":"hidden desc","layout":{"type":"constrained"}} -->
+<div class="wp-block-group hidden desc">
+<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</a>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>No speakers found.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+
+</div>
+<!-- /wp:group -->
+
+</main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
