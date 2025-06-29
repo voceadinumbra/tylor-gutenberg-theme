@@ -244,15 +244,23 @@ function updateSchedule(timestamp, location, track) {
 
       jQuery(window).on("resize", newStickies.load);
       jQuery(window).on("scroll", newStickies.scroll);
-      //here
-          if (checkUrlParameter('track')) {
-  updateUrlParameter('track', track);
+      
+      
+      
+//here
+if (track !== null && track !== undefined && track !== '') {
+  if (checkUrlParameter('track')) {
+    updateUrlParameter('track', track);
   }
   else{
-let currentURL = window.location.href;
-let updatedURL = appendParameterToURL(currentURL, 'track', track);
-window.history.pushState({}, '', updatedURL); // Updates the URL without reloading the page
+    let currentURL = window.location.href;
+    let updatedURL = appendParameterToURL(currentURL, 'track', track);
+    window.history.pushState({}, '', updatedURL); // Updates the URL without reloading the page
+  }
 }
+
+
+
     },
     
     
@@ -341,23 +349,17 @@ jQuery(document).ready(function ($) {
       $(this).children("ul").removeClass("hover");
     },
   );
-/*
-  $(".schedule-container li").hover(
-    function () {
-      $(this).children("ul").addClass("hover");
-    },
-    function () {
-      $(this).children("ul").removeClass("hover");
-    },
-  );
-*/
-  var ptrack = getUrlParameter("track");
+ 
+// Clean up any existing track=null parameters
+cleanupTrackParameter();
 
-  if (ptrack != undefined) {
-    updateSchedule(null, null, ptrack);
-  } else {
-    updateSchedule(null, null, null);
-  }
+var ptrack = getUrlParameter("track");
+
+if (ptrack != undefined && ptrack !== 'null' && ptrack !== '') {
+  updateSchedule(null, null, ptrack);
+} else {
+  updateSchedule(null, null, null);
+}
   
 });
 
@@ -409,5 +411,19 @@ var tracks_arr = {7: "Business", 11: "Keynotes", 16: "Market Briefs", 22: "Missi
 
 window.addEventListener("popstate", function (event) {
   const track = getUrlParameter("track");
-  updateSchedule(null, null, track); // Reload schedule based on updated track parameter
+  // Only pass track if it's not null or 'null'
+  const validTrack = (track && track !== 'null') ? track : null;
+  updateSchedule(null, null, validTrack); // Reload schedule based on updated track parameter
 });
+
+
+function cleanupTrackParameter() {
+  const trackParam = getUrlParameter('track');
+  if (trackParam === 'null' || trackParam === null || trackParam === '') {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    params.delete('track');
+    url.search = params.toString();
+    window.history.replaceState({}, '', url.toString());
+  }
+}
