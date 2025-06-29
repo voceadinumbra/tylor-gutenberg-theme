@@ -283,9 +283,7 @@ font-weight:500;
 	
 	flex-shrink: 0;
 }
-.sessions.list .session .speaker img {
-    width: 100px;
-}
+
 
 
 .sessions.list .session .speaker .name {
@@ -299,8 +297,9 @@ font-weight:500;
 }
 
 .sessions.single .speaker .name {
-	height:100px;
-	line-height:1.5;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
 }
 
 .spacey {
@@ -499,10 +498,7 @@ body.archive .img-speaker {
 	height: auto;
 }
 
-.sessions.list .time {
-	padding-right: 0;
-	width: 14%;
-}
+
 
 div.speaker-row {
 	display: flex;
@@ -537,10 +533,6 @@ div.speaker-details p {
 
 .speakers .name {
 	height: auto;
-}
-
-.name>span {
-max-width: none !important;
 }
 
 .speakers .photo {
@@ -647,6 +639,113 @@ a.download-link {
     margin-bottom: 20px;
 }
 
+.nav.nav-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-end;
+}
+        
+        .nav.nav-tabs > li {
+            position: relative;
+            margin-bottom: -1px;
+        }
+
+        
+        .schedule-container ul ul li {
+            background-color: #3d3d3d;
+        }
+                
+        .nav.nav-tabs > li > a {
+            margin-right: 0;
+            margin-left: 3px;
+            line-height: 1;
+            border-radius: 0;
+            background-color: #3f3f3f;
+            border-color: #afafaf;
+            border-bottom-color: transparent;
+            color: #fff;
+            padding: 9px 12px;
+        }
+        
+        .nav.nav-tabs > li.active > a,
+        .nav.nav-tabs > li > a:hover {
+            color: #555;            
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+            background-color: #b2b193;
+        }
+        
+        .nav.nav-tabs > li > ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 250px;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            z-index: 1000;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav.nav-tabs > li:hover > ul,
+        .nav.nav-tabs > li.open > ul {
+            display: block;
+            background-color: #3d3d3d;
+        }
+        
+        .nav.nav-tabs > li > ul > li {
+            margin: 0;
+        }
+        
+        .nav.nav-tabs > li > ul > li > a {
+            display: block;
+            padding: 8px 15px;
+            color: #b2b193;
+            text-decoration: none;
+            border: none;
+            border-radius: 0;
+            background: none;
+            white-space: nowrap;
+        }
+        
+        
+        .nav.nav-tabs > li > ul > li:hover > a, 
+        .nav.nav-tabs > li > ul > li.active > a {
+            color: #fff;
+        }
+        
+        .nav.nav-tabs > li > p {
+            display: none;
+        }
+        
+        .session-type-header {
+            background: #f5f5f5;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0 0.5rem 0;
+            border-left: 4px solid #0073aa;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+       
+        
+        .no-sessions {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-style: italic;
+        }
+
 /*  Gutenberg related fixes  */
 
 .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
@@ -699,6 +798,10 @@ h1.wp-block-post-title
 }
 
 .schedule-container p {
+    margin: 0;
+}
+
+ul.nav.nav-tabs.pull-right p {
     margin: 0;
 }
 
@@ -869,12 +972,11 @@ text-shadow: 4px 4px 7px #000000;
             box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
         }
         .sessions.list {
-            margin-bottom: 15px;
+            margin-bottom: -2px;
+            border-bottom: 2px solid #d2d2d2;
         }
 
-        .sessions.list .session-inner {
-            position: relative;
-        }
+        
 
         .sessions.list .more {
             position: absolute;  
@@ -896,24 +998,23 @@ text-shadow: 4px 4px 7px #000000;
             min-height: 400px;
         }
         
-        .session-item {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+.session-item {
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+    background: white;
+}
         
-        .session-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
+       
         
-        .session-title {
-            color: #333;
-        }
+.session-title {
+    display: block;
+    margin: 0;
+    padding: 0 120px 0 0;
+    height: auto;
+    color: #4d4d4d;
+    text-transform: uppercase;
+    font-weight: 500;
+}
         
         .session-meta {
             display: flex;

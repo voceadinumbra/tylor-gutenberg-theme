@@ -282,7 +282,6 @@ var textFit = function (el, rel) {
   }
 };
 var initTextFit = function () {
-  if (window.console) console.log("initTextFit");
   jQuery(".text-fit").each(function (i, el) {
     textFit(el);
   });
@@ -325,6 +324,12 @@ jQuery(document).ready(function ($) {
       if ($(".schedule li").children("ul").hasClass("hover")) {
         $(".schedule li").children("ul").removeClass("hover");
       }
+/*
+      if ($(".schedule-container li").children("ul").hasClass("hover")) {
+        $(".schedule-container li").children("ul").removeClass("hover");
+      }
+        */
+
     },
   );
 
@@ -336,7 +341,16 @@ jQuery(document).ready(function ($) {
       $(this).children("ul").removeClass("hover");
     },
   );
-
+/*
+  $(".schedule-container li").hover(
+    function () {
+      $(this).children("ul").addClass("hover");
+    },
+    function () {
+      $(this).children("ul").removeClass("hover");
+    },
+  );
+*/
   var ptrack = getUrlParameter("track");
 
   if (ptrack != undefined) {
@@ -376,41 +390,6 @@ function updateUrlParameter(paramName, paramValue) {
   // Use pushState instead of replaceState to add a new entry in browser history
   window.history.pushState({ path: url.toString() }, '', url.toString());
 }
-
-//simon edit
-// var tracks_arr = {};
-// jQuery(document).ready(function($) {
-//     // Trigger the AJAX request when needed, for example, on page load
-//     $.ajax({
-//         url: ajax_url, // The AJAX handler URL
-//         method: 'POST',
-//         data: {
-//             action: 'get_custom_post_type_categories', // The action hooked in PHP
-//             nonce: ajax_obj.nonce, // The nonce for security
-//         },
-//         success: function(response) {
-//             if (response.success) {
-//                 // Handle success: populate categories
-//                 
-//                 // Loop through the categories and append them to the list
-//                 response.data.forEach(function(category) {
-//                     tracks_arr[category.id] = category.name;
-//                 });
-//             } else {
-//                 // Handle error (e.g., no categories)
-//                 alert('Error: ' + response.data.message);
-//             }
-//         },
-//         error: function() {
-//             // Handle AJAX request failure
-//             alert('An error occurred while fetching categories.');
-//         }
-//     });
-// });
-
-
-//end simon edit
-
 
 
 function tech_track(track_id) {

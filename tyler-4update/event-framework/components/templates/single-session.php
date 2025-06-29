@@ -53,17 +53,23 @@ $ef_options = EF_Event_Options::get_theme_options();
                 </div>
                 <div class="col-md-4 sessions single">
                     <div class="session">
-                        <span class="location"><?php _e('Location:', 'dxef'); ?> <strong><?php echo(!empty($locations) ? $locations[0]->name : ''); ?></strong></span>
                         <span class="date"><?php _e('Date:', 'dxef'); ?> <strong><?php echo(!empty($date) ? date_i18n(get_option('date_format'), $date) : ''); ?></strong></span>
                         <span class="time"><?php _e('Time:', 'dxef'); ?> <strong><?php echo $time; ?> - <?php echo $end_time; ?></strong></span>
                         <span class="speakers-thumbs">
                             <?php
                             if (!empty($speakers_list)) {
                                 foreach ($speakers_list as $speaker_id) {
-                                    ?>
+                                    $speaker_title = get_post_meta($speaker_id, 'speaker_title', true);
+                                    $company_name = get_post_meta($speaker_id, 'company_name', true);
+                                ?>
                                     <a href = "<?php echo get_permalink($speaker_id); ?>" class="speaker<?php if (get_post_meta($speaker_id, 'speaker_keynote', true) == 1) echo ' featured'; ?>">
                                         <?php echo get_the_post_thumbnail($speaker_id, 'post-thumbnail', array('title' => get_the_title($speaker_id))); ?>
-                                        <span class="name"><span class="text-fit"><?php echo get_the_title($speaker_id); ?></span></span>
+                                        <span class="name">
+                                            <span class="speaker_name"><?php echo get_the_title($speaker_id); ?></span>
+                                            <span class="speaker_title"><?php echo $speaker_title; ?></span>
+                                            <span class="speaker_company"><?php echo $company_name; ?></span>
+                                        </span>
+
                                     </a>
                                     <?php
                                 }

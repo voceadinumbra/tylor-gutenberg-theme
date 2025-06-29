@@ -1057,20 +1057,27 @@ h2 + .btn-header {
     width: 100%;
     border-bottom: 2px solid #d2d2d2;
 }
+
 .sessions.list .time {
     display: block;
     float: left;
-    width: 20%;
-    padding-right: 7%;
     color: #939393;
-    font-size: 14px; font-weight: 300;
+    font-size: 14px;
+    font-weight: 300;
+    padding-right: 0;
+    min-width: 140px;
+    flex-shrink: 0;
 }
 .sessions.list .session-inner {
-    margin: 0; padding: 0;
-    height: auto; width: auto;
+    margin: 0; 
+    padding: 0;
+    height: auto; 
+    width: auto;
     background: none;
     text-align: left;
     border-radius: 0;
+    position: relative;
+    flex: 1;
 }
 .sessions.list .session .title {
     display: block;
@@ -1099,9 +1106,47 @@ h2 + .btn-header {
     font-size: 14px; font-weight: 500;
     text-decoration: none;
 }
-.sessions.list .session .speaker img {
+
+.sessions.list .session .speaker img
+{
+    width: 100px;
     float: left;
 }
+.schedule-container {
+    display: grid;
+}
+
+h3.date-header {
+    border-top: 4px solid #b2b193;
+    background: #fff;
+    border-bottom: 2px solid #d2d2d2;
+    padding: 14px 0;
+    display: block;
+}
+
+
+span.speakers-thumbs img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+}
+
+span.speakers-thumbs a {
+    display: block;
+    float: left;
+    margin: 6px 0;
+    padding: 0 16px 0 1px;
+    color: #242424;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    height: auto !important;
+}
+
+ .schedule-container span.speakers-thumbs a {
+    width: 50% !important;
+}   
+
 .sessions.list .session .speaker .name {
     display: block;
     margin: 0 0 0 62px; padding: 0;
@@ -1124,7 +1169,8 @@ h2 + .btn-header {
 }
 
 /* sessions filtering */
-.schedule ul ul {
+.schedule ul ul,
+.schedule-container ul ul{
     display: none;
     position: absolute;
     background-color: #3d3d3d;
@@ -1136,26 +1182,31 @@ h2 + .btn-header {
     z-index: 100;
     margin-left: 3px;
 }
-/*
-.schedule ul li:hover > ul {
-    display: block;
-}
-*/
-.schedule .hover {
+
+
+.schedule .hover,
+.schedule-container .hover{
 	display: block;
 }
-.schedule ul ul li {
+
+.schedule ul ul li,
+.schedule-container ul ul li {
     position: relative;
     display: block;
     color: #fff;
     padding: 3px 0;
 }
-.schedule ul ul li a {
-    padding: 7px 14px;
+
+.schedule ul ul li a,
+.schedule-container ul ul li a{
+    padding: 3px 9px;
     max-height: none;
-    height: auto;
+    width: 100%;
+    display: block;
 }
-.schedule ul ul li a:hover {
+
+.schedule ul ul li a:hover,
+.schedule-container ul ul li a:hover {
     color:#fff;
 }
 
@@ -1200,15 +1251,7 @@ h2 + .btn-header {
     margin: 0 0.5em 0 0;
     float: left;
 }
-.sessions.single .speaker .name {
-    display: table;
-    height: 54px;
-}
-.sessions.single .speaker .name>span {
-    display: table-cell;
-    vertical-align: middle;
-    height: 54px; max-height: 54px; max-width: 70px;
-}
+
 .single-session-link {
 	cursor: default;
 }

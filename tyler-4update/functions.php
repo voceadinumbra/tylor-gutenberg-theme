@@ -2019,10 +2019,6 @@ function render_speakers_block($attributes) {
  * FSE Session Template Shortcodes and functionality
  */
 
-
-
-
-
  // Session Navigation Links
 function session_navigation_shortcode() {
     if (!is_singular()) return '';
@@ -2266,8 +2262,6 @@ function get_fallback_session_fields() {
     );
 }
 
-
-
 /**
  * Add speaker meta fields functionality for FSE template
  */
@@ -2377,25 +2371,15 @@ function add_speaker_archive_body_class($classes) {
 }
 add_filter('body_class', 'add_speaker_archive_body_class');
 
-
-
-
-
-
-
-
 /**
  * Shortcode approach for FSE Schedule Template
  * 
- * 
- * 
- * 
  */
 
-// Schedule Filter Shortcode - Updated to handle multiple session types
+// Schedule Filter Shortcode - Works with any session type
 function tyler_schedule_filter_shortcode($atts) {
     $atts = shortcode_atts(array(
-        'session_type' => 'sessiontwo' // Default to sessiontwo for backward compatibility
+        'session_type' => 'sessiontwo'
     ), $atts);
     
     $session_type = $atts['session_type'];
@@ -2405,16 +2389,36 @@ function tyler_schedule_filter_shortcode($atts) {
     $session_tracks = function_exists('sandeep_get_terms_for_post_type') ? sandeep_get_terms_for_post_type('session-track', $session_type) : array();
     $session_locations = function_exists('sandeep_get_terms_for_post_type') ? sandeep_get_terms_for_post_type('session-location', $session_type) : array();
     
-    // Generate unique container ID for multiple instances
-    $container_id = 'schedule-' . $session_type . '-' . uniqid();
+    // Generate unique ID for this instance
+    $unique_id = 'schedule-' . $session_type . '-' . uniqid();
+    
+    // Add JavaScript to footer to avoid paragraph wrapping
+    add_action('wp_footer', function() use ($session_type, $unique_id) {
+        ?>
+        <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                window.session_type = '<?php echo esc_js($session_type); ?>';
+                $('#<?php echo esc_js($unique_id); ?>').attr('data-current-session-type', '<?php echo esc_js($session_type); ?>');
+                
+                if (typeof updateSchedule === 'function') {
+                    updateSchedule(null, null, null);
+                }
+            });
+        })(jQuery);
+        </script>
+        <?php
+    });
     
     ob_start();
     ?>
-    <div class="schedule-container" data-session-type="<?php echo esc_attr($session_type); ?>" id="<?php echo esc_attr($container_id); ?>">
-        <ul class="nav nav-tabs pull-right">
+    <div id="<?php echo esc_attr($unique_id); ?>" class="schedule-wrapper" data-session-type="<?php echo esc_attr($session_type); ?>">
+        <ul class="nav nav-tabs pull-right" data-session-type="<?php echo esc_attr($session_type); ?>">
             <?php if (!empty($session_tracks)) { ?>
             <li>
-                <a href="javascript:void(0)"><?php _e('Filter by track', 'tyler'); ?></a><ul><li><a href="#" data-track="0"><?php _e('All', 'tyler'); ?></a></li>
+                <a href="javascript:void(0)"><?php _e('Filter by track', 'tyler'); ?></a>
+                <ul>
+                    <li><a href="#" data-track="0"><?php _e('All', 'tyler'); ?></a></li>
                     <?php foreach ($session_tracks as $session_track) { ?>
                         <li><a href="#" data-track="<?php echo esc_attr($session_track->term_id); ?>" data-workshop=""><?php echo esc_html($session_track->name); ?></a></li>
                     <?php } ?>
@@ -2424,7 +2428,9 @@ function tyler_schedule_filter_shortcode($atts) {
             
             <?php if (!empty($session_locations)) { ?>
             <li>
-                <a href="javascript:void(0)"><?php _e('Filter by location', 'tyler'); ?></a><ul><li><a href="#" data-location="0"><?php _e('All', 'tyler'); ?></a></li>
+                <a href="javascript:void(0)"><?php _e('Filter by location', 'tyler'); ?></a>
+                <ul>
+                    <li><a href="#" data-location="0"><?php _e('All', 'tyler'); ?></a></li>
                     <?php foreach ($session_locations as $session_location) { ?>
                         <li><a href="#" data-location="<?php echo esc_attr($session_location->term_id); ?>"><?php echo esc_html($session_location->name); ?></a></li>
                     <?php } ?>
@@ -2433,7 +2439,10 @@ function tyler_schedule_filter_shortcode($atts) {
             <?php } ?>
             
             <li class="active">
-                <a href="javascript:void(0)" data-timestamp="0"><?php _e('Filter by days', 'tyler'); ?></a><?php if (!empty($session_dates)) { ?><ul><li><a href="#" data-timestamp="0"><?php _e('All', 'tyler'); ?></a></li>
+                <a href="javascript:void(0)" data-timestamp="0"><?php _e('Filter by days', 'tyler'); ?></a>
+                <?php if (!empty($session_dates)) { ?>
+                    <ul>
+                        <li><a href="#" data-timestamp="0"><?php _e('All', 'tyler'); ?></a></li>
                         <?php foreach ($session_dates as $session_date) { ?>
                         <?php if ($session_date->meta_value != "1580688000") { ?>
                             <li><a href="#" data-timestamp="<?php echo esc_attr($session_date->meta_value); ?>"><?php echo esc_html(date_i18n(get_option('date_format'), $session_date->meta_value)); ?></a></li>
@@ -2445,27 +2454,6 @@ function tyler_schedule_filter_shortcode($atts) {
         
         <div class="sessions list" data-session-type="<?php echo esc_attr($session_type); ?>"></div>
     </div>
-    
-    <script type="text/javascript">
-    (function($) {
-        // Set session_type for this specific container
-        $(document).ready(function() {
-            var container = $('#<?php echo esc_js($container_id); ?>');
-            var session_type = '<?php echo esc_js($session_type); ?>';
-            
-            // Store session_type in container for later use
-            container.data('session-type', session_type);
-            
-            // Update global session_type when this container is active
-            window.session_type = session_type;
-            
-            // Initialize with this session type
-            if (typeof updateSchedule === 'function') {
-                updateSchedule(null, null, null);
-            }
-        });
-    })(jQuery);
-    </script>
     <?php
     
     return ob_get_clean();
@@ -2479,14 +2467,19 @@ function tyler_loader_image_shortcode() {
 }
 add_shortcode('tyler_loader_image', 'tyler_loader_image_shortcode');
 
-// AJAX handler for loading sessions (replicates your theme's AJAX functionality)
-function tyler_load_sessions_ajax() {
-    $session_type = isset($_POST['session_type']) ? sanitize_text_field($_POST['session_type']) : 'sessiontwo';
-    $track = isset($_POST['track']) ? intval($_POST['track']) : 0;
-    $location = isset($_POST['location']) ? intval($_POST['location']) : 0;
-    $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : 0;
+// AJAX handler for loading sessions
+function tyler_get_schedule_ajax() {
+    $session_type = 'sessiontwo'; // fallback default
     
-    // Build WP_Query args based on filters
+    if (isset($_POST['session_type']) && !empty($_POST['session_type'])) {
+        $session_type = sanitize_text_field($_POST['session_type']);
+    }
+    
+    $track = isset($_POST['data-track']) ? intval($_POST['data-track']) : 0;
+    $location = isset($_POST['data-location']) ? intval($_POST['data-location']) : 0;
+    $timestamp = isset($_POST['data-timestamp']) ? sanitize_text_field($_POST['data-timestamp']) : 0;
+    
+    // Build WP_Query args
     $args = array(
         'post_type' => $session_type,
         'posts_per_page' => -1,
@@ -2498,7 +2491,7 @@ function tyler_load_sessions_ajax() {
         'order' => 'ASC'
     );
     
-    // Add track filter
+    // Add filters
     if ($track > 0) {
         $args['tax_query'][] = array(
             'taxonomy' => 'session-track',
@@ -2507,7 +2500,6 @@ function tyler_load_sessions_ajax() {
         );
     }
     
-    // Add location filter
     if ($location > 0) {
         $args['tax_query'][] = array(
             'taxonomy' => 'session-location',
@@ -2516,7 +2508,6 @@ function tyler_load_sessions_ajax() {
         );
     }
     
-    // Add timestamp filter
     if ($timestamp > 0) {
         $args['meta_query'][] = array(
             'key' => 'session_date',
@@ -2527,208 +2518,321 @@ function tyler_load_sessions_ajax() {
     
     $sessions = new WP_Query($args);
     
-    $current_date = '';
-    $output = '';
+    $response_data = array(
+        'sessions' => array(),
+        'strings' => array('more_info' => __('More info', 'tyler'))
+    );
     
     if ($sessions->have_posts()) {
         while ($sessions->have_posts()) {
             $sessions->the_post();
             
-            // Get session meta data
+            // Get session data
             $session_date = get_post_meta(get_the_ID(), 'session_date', true);
             $session_time = get_post_meta(get_the_ID(), 'session_time', true);
             $session_end_time = get_post_meta(get_the_ID(), 'session_end_time', true);
             $session_locations = wp_get_post_terms(get_the_ID(), 'session-location');
             $session_sponsor = get_post_meta(get_the_ID(), 'session_sponsor', true);
+            $workshop = get_post_meta(get_the_ID(), 'workshop', true);
+            $no_links = get_post_meta(get_the_ID(), 'no_links', true);
+            $session_color = get_post_meta(get_the_ID(), 'session_color', true);
             
-            // Format date for display
             $display_date = $session_date ? date_i18n('F j, Y', $session_date) : '';
+            $location_display = !empty($session_locations) ? $session_locations[0]->name : '';
             
-            // Add day floating header if date changed
-            if ($display_date && $display_date !== $current_date) {
-                $current_date = $display_date;
-                $output .= '<div class="followWrap" style="height: 60px;"><div class="day-floating"><span>' . esc_html($display_date) . '</span></div></div>';
-            }
+            // Get speakers
+            $speakers_array = tyler_get_session_speakers_data(get_the_ID());
             
-            // Format time display
-            $time_display = '';
-            if ($session_time) {
-                $time_display = esc_html($session_time);
-                if ($session_end_time) {
-                    $time_display .= ' - ' . esc_html($session_end_time);
-                }
-            }
+            $session_data = array(
+                'date' => $display_date,
+                'time' => $session_time ? $session_time : '',
+                'end_time' => $session_end_time ? $session_end_time : '',
+                'post_title' => get_the_title(),
+                'url' => get_permalink(),
+                'location' => $location_display,
+                'sponsor_logo' => $session_sponsor ? $session_sponsor : '',
+                'workshop' => $workshop ? 1 : 0,
+                'no_links' => $no_links ? 1 : 0,
+                'color' => $session_color ? $session_color : '',
+                'speakers' => $speakers_array
+            );
             
-            // Location display
-            $location_display = '';
-            if (!empty($session_locations)) {
-                $location_display = esc_html($session_locations[0]->name);
-            }
-            
-            // Get speakers - try different meta field names and handle multiple formats
-            $speakers_list = get_post_meta(get_the_ID(), 'speakers_list', true);
-            if (empty($speakers_list)) {
-                $speakers_list = get_post_meta(get_the_ID(), 'speakers', true);
-            }
-            if (empty($speakers_list)) {
-                $speakers_list = get_post_meta(get_the_ID(), 'session_speakers', true);
-            }
-            
-            // Also try getting all speakers meta (in case stored as multiple meta entries)
-            if (empty($speakers_list)) {
-                $all_speakers = get_post_meta(get_the_ID(), 'speakers_list');
-                if (!empty($all_speakers)) {
-                    $speakers_list = $all_speakers;
-                }
-            }
-            
-            $speakers_html = '';
-            if (!empty($speakers_list)) {
-                $speakers_html .= '<span class="speakers-thumbs">';
-                
-                // Handle different formats of speakers data
-                if (is_array($speakers_list)) {
-                    // If it's an array, could be array of IDs or array of arrays
-                    foreach ($speakers_list as $speaker_data) {
-                        if (is_array($speaker_data)) {
-                            // Handle serialized/array data
-                            foreach ($speaker_data as $speaker_id) {
-                                if (is_numeric($speaker_id)) {
-                                    $speakers_html .= tyler_build_speaker_html($speaker_id);
-                                }
-                            }
-                        } elseif (is_numeric($speaker_data)) {
-                            // Direct speaker ID
-                            $speakers_html .= tyler_build_speaker_html($speaker_data);
-                        } elseif (is_string($speaker_data)) {
-                            // String with comma-separated IDs
-                            $speaker_ids = explode(',', $speaker_data);
-                            foreach ($speaker_ids as $speaker_id) {
-                                $speaker_id = trim($speaker_id);
-                                if (is_numeric($speaker_id)) {
-                                    $speakers_html .= tyler_build_speaker_html($speaker_id);
-                                }
-                            }
-                        }
-                    }
-                } elseif (is_string($speakers_list)) {
-                    // If it's a string with IDs separated by comma
-                    $speaker_ids = explode(',', $speakers_list);
-                    foreach ($speaker_ids as $speaker_id) {
-                        $speaker_id = trim($speaker_id);
-                        if (is_numeric($speaker_id)) {
-                            $speakers_html .= tyler_build_speaker_html($speaker_id);
-                        }
-                    }
-                } elseif (is_numeric($speakers_list)) {
-                    // Single speaker ID
-                    $speakers_html .= tyler_build_speaker_html($speakers_list);
-                }
-                
-                $speakers_html .= '</span>';
-            }
-            
-            // Build the session HTML matching the exact structure
-            $output .= '<div class="session">';
-            $output .= '<span class="time">' . $time_display . '</span>';
-            $output .= '<div class="session-inner">';
-            $output .= '<img class="session_sponsor" src="' . esc_url($session_sponsor) . '" style="">';
-            $output .= '<a href="' . get_permalink() . '" class="title"><span>' . get_the_title() . '</span></a>';
-            $output .= '<span class="location">' . $location_display . '</span>';
-            $output .= $speakers_html;
-            $output .= '<a href="' . get_permalink() . '" class="more">More info <i class="icon-angle-right"></i></a>';
-            $output .= '</div>';
-            $output .= '</div>';
+            $response_data['sessions'][] = $session_data;
         }
         wp_reset_postdata();
-    } else {
-        $output = '<div class="no-sessions"><p>' . __('No sessions found for the selected criteria.', 'tyler') . '</p></div>';
     }
     
-    echo $output;
-    wp_die();
+    wp_send_json($response_data);
 }
+add_action('wp_ajax_get_schedule', 'tyler_get_schedule_ajax');
+add_action('wp_ajax_nopriv_get_schedule', 'tyler_get_schedule_ajax');
 
-// Helper function to build speaker HTML
-function tyler_build_speaker_html($speaker_id) {
-    if (!is_numeric($speaker_id)) return '';
+// Helper function to get speakers data
+function tyler_get_session_speakers_data($session_id) {
+    $speakers_array = array();
     
-    $speaker_post = get_post($speaker_id);
-    if (!$speaker_post) return '';
-    
-    $speaker_image = get_the_post_thumbnail($speaker_id, array(54, 54), array(
-        'class' => 'attachment-54x54 size-54x54 wp-post-image',
-        'loading' => 'lazy',
-        'decoding' => 'async'
-    ));
-    
-    $speaker_name = get_the_title($speaker_id);
-    $speaker_title = get_post_meta($speaker_id, 'speaker_title', true);
-    $speaker_company = get_post_meta($speaker_id, 'speaker_company', true);
-    $speaker_desc = get_post_meta($speaker_id, 'speaker_description', true);
-    
-    // If no custom fields, try content
-    if (empty($speaker_desc)) {
-        $speaker_desc = get_post_field('post_content', $speaker_id);
+    // Try different meta field names
+    $speakers_list = get_post_meta($session_id, 'speakers_list', true);
+    if (empty($speakers_list)) {
+        $speakers_list = get_post_meta($session_id, 'speakers', true);
     }
-    
-    $html = '<a href="' . get_permalink($speaker_id) . '" class="speaker">';
-    
-    if ($speaker_image) {
-        $html .= $speaker_image;
-    } else {
-        // Fallback placeholder image
-        $html .= '<img width="54" height="54" src="" class="attachment-54x54 size-54x54 wp-post-image" alt="' . esc_attr($speaker_name) . '">';
+    if (empty($speakers_list)) {
+        $speakers_list = get_post_meta($session_id, 'session_speakers', true);
     }
-    
-    $html .= '<span class="name"><span class="text-fit">';
-    $html .= '<span class="speaker_name">' . esc_html($speaker_name) . '</span>';
-    if ($speaker_title) {
-        $html .= '<span class="speaker_title"><br>' . esc_html($speaker_title) . '</span>';
-    }
-    if ($speaker_company) {
-        $html .= '<span class="speaker_company"><br>' . esc_html($speaker_company) . '</span>';
-    }
-    $html .= '</span></span>';
-    
-    // Hidden speaker title (for tooltips/popups)
-    $html .= '<span class="hidden speaker_title">';
-    $html .= '<span class="speaker_name">' . esc_html($speaker_name) . '</span>';
-    if ($speaker_title) {
-        $html .= '<span class="speaker_title"><br>' . esc_html($speaker_title) . '</span>';
-    }
-    if ($speaker_company) {
-        $html .= '<span class="speaker_company"><br>' . esc_html($speaker_company) . '</span>';
-    }
-    $html .= '</span>';
-    
-    // Hidden description
-    if ($speaker_desc) {
-        $html .= '<span class="hidden desc">';
-        if (strpos($speaker_desc, '<') !== false) {
-            // Already has HTML
-            $html .= wp_kses_post($speaker_desc);
-        } else {
-            // Plain text, wrap in div
-            $html .= '<div class="elementToProof">' . wp_kses_post(wpautop($speaker_desc)) . '</div>';
+    if (empty($speakers_list)) {
+        $all_speakers = get_post_meta($session_id, 'speakers_list');
+        if (!empty($all_speakers)) {
+            $speakers_list = $all_speakers;
         }
-        $html .= '</span>';
     }
     
-    $html .= '</a>';
+    if (!empty($speakers_list)) {
+        $speaker_ids = array();
+        
+        // Handle different formats
+        if (is_array($speakers_list)) {
+            foreach ($speakers_list as $speaker_data) {
+                if (is_array($speaker_data)) {
+                    foreach ($speaker_data as $speaker_id) {
+                        if (is_numeric($speaker_id)) {
+                            $speaker_ids[] = $speaker_id;
+                        }
+                    }
+                } elseif (is_numeric($speaker_data)) {
+                    $speaker_ids[] = $speaker_data;
+                } elseif (is_string($speaker_data)) {
+                    $ids = explode(',', $speaker_data);
+                    foreach ($ids as $speaker_id) {
+                        $speaker_id = trim($speaker_id);
+                        if (is_numeric($speaker_id)) {
+                            $speaker_ids[] = $speaker_id;
+                        }
+                    }
+                }
+            }
+        } elseif (is_string($speakers_list)) {
+            $ids = explode(',', $speakers_list);
+            foreach ($ids as $speaker_id) {
+                $speaker_id = trim($speaker_id);
+                if (is_numeric($speaker_id)) {
+                    $speaker_ids[] = $speaker_id;
+                }
+            }
+        } elseif (is_numeric($speakers_list)) {
+            $speaker_ids[] = $speakers_list;
+        }
+        
+        // Build speaker data
+        foreach ($speaker_ids as $speaker_id) {
+            $speaker_post = get_post($speaker_id);
+            if ($speaker_post) {
+                $speaker_image = get_the_post_thumbnail($speaker_id, array(54, 54), array(
+                    'class' => 'attachment-54x54 size-54x54 wp-post-image',
+                    'loading' => 'lazy',
+                    'decoding' => 'async'
+                ));
+                
+                $speaker_name = get_the_title($speaker_id);
+                $speaker_title = get_post_meta($speaker_id, 'speaker_title', true);
+                $speaker_company = get_post_meta($speaker_id, 'speaker_company', true);
+                $speaker_desc = get_post_meta($speaker_id, 'speaker_description', true);
+                $speaker_moderator = get_post_meta($speaker_id, 'speaker_moderator', true);
+                $speaker_featured = get_post_meta($speaker_id, 'speaker_featured', true);
+                
+                if (empty($speaker_desc)) {
+                    $speaker_desc = get_post_field('post_content', $speaker_id);
+                }
+                
+                $speaker_data = array(
+                    'post_title' => $speaker_name,
+                    'speaker_title' => $speaker_title ? $speaker_title : '',
+                    'company' => $speaker_company ? $speaker_company : '',
+                    'url' => get_permalink($speaker_id),
+                    'post_image' => $speaker_image ? $speaker_image : '',
+                    'desc' => $speaker_desc ? wp_kses_post($speaker_desc) : '',
+                    'speaker_moderator' => $speaker_moderator ? "1" : "0",
+                    'featured' => $speaker_featured ? true : false
+                );
+                
+                $speakers_array[] = $speaker_data;
+            }
+        }
+    }
     
-    return $html;
+    return $speakers_array;
 }
-add_action('wp_ajax_load_sessions', 'tyler_load_sessions_ajax');
-add_action('wp_ajax_nopriv_load_sessions', 'tyler_load_sessions_ajax');
 
-// Enqueue AJAX script
+// ENQUEUE SCRIPTS - WORKS WITH ALL TEMPLATES
 function tyler_enqueue_ajax_script() {
-    if (is_page_template('page-schedule-session-two.html') || has_shortcode(get_post()->post_content, 'tyler_sessions_list')) {
+    $should_enqueue = false;
+    $default_session_type = 'sessiontwo';
+    
+    // Get current page template
+    $current_template = get_page_template_slug();
+    
+    //  WORKS WITH ANY TEMPLATE CONTAINING "SCHEDULE"
+    if (strpos($current_template, 'schedule') !== false) {
+        $should_enqueue = true;
+        
+        // Auto-extract session type from template name
+        if (preg_match('/session-?(\w+)/', $current_template, $matches)) {
+            $default_session_type = 'session' . $matches[1];
+        } elseif (strpos($current_template, 'workshops') !== false) {
+            $default_session_type = 'workshops';
+        } elseif (strpos($current_template, 'keynotes') !== false) {
+            $default_session_type = 'keynotes';
+        }
+    }
+    
+    //  WORKS WITH ANY PAGE USING THE SHORTCODE
+    global $post;
+    if ($post && has_shortcode($post->post_content, 'tyler_schedule_filter')) {
+        $should_enqueue = true;
+        
+        // Shortcode session_type overrides template detection
+        preg_match('/\[tyler_schedule_filter[^\]]*session_type=["\']([^"\']*)["\']/', $post->post_content, $matches);
+        if (!empty($matches[1])) {
+            $default_session_type = $matches[1];
+        }
+    }
+    
+    //  ALSO WORKS WITH LOADER SHORTCODE
+    if ($post && has_shortcode($post->post_content, 'tyler_loader_image')) {
+        $should_enqueue = true;
+    }
+    
+    if ($should_enqueue) {
         wp_enqueue_script('jquery');
-        wp_localize_script('jquery', 'ajax_object', array(
-            'ajaxurl' => admin_url('admin-ajax.php')
+        
+        // Set up variables for schedule.js
+        wp_add_inline_script('jquery', '
+            window.ajaxurl = "' . admin_url('admin-ajax.php') . '";
+            window.session_type = "' . esc_js($default_session_type) . '";
+            var ajaxurl = window.ajaxurl;
+            var session_type = window.session_type;
+            
+            function getCurrentSessionType() {
+                var wrapperSessionType = jQuery(".schedule-wrapper").attr("data-session-type");
+                if (wrapperSessionType) return wrapperSessionType;
+                
+                var activeSessionType = jQuery(".sessions.list").attr("data-session-type");
+                if (activeSessionType) return activeSessionType;
+                
+                return window.session_type || "sessiontwo";
+            }
+        ');
+        
+        // Enqueue schedule.js
+        wp_enqueue_script(
+            'schedule-js', 
+            get_template_directory_uri() . '/js/schedule.js', 
+            array('jquery'), 
+            '1.0.0', 
+            true
+        );
+        
+        wp_localize_script('schedule-js', 'schedule_ajax', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'session_type' => $default_session_type
         ));
+        
+        // Override updateSchedule to use dynamic session_type
+        wp_add_inline_script('schedule-js', '
+            if (typeof window.originalUpdateSchedule === "undefined" && typeof updateSchedule === "function") {
+                window.originalUpdateSchedule = updateSchedule;
+                
+                window.updateSchedule = function(timestamp, location, track) {
+                    var currentSessionType = getCurrentSessionType();
+                    
+                    
+                    jQuery(".loader-img").show();
+                    if (track !== null && track !== undefined && typeof tech_track === "function") {
+                        tech_track(track);
+                    }
+                    
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: ajaxurl,
+                        data: {
+                            action: "get_schedule",
+                            session_type: currentSessionType,
+                            "data-timestamp": timestamp,
+                            "data-location": location,
+                            "data-track": track,
+                        },
+                        success: function (data) {
+                            if (data.sessions && data.sessions.length > 0) {
+                                var cur_time = 0, cur_date = 0, html = "";
+
+                                jQuery.each(data.sessions, function (index, session) {
+                                    if (session.workshop == 1) return true;
+                                    var concurrent = "", speakers = "";
+                                    var color = session.color ? \' style="color:\' + session.color + \'"\' : "";
+
+                                    if (cur_date != session.date) {
+                                        html += \'<div class="day-floating"><span>\' + session.date + "</span></div>";
+                                        cur_date = session.date;
+                                    }
+
+                                    cur_time != session.time ? cur_time = session.time : concurrent = " concurrent";
+
+                                    if (session.speakers) {
+                                        jQuery.each(session.speakers, function (i, speaker) {
+                                            var featured = speaker.featured ? " featured" : "";
+                                            var name = "";
+                                            if (speaker.speaker_moderator == "1" && session.speakers.length > 1 && i == 0) {
+                                                name += \'<span class="speaker_moderator">Moderator<br></span>\';
+                                            }
+                                            name += \'<span class="speaker_name">\' + speaker.post_title + "</span>";
+                                            if (speaker.speaker_title) name += \'<span class="speaker_title"><br>\' + speaker.speaker_title + "</span>";
+                                            if (speaker.company) name += \'<span class="speaker_company"><br>\' + speaker.company + "</span>";
+                                            
+                                            speakers += \'<a href="\' + speaker.url + \'" class="speaker\' + featured + \'"> \' + 
+                                                speaker.post_image + \' <span class="name"><span class="text-fit">\' + name + 
+                                                \'</span></span><span class="hidden speaker_title">\' + name + 
+                                                \' </span><span class="hidden desc">\' + speaker.desc + "</span></a>";
+                                        });
+                                    }
+
+                                    html += \'<div class="session\' + concurrent + \'"><span class="time">\' + session.time + " - " + session.end_time + \'</span><div class="session-inner">\';
+                                    html += \'<img class="session_sponsor" src="\' + session.sponsor_logo + \'" style="">\';
+                                    
+                                    if (session.no_links != 1) {
+                                        html += \'<a href="\' + session.url + \'" class="title"\' + color + \'><span>\' + session.post_title + "</span></a>";
+                                    } else {
+                                        html += \'<span class="title"\' + color + \'><span>\' + session.post_title + "</span></span>";
+                                    }
+                                    
+                                    html += \'<span class="location">\' + session.location + \'</span><span class="speakers-thumbs">\' + speakers + "</span>";
+                                    
+                                    if (session.no_links != 1) {
+                                        html += \'<a href="\' + session.url + \'" class="more">\' + data.strings["more_info"] + \' <i class="icon-angle-right"></i></a>\';
+                                    }
+                                    html += "</div></div>";
+                                });
+                            } else {
+                                html = \'<div class="no-results">No Session Found</div>\';
+                            }
+                            
+                            jQuery(".schedule .sessions.list").html(html);
+                            jQuery(".loader-img").hide();
+
+                            if (typeof stickyTitles === "function") {
+                                var newStickies = new stickyTitles(jQuery(".day-floating"));
+                                newStickies.load();
+                                jQuery(window).on("resize", newStickies.load);
+                                jQuery(window).on("scroll", newStickies.scroll);
+                            }
+                        },
+                        error: function() {
+                            jQuery(".schedule .sessions.list").html(\'<div class="no-results">Error loading sessions</div>\');
+                            jQuery(".loader-img").hide();
+                        }
+                    });
+                };
+            }
+        ', 'after');
     }
 }
 add_action('wp_enqueue_scripts', 'tyler_enqueue_ajax_script');

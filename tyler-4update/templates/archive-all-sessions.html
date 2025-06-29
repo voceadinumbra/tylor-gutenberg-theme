@@ -1,0 +1,742 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"default"}} -->
+<main class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+
+    <!-- wp:group {"className":"heading","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"backgroundColor":"light-gray","layout":{"type":"full"}} -->
+    <div class="wp-block-group heading has-light-gray-background-color has-background" style="padding-top:2rem;padding-bottom:2rem">
+        <!-- wp:group {"layout":{"type":"constrained"}} -->
+            <div class="wp-block-group">
+                <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"2.5rem","fontWeight":"700"}}} /-->
+            </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:2rem;padding-bottom:2rem">
+        
+        <!-- wp:post-content /-->
+        
+        <!-- wp:html -->
+        <div class="loader-img" style="display: none; text-align: center; margin: 20px 0;">
+            <img alt="Loading" src="/wp-content/themes/tyler-4update/assets/images/ajax-loader.gif" width="32" height="32" />
+        </div>
+        
+        <div class="schedule-container">
+            <ul class="nav nav-tabs pull-right" data-session-type="all">
+                <li>
+                    <a href="javascript:void(0)">Filter by Type</a><p></p>
+                    <ul class="type-filter-list">
+                        <li><a href="#" data-type="all">All Types</a></li>
+                        <li><a href="#" data-type="session">Session One</a></li>
+                        <li><a href="#" data-type="sessiontwo">Session Two</a></li>
+                        <li><a href="#" data-type="sessionthree">Session Three</a></li>
+                        <li><a href="#" data-type="sessionfour">Session Four</a></li>
+                        <li><a href="#" data-type="sessionfive">Session Five</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Filter by Track</a><p></p>
+                    <ul class="track-filter-list">
+                        <li><a href="#" data-track="0">All Tracks</a></li>
+                        <!-- Tracks will be populated dynamically -->
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Filter by Location</a><p></p>
+                    <ul class="location-filter-list">
+                        <li><a href="#" data-location="0">All Locations</a></li>
+                        <!-- Locations will be populated dynamically -->
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-timestamp="0">Filter by Date</a><p></p>
+                    <ul class="date-filter-list">
+                        <li><a href="#" data-timestamp="0">All Dates</a></li>
+                        <!-- Dates will be populated dynamically -->
+                    </ul>
+                </li>
+            </ul>
+            
+            <div class="sessions-list">
+                <!-- Sessions will be loaded here via JavaScript -->
+            </div>
+        </div>
+
+        <script>// Global variables
+let allSessions = [];
+let filteredSessions = [];
+let allTracks = [];
+let allLocations = [];
+let allDates = [];
+
+// Make key functions global so they can be called from other scripts
+window.filterSessions = filterSessions;
+window.displaySessions = displaySessions;
+window.updateSchedule = updateSchedule;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Define all your custom post types - RESTORE ORIGINAL FUNCTIONALITY
+    const sessionTypes = ['session', 'sessiontwo', 'sessionthree', 'sessionfour', 'sessionfive'];
+    
+    // Initialize filters and load data
+    initializeSchedule();
+    
+    function initializeSchedule() {
+        showLoader();
+        
+        // Attach initial event listeners for session type filter (hardcoded)
+        attachFilterEventListeners();
+        
+        // Load all session types like the original code
+        loadAllSessionTypes();
+    }
+    
+    async function loadAllSessionTypes() {
+        try {
+            
+            // RESTORE ORIGINAL: Use get_sessions as primary (for tracks/locations/dates)
+            const promises = sessionTypes.map(sessionType => 
+                fetch('/wp-admin/admin-ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    // Use original get_sessions action
+                    body: `action=get_sessions&session_type=${sessionType}`
+                }).then(response => response.text())
+            );
+            
+            const responses = await Promise.all(promises);
+            
+            // Process each response and collect speaker enhancement promises
+            const speakerPromises = [];
+            
+            responses.forEach((text, index) => {
+                try {
+                    const data = JSON.parse(text);
+                    
+                    // RESTORE ORIGINAL: Check for data.success structure
+                    if (data.success) {
+                        const sessionType = sessionTypes[index];
+                        const sessions = data.data.sessions || [];
+                        
+                        if (sessions.length > 0) {
+                            if (sessions[0].speakers) {
+                            } else {
+                                // Add speaker enhancement promise to wait for
+                                speakerPromises.push(tryGetSpeakersFromSchedule(sessionType, sessions));
+                            }
+                        }
+                        
+                        // Add session type to each session
+                        sessions.forEach(session => {
+                            session.session_type = sessionType;
+                            session.session_type_label = formatSessionTypeLabel(sessionType);
+                        });
+                        
+                        allSessions = allSessions.concat(sessions);
+                        
+                        // RESTORE ORIGINAL: Use data.data structure for tracks/locations/dates
+                        if (data.data.tracks) {
+                            mergeUniqueItems(allTracks, data.data.tracks, 'term_id');
+                        }
+                        if (data.data.locations) {
+                            mergeUniqueItems(allLocations, data.data.locations, 'term_id');
+                        }
+                        if (data.data.dates) {
+                            mergeUniqueItems(allDates, data.data.dates, 'meta_value');
+                        }
+                        
+                    } 
+                } catch (parseError) {
+                    console.error('JSON Parse Error for', sessionTypes[index], ':', parseError);
+                    console.log('Raw response that failed to parse:', text.substring(0, 500));
+                }
+            });
+            
+            // Wait for all speaker enhancement promises to complete
+            if (speakerPromises.length > 0) {                
+                await Promise.all(speakerPromises);                
+            }
+            
+            
+            // Check how many sessions have speakers now
+            const sessionsWithSpeakers = allSessions.filter(session => session.speakers && session.speakers.length > 0);
+                        
+            populateFilters(allTracks, allLocations, allDates);
+            
+            // Set default active states - RESTORE ORIGINAL BEHAVIOR
+            setActiveFilter('type', 'all');
+            setActiveFilter('track', '0');
+            setActiveFilter('location', '0'); 
+            setActiveFilter('date', '0');
+            
+            // Then apply URL parameters
+            setInitialFiltersFromURL();
+            filterSessions();
+            
+        } catch (error) {
+            console.error('Network Error:', error);
+            showError('Network error: ' + error.message);
+        } finally {
+            hideLoader();
+        }
+    }
+    
+    // Try to get speakers from get_schedule if get_sessions doesn't have them
+    async function tryGetSpeakersFromSchedule(sessionType, sessions) {
+        try {
+            
+            const response = await fetch('/wp-admin/admin-ajax.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=get_schedule&session_type=${sessionType}&data-timestamp=0&data-location=0&data-track=0`
+            });
+            
+            const text = await response.text();
+            
+            const data = JSON.parse(text);
+            
+            if (data.sessions && data.sessions.length > 0) {              
+                
+                let speakersAdded = 0;
+                
+                // Match sessions by ID or title and add speaker data
+                data.sessions.forEach(scheduleSession => {
+                    
+                    if (scheduleSession.speakers && scheduleSession.speakers.length > 0) {
+                        // Find matching session in our current sessions
+                        const matchingSession = sessions.find(session => {
+                            const idMatch = session.id && scheduleSession.id && session.id === scheduleSession.id;
+                            const titleMatch = (session.title && scheduleSession.title && session.title === scheduleSession.title) ||
+                                             (session.post_title && scheduleSession.post_title && session.post_title === scheduleSession.post_title) ||
+                                             (session.title && scheduleSession.post_title && session.title === scheduleSession.post_title) ||
+                                             (session.post_title && scheduleSession.title && session.post_title === scheduleSession.title);
+                            
+                           
+                            
+                            return idMatch || titleMatch;
+                        });
+                        
+                        if (matchingSession) {
+                            matchingSession.speakers = scheduleSession.speakers;
+                            speakersAdded++;
+                        } 
+                    } 
+                });
+                
+            } 
+        } catch (error) {
+            
+        }
+    }
+    
+    function mergeUniqueItems(targetArray, sourceArray, uniqueKey) {
+        sourceArray.forEach(item => {
+            if (!targetArray.find(existing => existing[uniqueKey] === item[uniqueKey])) {
+                targetArray.push(item);
+            }
+        });
+    }
+    
+    function formatSessionTypeLabel(sessionType) {
+        if (sessionType === 'session') {
+            return 'Session One';
+        }
+        return sessionType.replace('session', 'Session ').replace(/(\w)(\w+)/g, (match, first, rest) => 
+            first.toUpperCase() + rest.toLowerCase()
+        );
+    }
+    
+    function setActiveFilter(filterType, value) {
+        const dataAttr = filterType === 'date' ? 'data-timestamp' : `data-${filterType}`;
+        
+        // Remove active class from all links of this filter type
+        document.querySelectorAll(`[${dataAttr}]`).forEach(link => {
+            link.parentElement.classList.remove('active');
+        });
+        
+        // Add active class to selected link
+        const selectedLink = document.querySelector(`[${dataAttr}="${value}"]`);
+        if (selectedLink) {
+            selectedLink.parentElement.classList.add('active');
+        } 
+    }
+    
+    function getActiveFilterValue(filterType) {
+        const dataAttr = filterType === 'date' ? 'data-timestamp' : `data-${filterType}`;
+        
+        // Find the active li first, then get its data attribute
+        const activeItems = document.querySelectorAll(`[${dataAttr}]`);
+        for (let item of activeItems) {
+            if (item.parentElement.classList.contains('active')) {
+                return item.getAttribute(dataAttr);
+            }
+        }
+        
+        // If no active found, return default
+        return filterType === 'type' ? 'all' : '0';
+    }
+    
+    function populateFilters(tracks, locations, dates) {
+        // RESTORE ORIGINAL SESSION TYPE FILTER - Keep all 5 types
+        // The HTML already has the hardcoded session types, so we don't need to modify this
+        
+        // Populate tracks
+        const tracksList = document.querySelector('.track-filter-list');
+        if (tracksList) {
+            tracks.forEach(track => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.setAttribute('data-track', track.term_id);
+                a.textContent = track.name;
+                li.appendChild(a);
+                tracksList.appendChild(li);
+            });
+        }
+        
+        // Populate locations
+        const locationsList = document.querySelector('.location-filter-list');
+        if (locationsList) {
+            locations.forEach(location => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.setAttribute('data-location', location.term_id);
+                a.textContent = location.name;
+                li.appendChild(a);
+                locationsList.appendChild(li);
+            });
+        }
+        
+        // Populate dates
+        const datesList = document.querySelector('.date-filter-list');
+        if (datesList) {
+            dates.forEach(date => {
+                if (date.meta_value !== "1580688000") {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#';
+                    a.setAttribute('data-timestamp', date.meta_value);
+                    a.textContent = formatDate(date.meta_value);
+                    li.appendChild(a);
+                    datesList.appendChild(li);
+                }
+            });
+        }
+        
+        // Attach event listeners to all elements (both existing and new)
+        attachFilterEventListeners();
+    }
+    
+    function attachFilterEventListeners() {
+        // Add event listeners for all filter types using event delegation
+        document.querySelectorAll('[data-type], [data-track], [data-location], [data-timestamp]').forEach(link => {
+            // Remove any existing listeners first
+            link.removeEventListener('click', handleFilterClick);
+            // Add the new listener
+            link.addEventListener('click', handleFilterClick);
+        });
+    }
+    
+    function handleFilterClick(e) {
+        e.preventDefault();
+        
+        let filterType, filterValue;
+        
+        if (this.hasAttribute('data-type')) {
+            filterType = 'type';
+            filterValue = this.getAttribute('data-type');
+        } else if (this.hasAttribute('data-track')) {
+            filterType = 'track';
+            filterValue = this.getAttribute('data-track');
+        } else if (this.hasAttribute('data-location')) {
+            filterType = 'location';
+            filterValue = this.getAttribute('data-location');
+        } else if (this.hasAttribute('data-timestamp')) {
+            filterType = 'date';
+            filterValue = this.getAttribute('data-timestamp');
+        }
+        
+        setActiveFilter(filterType, filterValue);
+        updateURL();
+        filterSessions();
+    }
+    
+    function setInitialFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Set post type filter from URL parameter
+        const postTypeParam = urlParams.get('type') || 'all';
+        setActiveFilter('type', postTypeParam);
+        
+        // Set track filter from URL parameter
+        const trackParam = urlParams.get('track') || '0';
+        setActiveFilter('track', trackParam);
+        
+        // Set location filter from URL parameter
+        const locationParam = urlParams.get('location') || '0';
+        setActiveFilter('location', locationParam);
+        
+        // Set date filter from URL parameter
+        const dateParam = urlParams.get('date') || '0';
+        setActiveFilter('date', dateParam);
+    }
+    
+    function updateURL() {
+        const postTypeFilter = getActiveFilterValue('type');
+        const trackFilter = getActiveFilterValue('track');
+        const locationFilter = getActiveFilterValue('location');
+        const dateFilter = getActiveFilterValue('date');
+                      
+        let newUrl = window.location.pathname;
+        let params = [];
+        
+        if (postTypeFilter !== 'all') {
+            params.push('type=' + postTypeFilter);
+        }
+        if (trackFilter !== '0') {
+            params.push('track=' + trackFilter);
+        }
+        if (locationFilter !== '0') {
+            params.push('location=' + locationFilter);
+        }
+        if (dateFilter !== '0') {
+            params.push('date=' + dateFilter);
+        }
+        
+        if (params.length > 0) {
+            newUrl += '?' + params.join('&');
+        }
+        
+        try {
+            window.history.pushState({}, '', newUrl);
+        } catch (error) {
+            console.error('Error updating URL:', error);
+        }
+    }
+    
+    function showLoader() {
+        const loader = document.querySelector('.loader-img');
+        if (loader) loader.style.display = 'block';
+    }
+    
+    function hideLoader() {
+        const loader = document.querySelector('.loader-img');
+        if (loader) loader.style.display = 'none';
+    }
+    
+    function showError(message) {
+        const container = document.querySelector('.sessions-list');
+        if (container) {
+            container.innerHTML = `<div class="error-message" style="background: #ffebee; color: #c62828; padding: 1rem; border-radius: 4px; margin: 1rem 0;">${message}</div>`;
+        }
+    }
+    
+    function formatDate(timestamp) {
+        
+        // Handle different timestamp formats
+        let date;
+        if (typeof timestamp === 'string' && timestamp.length === 10) {
+            // Unix timestamp as string (10 digits)
+            date = new Date(parseInt(timestamp) * 1000);
+        } else if (typeof timestamp === 'number' && timestamp.toString().length === 10) {
+            // Unix timestamp as number (10 digits)
+            date = new Date(timestamp * 1000);
+        } else if (typeof timestamp === 'number' && timestamp.toString().length === 13) {
+            // Milliseconds timestamp (13 digits)
+            date = new Date(timestamp);
+        } else {
+            // Try parsing as-is
+            date = new Date(timestamp);
+        }
+        
+        
+        // Check if date is valid
+        if (isNaN(date.getTime())) {
+            console.error('Invalid date for timestamp:', timestamp);
+            return 'Date TBD';
+        }
+        
+        // Format as "May 28, 2025"
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+});
+
+// Global functions that can be called from other scripts
+function filterSessions() {
+    const getActiveFilterValue = (filterType) => {
+        const dataAttr = filterType === 'date' ? 'data-timestamp' : `data-${filterType}`;
+        
+        // Find the active li first, then get its data attribute
+        const activeItems = document.querySelectorAll(`[${dataAttr}]`);
+        for (let item of activeItems) {
+            if (item.parentElement.classList.contains('active')) {
+                return item.getAttribute(dataAttr);
+            }
+        }
+        
+        // If no active found, return default
+        return filterType === 'type' ? 'all' : '0';
+    };
+    
+    const postTypeFilter = getActiveFilterValue('type');
+    const trackFilter = getActiveFilterValue('track');
+    const locationFilter = getActiveFilterValue('location');
+    const dateFilter = getActiveFilterValue('date');
+    
+    filteredSessions = allSessions.filter(session => {
+        const postTypeMatch = postTypeFilter === 'all' || session.session_type === postTypeFilter;
+        const trackMatch = trackFilter === '0' || String(session.track_id) === String(trackFilter);
+        const locationMatch = locationFilter === '0' || String(session.location_id) === String(locationFilter);
+        const dateMatch = dateFilter === '0' || String(session.date) === String(dateFilter);                   
+        
+        return postTypeMatch && trackMatch && locationMatch && dateMatch;
+    });
+    
+    displaySessions();
+}
+
+function displaySessions() {
+    const container = document.querySelector('.sessions-list');
+    if (!container) return;    
+    
+    if (filteredSessions.length === 0) {
+        container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
+        return;
+    }
+    
+    // Group sessions by date, then by session type (RESTORE ORIGINAL GROUPING)
+    const sessionsByDate = {};
+    filteredSessions.forEach(session => {
+        const dateKey = session.date;
+        if (!sessionsByDate[dateKey]) {
+            sessionsByDate[dateKey] = {};
+        }
+        if (!sessionsByDate[dateKey][session.session_type]) {
+            sessionsByDate[dateKey][session.session_type] = [];
+        }
+        sessionsByDate[dateKey][session.session_type].push(session);
+    });
+    
+    
+    // Sort dates
+    const sortedDates = Object.keys(sessionsByDate).sort((a, b) => {
+        return parseInt(a) - parseInt(b);
+    });
+    
+    
+    // Generate HTML with date and type groupings (RESTORE ORIGINAL STRUCTURE)
+    let sessionsHTML = '';
+    
+    sortedDates.forEach(dateKey => {
+        const sessionsByType = sessionsByDate[dateKey];
+        const formattedDate = formatDate(dateKey);
+        
+        // Add date header
+        sessionsHTML += `<div class="date-group">`;
+        sessionsHTML += `<h3 class="date-header">${formattedDate}</h3>`;
+        sessionsHTML += `<div class="date-sessions">`;
+        
+        // Sort session types in proper order (not alphabetical)
+        const sessionTypeOrder = ['session', 'sessiontwo', 'sessionthree', 'sessionfour', 'sessionfive'];
+        const sortedTypes = Object.keys(sessionsByType).sort((a, b) => {
+            const indexA = sessionTypeOrder.indexOf(a);
+            const indexB = sessionTypeOrder.indexOf(b);
+            
+            // If both are in the order array, sort by their position
+            if (indexA !== -1 && indexB !== -1) {
+                return indexA - indexB;
+            }
+            
+            // If only one is in the order array, it comes first
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            
+            // If neither is in the order array, sort alphabetically
+            return a.localeCompare(b);
+        });
+        
+        
+        sortedTypes.forEach(sessionType => {
+            const sessions = sessionsByType[sessionType];
+            const typeLabel = formatSessionTypeLabel(sessionType);
+            
+            // Sort sessions by time within each type for consistent ordering
+            sessions.sort((a, b) => {
+                const timeA = a.start_time || a.time || '00:00';
+                const timeB = b.start_time || b.time || '00:00';
+                return timeA.localeCompare(timeB);
+            });
+            
+            // Add session type header (only if showing multiple types)
+            const postTypeFilter = getActiveFilterValue('type');
+            if (postTypeFilter === 'all') {
+                sessionsHTML += `<h4 class="session-type-header">${typeLabel}</h4>`;
+            }
+            
+            // Add sessions for this type
+            sessions.forEach(session => {
+                
+                // Handle session title with multiple fallbacks and debugging
+                let sessionTitle = 'Untitled Session';
+                if (session.title) {
+                    sessionTitle = session.title;
+                } else if (session.post_title) {
+                    sessionTitle = session.post_title;
+                } else if (session.name) {
+                    sessionTitle = session.name;
+                } 
+                
+                // Handle times - use start_time/end_time primarily (from get_sessions)
+                const startTime = session.start_time || session.time || 'TBD';
+                const endTime = session.end_time || 'TBD';
+                
+                
+                
+                // Build speakers HTML exactly like the original
+                let speakersHTML = '';
+                if (session.speakers && session.speakers.length > 0) {
+                    
+                    session.speakers.forEach((speaker, index) => {
+                        
+                        const featured = speaker.featured ? ' featured' : '';
+                        let name = '';
+                        
+                        // Add moderator label if applicable (like original code)
+                        if (speaker.speaker_moderator == "1" && session.speakers.length > 1 && index == 0) {
+                            name += '<span class="speaker_moderator">Moderator<br></span>';
+                        }
+                        
+                        // Add speaker name
+                        name += `<span class="speaker_name">${speaker.post_title || ''}</span>`;
+                        
+                        // Add speaker title if available
+                        if (speaker.speaker_title) {
+                            name += `<span class="speaker_title"><br>${speaker.speaker_title}</span>`;
+                        }
+                        
+                        // Add company if available
+                        if (speaker.company) {
+                            name += `<span class="speaker_company"><br>${speaker.company}</span>`;
+                        }
+                        
+                        const desc = speaker.desc || '';
+                        const speakerImage = speaker.post_image || '';
+                        const speakerUrl = speaker.url || '#';
+                        
+                        speakersHTML += `
+                            <a href="${speakerUrl}" class="speaker${featured}">
+                                ${speakerImage}
+                                <span class="name">
+                                    <span class="text-fit">${name}</span>
+                                </span>
+                                <span class="hidden speaker_title">${name}</span>
+                                <span class="hidden desc">${desc}</span>
+                            </a>
+                        `;
+                    });
+                } 
+                
+               
+                
+                sessionsHTML += `
+                    <div class="sessions list session-item session session-type-${session.session_type}" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}" data-type="${session.session_type}">
+                        <span class="time">${startTime} - ${endTime}</span>
+                        <div class="session-inner">
+                            <a href="${session.url}" class="title">
+                                <div class="session-title title">${sessionTitle}</div>                                           
+                            </a>
+                            <span class="speakers-thumbs">
+                                ${speakersHTML}
+                            </span>
+                            <a href="${session.url}" class="more">
+                                More info<i class="icon-angle-right"></i>
+                            </a>
+                        </div>                     
+                    </div>
+                `;
+            });
+        });
+
+        sessionsHTML += `</div>`; // Close date-sessions
+        sessionsHTML += `</div>`; // Close date-group
+    });
+    
+    container.innerHTML = sessionsHTML;
+}
+
+function formatDate(timestamp) {
+    
+    // Handle different timestamp formats
+    let date;
+    if (typeof timestamp === 'string' && timestamp.length === 10) {
+        // Unix timestamp as string (10 digits)
+        date = new Date(parseInt(timestamp) * 1000);
+    } else if (typeof timestamp === 'number' && timestamp.toString().length === 10) {
+        // Unix timestamp as number (10 digits)
+        date = new Date(timestamp * 1000);
+    } else if (typeof timestamp === 'number' && timestamp.toString().length === 13) {
+        // Milliseconds timestamp (13 digits)
+        date = new Date(timestamp);
+    } else {
+        // Try parsing as-is
+        date = new Date(timestamp);
+    }
+    
+    
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+        console.error('Invalid date for timestamp:', timestamp);
+        return 'Date TBD';
+    }
+    
+    // Format as "May 28, 2025"
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+}
+
+function getActiveFilterValue(filterType) {
+    const dataAttr = filterType === 'date' ? 'data-timestamp' : `data-${filterType}`;
+    
+    // Find the active li first, then get its data attribute
+    const activeItems = document.querySelectorAll(`[${dataAttr}]`);
+    for (let item of activeItems) {
+        if (item.parentElement.classList.contains('active')) {
+            return item.getAttribute(dataAttr);
+        }
+    }
+    
+    // If no active found, return default
+    return filterType === 'type' ? 'all' : '0';
+}
+
+function formatSessionTypeLabel(sessionType) {
+    if (sessionType === 'session') {
+        return 'Session One';
+    }
+    return sessionType.replace('session', 'Session ').replace(/(\w)(\w+)/g, (match, first, rest) => 
+        first.toUpperCase() + rest.toLowerCase()
+    );
+}</script>
+        <!-- /wp:html -->
+        
+    </div>
+    <!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

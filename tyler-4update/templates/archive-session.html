@@ -237,79 +237,92 @@
                 displaySessions();
             }
             
+            function displaySessions() {
+                const container = document.querySelector('.sessions-list');
+                
+                if (filteredSessions.length === 0) {
+                    container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
+                    return;
+                }
+                
+                // Group sessions by date
+                const sessionsByDate = {};
+                filteredSessions.forEach(session => {
+                    const dateKey = session.date;
+                    if (!sessionsByDate[dateKey]) {
+                        sessionsByDate[dateKey] = [];
+                    }
+                    sessionsByDate[dateKey].push(session);
+                });
+                
+                // Sort dates
+                const sortedDates = Object.keys(sessionsByDate).sort((a, b) => {
+                    return parseInt(a) - parseInt(b);
+                });
+                
+                // Generate HTML with date groupings and SmallSat Europe structure
+                let sessionsHTML = '';
+                
+                sortedDates.forEach(dateKey => {
+                    const sessions = sessionsByDate[dateKey];
+                    const formattedDate = formatDate(dateKey);
+                    
+                    // Add date header
+                    sessionsHTML += `<div class="date-group">`;
+                    sessionsHTML += `<h3 class="date-header">${formattedDate}</h3>`;
+                    sessionsHTML += `<div class="date-sessions">`;
+                    
+                    // Add sessions for this date using SmallSat Europe structure
+                    sessions.forEach(session => {
+                        sessionsHTML += `
+                            <div class="session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
+                                <span class="time">${session.start_time} - ${session.end_time}</span>
+                                <div class="session-inner">
+                                    <img class="session_sponsor" src="" style="">
+                                    <span class="title" style="color:#300a86">
+                                        <a href="${session.url}">
+                                            <span>${session.title}</span>
+                                        </a>
+                                    </span>
+                                    <span class="location">${session.location_name || ''}</span>
+                                    <span class="speakers-thumbs">
+                                        ${session.speakers ? session.speakers.map(speaker => `
+                                            <a href="${speaker.url}" class="speaker">
+                                                <img width="54" height="54" src="${speaker.image}" 
+                                                     class="attachment-54x54 size-54x54 wp-post-image" 
+                                                     alt="${speaker.name}" decoding="async" loading="lazy">
+                                                <span class="name">
+                                                    <span class="text-fit">
+                                                        ${speaker.moderator ? '<span class="speaker_moderator">Moderator<br></span>' : ''}
+                                                        <span class="speaker_name">${speaker.name}</span>
+                                                        <span class="speaker_title"><br>${speaker.title}</span>
+                                                        <span class="speaker_company"><br>${speaker.company}</span>
+                                                    </span>
+                                                </span>
+                                                <span class="hidden speaker_title">
+                                                    ${speaker.moderator ? '<span class="speaker_moderator">Moderator<br></span>' : ''}
+                                                    <span class="speaker_name">${speaker.name}</span>
+                                                    <span class="speaker_title"><br>${speaker.title}</span>
+                                                    <span class="speaker_company"><br>${speaker.company}</span>
+                                                </span>
+                                                <span class="hidden desc">
+                                                    <p>${speaker.bio || ''}</p>
+                                                </span>
+                                            </a>
+                                        `).join('') : ''}
+                                    </span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    sessionsHTML += `</div>`; // Close date-sessions
+                    sessionsHTML += `</div>`; // Close date-group
+                });
+                
+                container.innerHTML = sessionsHTML;
+            }
             
-           
- function displaySessions() {
-    const container = document.querySelector('.sessions-list');
-    
-    if (filteredSessions.length === 0) {
-        container.innerHTML = '<div class="no-sessions">No sessions found matching your filters.</div>';
-        return;
-    }
-    
-    // Group sessions by date
-    const sessionsByDate = {};
-    filteredSessions.forEach(session => {
-        const dateKey = session.date;
-        if (!sessionsByDate[dateKey]) {
-            sessionsByDate[dateKey] = [];
-        }
-        sessionsByDate[dateKey].push(session);
-    });
-    
-    // Sort dates
-    const sortedDates = Object.keys(sessionsByDate).sort((a, b) => {
-        return parseInt(a) - parseInt(b);
-    });
-    
-    // Generate HTML with date groupings
-    let sessionsHTML = '';
-    
-    sortedDates.forEach(dateKey => {
-        const sessions = sessionsByDate[dateKey];
-        const formattedDate = formatDate(dateKey);
-        
-        // Add date header
-        sessionsHTML += `<div class="date-group">`;
-        sessionsHTML += `<h3 class="date-header">${formattedDate}</h3>`;
-        sessionsHTML += `<div class="date-sessions">`;
-        
-        // Add sessions for this date
-        sessions.forEach(session => {
-            sessionsHTML += `
-                <div class="sessions list session-item session" data-track="${session.track_id}" data-location="${session.location_id}" data-date="${session.date}">
-                    <span class="time">${session.start_time} - ${session.end_time}</span>
-                    <div class="session-inner">
-                        <a href="${session.url}" class="title">
-                            <div class="session-title">${session.title}</div>
-                        </a>
-                        <span class="speakers-thumbs"></span>
-                        <a href="${session.url}" class="more">
-                            More info<i class="icon-angle-right"></i>
-                        </a>
-                    </div>                     
-                </div>
-            `;
-        });
-        
-        sessionsHTML += `</div>`; // Close date-sessions
-        sessionsHTML += `</div>`; // Close date-group
-    });
-    
-    container.innerHTML = sessionsHTML;
-}
-            
-            
-/*
-<div class="session-meta">
-    <span><strong>Track:</strong> ${session.track_name}</span>
-    <span><strong>Location:</strong> ${session.location_name}</span>
-    <span><strong>Date:</strong> ${formatDate(session.date)}</span>
-    <span><strong>Time:</strong> ${session.time}</span>
-</div> 
-
-*/
-
             function formatDate(timestamp) {
                 const date = new Date(timestamp * 1000);
                 return date.toLocaleDateString();
