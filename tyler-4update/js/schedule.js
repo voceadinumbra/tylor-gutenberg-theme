@@ -3,14 +3,49 @@
  * @param stickies
  */
 
-// Add this to the top of your schedule.js file
+// FIXED: Dynamic session type detection instead of hardcoded defaults
 if (typeof ajaxurl === 'undefined') {
     var ajaxurl = window.location.origin + '/wp-admin/admin-ajax.php';
 }
-if (typeof session_type === 'undefined') {
-    var session_type = 'sessiontwo';
+
+// IMPROVED: Dynamic session type detection function
+function getCurrentSessionType() {
+    // Priority 1: Check for data attribute on schedule wrapper
+    var wrapperSessionType = jQuery(".schedule-wrapper").attr("data-session-type");
+    if (wrapperSessionType && wrapperSessionType !== '') {
+        return wrapperSessionType;
+    }
+    
+    // Priority 2: Check for data attribute on sessions list
+    var activeSessionType = jQuery(".sessions.list").attr("data-session-type");
+    if (activeSessionType && activeSessionType !== '') {
+        return activeSessionType;
+    }
+    
+    // Priority 3: Check nav-tabs data attribute
+    var navTabsSessionType = jQuery(".nav-tabs").attr("data-session-type");
+    if (navTabsSessionType && navTabsSessionType !== '') {
+        return navTabsSessionType;
+    }
+    
+    // Priority 4: Use global window.session_type if set
+    if (typeof window.session_type !== 'undefined' && window.session_type !== '') {
+        return window.session_type;
+    }
+    
+    // Priority 5: Check for common session post types on page
+    var commonTypes = ['sessions', 'sessionone', 'sessiontwo', 'sessionthree', 'workshops', 'keynotes'];
+    for (var i = 0; i < commonTypes.length; i++) {
+        if (jQuery('[data-session-type="' + commonTypes[i] + '"]').length > 0) {
+            return commonTypes[i];
+        }
+    }
+    
+    // Last resort fallback
+    return 'sessiontwo';
 }
 
+// REMOVED: Static session_type declaration - now using dynamic detection
 
 function stickyTitles(stickies) {
   var self = this,
@@ -81,23 +116,23 @@ function getMeta(url, callback) {
 
 var style = "";
 
+// FIXED: Dynamic session type detection in updateSchedule function
 function updateSchedule(timestamp, location, track) {
+  // Get current session type dynamically
+  var currentSessionType = getCurrentSessionType();
+  
   jQuery(".loader-img").show();
   if (track !== null && track !== undefined) {
-  tech_track(track);
-}
+    tech_track(track);
+  }
+  
   jQuery.ajax({
     type: "POST",
     dataType: "json",
     url: ajaxurl,
-    //url: ajax_object.ajaxurl,
     data: {
       action: "get_schedule",
-      /**
-       * Added by Sandeep @codeable
-       * @see schedule.php for declaration of session_type variable
-       **/
-      session_type, // comes from page template
+      session_type: currentSessionType, // FIXED: Use dynamic session type
       "data-timestamp": timestamp,
       "data-location": location,
       "data-track": track,
@@ -187,13 +222,8 @@ function updateSchedule(timestamp, location, track) {
             });
 
           //alert(style);
-          html +=
-            '<img class="session_sponsor" src="' +
-            session.sponsor_logo +
-            '" style="' +
-            style +
-            '">';
-          if (session.no_links != 1)
+         
+          if (session.no_links != 1){
             html +=
               '<a href="' +
               session.url +
@@ -202,6 +232,14 @@ function updateSchedule(timestamp, location, track) {
               "><span>" +
               session.post_title +
               "</span></a>";
+            html +=
+              '<img class="session_sponsor" src="' +
+              session.sponsor_logo +
+              '" style="' +
+              style +
+              '">';
+          }
+            
           else
             html +=
               '<span class="title"' +
@@ -210,10 +248,7 @@ function updateSchedule(timestamp, location, track) {
               session.post_title +
               "</span></span>";
           html +=
-            '<span class="location">' +
-            session.location +
-            '</span> \
-                                                <span class="speakers-thumbs"> \
+            '<span class="speakers-thumbs"> \
                                                 ' +
             speakers +
             " \
@@ -259,14 +294,12 @@ if (track !== null && track !== undefined && track !== '') {
   }
 }
 
-
-
     },
-    
-    
+    error: function() {
+      jQuery(".schedule .sessions.list").html('<div class="no-results">Error loading sessions</div>');
+      jQuery(".loader-img").hide();
+    }
   });
-  
-
 }
 
 var textFit = function (el, rel) {
@@ -289,6 +322,7 @@ var textFit = function (el, rel) {
     textFit(el, rel);
   }
 };
+
 var initTextFit = function () {
   jQuery(".text-fit").each(function (i, el) {
     textFit(el);
@@ -332,12 +366,6 @@ jQuery(document).ready(function ($) {
       if ($(".schedule li").children("ul").hasClass("hover")) {
         $(".schedule li").children("ul").removeClass("hover");
       }
-/*
-      if ($(".schedule-container li").children("ul").hasClass("hover")) {
-        $(".schedule-container li").children("ul").removeClass("hover");
-      }
-        */
-
     },
   );
 
@@ -363,20 +391,17 @@ if (ptrack != undefined && ptrack !== 'null' && ptrack !== '') {
   
 });
 
-
 function checkUrlParameter(parameterName) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.has(parameterName);
 }
 
-
-  function appendParameterToURL(url, paramName, paramValue) {
+function appendParameterToURL(url, paramName, paramValue) {
   let newURL = new URL(url);
   newURL.searchParams.append(paramName, paramValue);
   return newURL.toString();
 }
-
 
 function updateUrlParameter(paramName, paramValue) {
   const url = new URL(window.location.href);
@@ -393,20 +418,48 @@ function updateUrlParameter(paramName, paramValue) {
   window.history.pushState({ path: url.toString() }, '', url.toString());
 }
 
-
 function tech_track(track_id) {
-var tracks_arr = {7: "Business", 11: "Keynotes", 16: "Market Briefs", 22: "Missions: Experimental/Scientific", 23: "Missions: Commercial", 24: "Missions: Other", 25: "Research: Space Science", 26: "Research: Earth Science", 27: "Research: Scientific Payloads", 28: "Research: Other", 29: "RF Engineering", 30: "Optical Engineering", 31: "Systems Engineering &amp; Integration", 32: "Engineering: Statistical Analysis and Application", 33: "Engineering: Satellite Manufacturing", 34: "Engineering: Other", 35: "Earth Observation", 36: "TT&amp;C", 37: "Propulsion", 38: "Launchers", 39: "Ground Systems", 46: "Ground: Antenna Design", 47: "Ground: Signal Processing and Distribution", 48: "Ground: Other", 40: "Constellation Design", 41: "Situational Awareness", 42: "Simulation, Modeling and Automation", 43: "Systems Analysis", 44: "AI/ML in Satellite Data Missions", 45: "Other"};
+  var tracks_arr = {
+    7: "Business", 
+    11: "Keynotes", 
+    16: "Market Briefs", 
+    22: "Missions: Experimental/Scientific", 
+    23: "Missions: Commercial", 
+    24: "Missions: Other", 
+    25: "Research: Space Science", 
+    26: "Research: Earth Science", 
+    27: "Research: Scientific Payloads", 
+    28: "Research: Other", 
+    29: "RF Engineering", 
+    30: "Optical Engineering", 
+    31: "Systems Engineering &amp; Integration", 
+    32: "Engineering: Statistical Analysis and Application", 
+    33: "Engineering: Satellite Manufacturing", 
+    34: "Engineering: Other", 
+    35: "Earth Observation", 
+    36: "TT&amp;C", 
+    37: "Propulsion", 
+    38: "Launchers", 
+    39: "Ground Systems", 
+    46: "Ground: Antenna Design", 
+    47: "Ground: Signal Processing and Distribution", 
+    48: "Ground: Other", 
+    40: "Constellation Design", 
+    41: "Situational Awareness", 
+    42: "Simulation, Modeling and Automation", 
+    43: "Systems Analysis", 
+    44: "AI/ML in Satellite Data Missions", 
+    45: "Other"
+  };
+  
   const targetElement = document.querySelector('.track_name');
   if (targetElement) {
-  if (tracks_arr[track_id]) {
-  targetElement.innerHTML = "<b>TRACK:</b> " + tracks_arr[track_id];
-}
-  else{
-   targetElement.innerHTML = "&nbsp;";
-  }
-  
+    if (tracks_arr[track_id]) {
+      targetElement.innerHTML = "<b>TRACK:</b> " + tracks_arr[track_id];
+    } else {
+      targetElement.innerHTML = "&nbsp;";
+    }
   } 
-
 }
 
 window.addEventListener("popstate", function (event) {
@@ -415,7 +468,6 @@ window.addEventListener("popstate", function (event) {
   const validTrack = (track && track !== 'null') ? track : null;
   updateSchedule(null, null, validTrack); // Reload schedule based on updated track parameter
 });
-
 
 function cleanupTrackParameter() {
   const trackParam = getUrlParameter('track');

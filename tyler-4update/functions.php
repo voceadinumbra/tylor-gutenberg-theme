@@ -2263,7 +2263,7 @@ function get_fallback_session_fields() {
 }
 
 /**
- * Add speaker meta fields functionality for FSE template
+ * Add speaker meta fields functionality for FSE template XYZ
  */
 
 // Enqueue script for speaker archive functionality
@@ -2372,14 +2372,16 @@ function add_speaker_archive_body_class($classes) {
 add_filter('body_class', 'add_speaker_archive_body_class');
 
 /**
- * Shortcode approach for FSE Schedule Template
+ * Shortcode approach for FSE Schedule Template XYZ
  * 
  */
 
 // Schedule Filter Shortcode - Works with any session type
+
+
 function tyler_schedule_filter_shortcode($atts) {
     $atts = shortcode_atts(array(
-        'session_type' => 'sessiontwo'
+        'session_type' => 'sessiontwo' // Keep as default only for backward compatibility
     ), $atts);
     
     $session_type = $atts['session_type'];
@@ -2594,7 +2596,10 @@ function tyler_schedule_filter_shortcode($atts) {
             </li>
         </ul>
         
+       
         <div class="sessions list" data-session-type="<?php echo esc_attr($session_type); ?>"></div>
+        
+
         <style>
 /* Enhanced dropdown styles with mobile fixes */
 #<?php echo esc_attr($unique_id); ?> .nav-tabs {
@@ -2767,7 +2772,8 @@ add_shortcode('tyler_loader_image', 'tyler_loader_image_shortcode');
 
 // AJAX handler for loading sessions
 function tyler_get_schedule_ajax() {
-    $session_type = 'sessiontwo'; // fallback default
+    // FIXED: Default fallback based on current context
+    $session_type = tyler_get_default_session_type();
     
     if (isset($_POST['session_type']) && !empty($_POST['session_type'])) {
         $session_type = sanitize_text_field($_POST['session_type']);
@@ -2865,6 +2871,48 @@ function tyler_get_schedule_ajax() {
 add_action('wp_ajax_get_schedule', 'tyler_get_schedule_ajax');
 add_action('wp_ajax_nopriv_get_schedule', 'tyler_get_schedule_ajax');
 
+// NEW: Helper function to get the default session type dynamically
+function tyler_get_default_session_type() {
+    // First, try to get from current page context
+    global $post;
+    
+    // Check if shortcode is used with explicit session_type
+    if ($post && has_shortcode($post->post_content, 'tyler_schedule_filter')) {
+        preg_match('/\[tyler_schedule_filter[^\]]*session_type=["\']([^"\']*)["\']/', $post->post_content, $matches);
+        if (!empty($matches[1])) {
+            return $matches[1];
+        }
+    }
+    
+    // Check current page template
+    $current_template = get_page_template_slug();
+    if (strpos($current_template, 'schedule') !== false) {
+        // Auto-extract session type from template name
+        if (preg_match('/session-?(\w+)/', $current_template, $matches)) {
+            return 'session' . $matches[1];
+        } elseif (strpos($current_template, 'workshops') !== false) {
+            return 'workshops';
+        } elseif (strpos($current_template, 'keynotes') !== false) {
+            return 'keynotes';
+        }
+    }
+    
+    // Check for other common session post types
+    $common_session_types = array('sessions', 'session', 'sessionone', 'sessiontwo', 'sessionthree', 'workshops', 'keynotes');
+    foreach ($common_session_types as $type) {
+        if (post_type_exists($type)) {
+            // Check if this post type has any posts
+            $count = wp_count_posts($type);
+            if ($count && $count->publish > 0) {
+                return $type;
+            }
+        }
+    }
+    
+    // Last resort fallback
+    return 'sessiontwo';
+}
+
 // Helper function to get speakers data
 function tyler_get_session_speakers_data($session_id) {
     $speakers_array = array();
@@ -2960,10 +3008,10 @@ function tyler_get_session_speakers_data($session_id) {
     return $speakers_array;
 }
 
-// ENQUEUE SCRIPTS - WORKS WITH ALL TEMPLATES
+// IMPROVED ENQUEUE SCRIPTS - WORKS WITH ALL SESSION TYPES
 function tyler_enqueue_ajax_script() {
     $should_enqueue = false;
-    $default_session_type = 'sessiontwo';
+    $default_session_type = tyler_get_default_session_type(); // Use dynamic default
     
     // Get current page template
     $current_template = get_page_template_slug();
@@ -3016,7 +3064,7 @@ function tyler_enqueue_ajax_script() {
                 var activeSessionType = jQuery(".sessions.list").attr("data-session-type");
                 if (activeSessionType) return activeSessionType;
                 
-                return window.session_type || "sessiontwo";
+                return window.session_type || "' . esc_js($default_session_type) . '";
             }
         ');
         

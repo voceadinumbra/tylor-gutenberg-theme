@@ -284,7 +284,10 @@ font-weight:500;
 	flex-shrink: 0;
 }
 
-
+.page-template-archive-all-sessions .sessions.list.session-item 
+{
+    border-bottom: 2px solid #d2d2d2;
+}
 
 .sessions.list .session .speaker .name {
 	margin-left: 120px;
