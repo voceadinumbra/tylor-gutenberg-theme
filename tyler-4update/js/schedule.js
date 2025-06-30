@@ -242,11 +242,13 @@ function updateSchedule(timestamp, location, track) {
             
           else
             html +=
-              '<span class="title"' +
+              '<a href="' +
+              session.url +
+              '" class="title"' +
               color +
               "><span>" +
               session.post_title +
-              "</span></span>";
+              "</span></a>";
           html +=
             '<span class="speakers-thumbs"> \
                                                 ' +
