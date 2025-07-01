@@ -8,7 +8,7 @@ if (typeof ajaxurl === 'undefined') {
     var ajaxurl = window.location.origin + '/wp-admin/admin-ajax.php';
 }
 
-// IMPROVED: Dynamic session type detection function
+// IMPROVED: Dynamic session type detection function with URL-based fallback
 function getCurrentSessionType() {
     // Priority 1: Check for data attribute on schedule wrapper
     var wrapperSessionType = jQuery(".schedule-wrapper").attr("data-session-type");
@@ -34,11 +34,29 @@ function getCurrentSessionType() {
     }
     
     // Priority 5: Check for common session post types on page
-    var commonTypes = ['sessions', 'sessionone', 'sessiontwo', 'sessionthree', 'workshops', 'keynotes'];
+    var commonTypes = ['session','sessions', 'sessionone', 'sessiontwo', 'sessionthree', 'sessionfour', 'sessionfive', 'workshops', 'keynotes'];
     for (var i = 0; i < commonTypes.length; i++) {
         if (jQuery('[data-session-type="' + commonTypes[i] + '"]').length > 0) {
             return commonTypes[i];
         }
+    }
+    
+    // NEW: Priority 6: Detect session type from URL path
+    var pathname = window.location.pathname.toLowerCase();
+    if (pathname.includes('sessions-five') || pathname.includes('sessionfive')) {
+        return 'sessionfive';
+    } else if (pathname.includes('sessions-four') || pathname.includes('sessionfour')) {
+        return 'sessionfour';
+    } else if (pathname.includes('sessions-three') || pathname.includes('sessionthree')) {
+        return 'sessionthree';
+    } else if (pathname.includes('sessions-two') || pathname.includes('sessiontwo')) {
+        return 'sessiontwo';
+    } else if (pathname.includes('sessions-one') || pathname.includes('sessionone')) {
+        return 'sessionone';
+    } else if (pathname.includes('workshops')) {
+        return 'workshops';
+    } else if (pathname.includes('keynotes')) {
+        return 'keynotes';
     }
     
     // Last resort fallback
@@ -116,10 +134,12 @@ function getMeta(url, callback) {
 
 var style = "";
 
-// FIXED: Dynamic session type detection in updateSchedule function
+// FIXED: Dynamic session type detection in updateSchedule function with debugging
 function updateSchedule(timestamp, location, track) {
   // Get current session type dynamically
   var currentSessionType = getCurrentSessionType();
+  
+
   
   jQuery(".loader-img").show();
   if (track !== null && track !== undefined) {
@@ -138,6 +158,7 @@ function updateSchedule(timestamp, location, track) {
       "data-track": track,
     },
     success: function (data) {
+      
       if (data.sessions && data.sessions.length > 0) {
         var cur_time = 0;
         var cur_date = 0;
@@ -282,6 +303,9 @@ function updateSchedule(timestamp, location, track) {
       jQuery(window).on("resize", newStickies.load);
       jQuery(window).on("scroll", newStickies.scroll);
       
+      // Update menu state to reflect current track
+      updateMenuState(track);
+      
       
       
 //here
@@ -297,7 +321,8 @@ if (track !== null && track !== undefined && track !== '') {
 }
 
     },
-    error: function() {
+    error: function(xhr, status, error) {
+      console.error('AJAX error:', {xhr: xhr, status: status, error: error});
       jQuery(".schedule .sessions.list").html('<div class="no-results">Error loading sessions</div>');
       jQuery(".loader-img").hide();
     }
@@ -348,6 +373,84 @@ var getUrlParameter = function getUrlParameter(sParam) {
   }
 };
 
+// NEW: Function to update menu state based on current track
+function updateMenuState(trackId) {
+  // Remove active state from all track menu items
+  jQuery('.schedule a[data-track], .tracker a[data-track]').removeClass('active selected current');
+  jQuery('.schedule li, .tracker li').removeClass('active selected current');
+  
+  // Also remove from any other potential menu containers
+  jQuery('nav a[data-track], .nav a[data-track], .menu a[data-track]').removeClass('active selected current');
+  jQuery('nav li, .nav li, .menu li').removeClass('active selected current');
+  
+  if (trackId && trackId !== 'null' && trackId !== '') {
+    // Add active state to the selected track - try multiple selectors
+    var targetLinks = jQuery([
+      '.schedule a[data-track="' + trackId + '"]',
+      '.tracker a[data-track="' + trackId + '"]', 
+      'nav a[data-track="' + trackId + '"]',
+      '.nav a[data-track="' + trackId + '"]',
+      '.menu a[data-track="' + trackId + '"]'
+    ].join(', '));
+    
+    var targetParents = targetLinks.closest('li');
+    
+    targetLinks.addClass('active selected current');
+    targetParents.addClass('active selected current');
+    
+    // Also check for any dropdown or submenu that should be expanded
+    targetParents.closest('ul').addClass('show');
+    targetParents.closest('li').addClass('expand');
+    
+    // Handle nav-tabs specifically if they exist
+    jQuery('.nav-tabs a[data-track="' + trackId + '"]').addClass('active');
+    jQuery('.nav-tabs li').has('a[data-track="' + trackId + '"]').addClass('active');
+    
+  } else {
+    // If no track selected, highlight "All" or default option
+    var allSelectors = [
+      '.schedule a:not([data-track])',
+      '.tracker a:not([data-track])',
+      'nav a:not([data-track])',
+      '.nav a:not([data-track])',
+      '.menu a:not([data-track])'
+    ];
+    
+    var allLinks = jQuery(allSelectors.join(', ')).filter(function() {
+      var text = jQuery(this).text().toLowerCase();
+      return text.includes('all') || text.includes('show all') ||
+             jQuery(this).attr('data-track') === '' ||
+             jQuery(this).attr('data-track') === undefined;
+    });
+    
+    // If no "all" links found, try to find the first menu item
+    if (allLinks.length === 0) {
+      allLinks = jQuery('.schedule a, .tracker a, nav a, .nav a, .menu a').first();
+    }
+    
+    allLinks.addClass('active selected current');
+    allLinks.closest('li').addClass('active selected current');
+    
+  }
+}
+
+// NEW: Helper function to initialize schedule with better timing
+function initializeScheduleWithTrack() {
+  // Clean up any existing track=null parameters
+  cleanupTrackParameter();
+
+  var ptrack = getUrlParameter("track");
+
+  // Update menu state first
+  updateMenuState(ptrack);
+
+  if (ptrack != undefined && ptrack !== 'null' && ptrack !== '') {
+    updateSchedule(null, null, ptrack);
+  } else {
+    updateSchedule(null, null, null);
+  }
+}
+
 jQuery(document).ready(function ($) {
   var newStickies = new stickyTitles(jQuery(".day-floating"));
   newStickies.load();
@@ -360,10 +463,15 @@ jQuery(document).ready(function ($) {
     ".schedule a[data-timestamp], .schedule a[data-location], .schedule a[data-track], .tracker a[data-track]",
     function (e) {
       e.preventDefault();
+      var clickedTrack = jQuery(this).attr("data-track");
+      
+      // Update menu state before updating schedule
+      updateMenuState(clickedTrack);
+      
       updateSchedule(
         jQuery(this).attr("data-timestamp"),
         jQuery(this).attr("data-location"),
-        jQuery(this).attr("data-track"),
+        clickedTrack,
       );
       if ($(".schedule li").children("ul").hasClass("hover")) {
         $(".schedule li").children("ul").removeClass("hover");
@@ -380,16 +488,28 @@ jQuery(document).ready(function ($) {
     },
   );
  
-// Clean up any existing track=null parameters
-cleanupTrackParameter();
+// IMPROVED: Better timing for initial track parameter handling
+// Use setTimeout to ensure DOM is fully ready
+setTimeout(function() {
+  initializeScheduleWithTrack();
+}, 100);
 
-var ptrack = getUrlParameter("track");
+// BACKUP: Also try after window load event if elements still not ready
+$(window).on('load', function() {
+  // Only initialize if not already done successfully
+  if (!window.scheduleInitialized && jQuery(".sessions.list").length > 0) {
+    initializeScheduleWithTrack();
+    window.scheduleInitialized = true;
+  }
+});
 
-if (ptrack != undefined && ptrack !== 'null' && ptrack !== '') {
-  updateSchedule(null, null, ptrack);
-} else {
-  updateSchedule(null, null, null);
-}
+// ADDITIONAL: Ensure menu updates even if schedule was already initialized
+setTimeout(function() {
+  if (!window.scheduleInitialized) {
+    var ptrack = getUrlParameter("track");
+    updateMenuState(ptrack);
+  }
+}, 300);
   
 });
 
@@ -468,6 +588,10 @@ window.addEventListener("popstate", function (event) {
   const track = getUrlParameter("track");
   // Only pass track if it's not null or 'null'
   const validTrack = (track && track !== 'null') ? track : null;
+  
+  // Update menu state when navigating with browser buttons
+  updateMenuState(validTrack);
+  
   updateSchedule(null, null, validTrack); // Reload schedule based on updated track parameter
 });
 

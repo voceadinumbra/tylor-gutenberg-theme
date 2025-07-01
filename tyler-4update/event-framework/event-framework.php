@@ -215,8 +215,6 @@ class DX_Event_Framework {
 
         if (is_singular('speaker') && false === strpos($template, 'single-speaker.php')) {
             return EF_COMPONENTS_DIR . 'templates/single-speaker.php';
-        } else if (is_singular('session') && false === strpos($template, 'single-session.php')) {
-            return EF_COMPONENTS_DIR . 'templates/single-session.php';
         }
 
         return $template;

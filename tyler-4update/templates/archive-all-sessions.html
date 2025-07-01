@@ -151,8 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                     } 
                 } catch (parseError) {
-                    console.error('JSON Parse Error for', sessionTypes[index], ':', parseError);
-                    console.log('Raw response that failed to parse:', text.substring(0, 500));
+                    console.error('JSON Parse Error for', sessionTypes[index], ':', parseError);                    
                 }
             });
             

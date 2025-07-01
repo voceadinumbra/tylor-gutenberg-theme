@@ -1372,7 +1372,7 @@ add_action('init', function () {
 	}
 }, 60);
 add_action('add_meta_boxes', function () {
-	foreach (["sessiontwo", 'sessionthree', "sessionfour","sessionfive"] as  $type) {
+	foreach (["session", "sessiontwo", 'sessionthree', "sessionfour","sessionfive"] as  $type) {
 		add_meta_box(
 			'metabox-session',
 			__('Session Details', 'dxef'),
@@ -1392,7 +1392,7 @@ add_action('add_meta_boxes', function () {
 	}
 });
 add_action('save_post', function ($id) {
-	if (isset($_POST['post_type']) && in_array($_POST['post_type'], ["sessiontwo", "sessionthree", 'sessionfour',"sessionfive"])) {
+	if (isset($_POST['post_type']) && in_array($_POST['post_type'], ["session", "sessiontwo", "sessionthree", 'sessionfour',"sessionfive"])) {
 		if (isset($_POST['session_home']))
 			update_post_meta($id, 'session_home', $_POST['session_home']);
 		else
@@ -1437,7 +1437,7 @@ add_action('save_post', function ($id) {
 add_action('admin_enqueue_scripts', function ($hook) {
 	global $post_type;
 	if (in_array($hook, array('post.php', 'post-new.php'))) {
-		if (in_array($post_type, ["sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
+		if (in_array($post_type, ["session", "sessiontwo", "sessionthree", "sessionfour","sessionfive"])) {
 			wp_enqueue_script('jquery-ui-datepicker');
 			wp_enqueue_style('jquery-ui-datepicker', get_template_directory_uri() . '/assets/css/admin/smoothness/jquery-ui-1.10.3.custom.min.css');
 			wp_enqueue_script('jquery-ui-sortable');
@@ -2399,6 +2399,23 @@ function tyler_schedule_filter_shortcode($atts) {
         ?>
         <script type="text/javascript">
         (function($) {
+
+            // NEW: Function to get URL parameter
+            function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                    }
+                }
+            }
+
             $(document).ready(function() {
                 window.session_type = '<?php echo esc_js($session_type); ?>';
                 $('#<?php echo esc_js($unique_id); ?>').attr('data-current-session-type', '<?php echo esc_js($session_type); ?>');
@@ -2406,14 +2423,120 @@ function tyler_schedule_filter_shortcode($atts) {
                 // Initialize active state management
                 initializeScheduleFilterStates('<?php echo esc_js($unique_id); ?>');
                 
+                // Check for URL parameters FIRST before loading content
+                const trackParam = getUrlParameter('track');
+                const locationParam = getUrlParameter('location');
+                const timestampParam = getUrlParameter('timestamp');
+                
+                // Use URL parameters for initial load (or null if none exist)
+                const initialTrack = (trackParam && trackParam !== 'null' && trackParam !== '') ? trackParam : null;
+                const initialLocation = (locationParam && locationParam !== 'null' && locationParam !== '') ? locationParam : null;
+                const initialTimestamp = (timestampParam && timestampParam !== 'null' && timestampParam !== '') ? timestampParam : null;
+                
                 if (typeof updateSchedule === 'function') {
-                    updateSchedule(null, null, null);
+                    updateSchedule(initialTimestamp, initialLocation, initialTrack);
                 }
             });
+
+            
+
+            // NEW: Function to set initial active states based on URL parameters
+            function setInitialActiveStates(containerId) {
+                const container = $('#' + containerId);
+                
+                // Get URL parameters
+                const trackParam = getUrlParameter('track');
+                const locationParam = getUrlParameter('location');
+                const timestampParam = getUrlParameter('timestamp');
+                
+                // Set track active state
+                if (trackParam && trackParam !== 'null' && trackParam !== '') {
+                    const trackLink = container.find('a[data-track="' + trackParam + '"]');
+                    if (trackLink.length > 0) {
+                        // Remove active from all track items
+                        container.find('.nav-tabs li ul li').removeClass('active');
+                        // Add active to selected track
+                        trackLink.parent('li').addClass('active');
+                        
+                        // Update parent dropdown
+                        const parentDropdown = trackLink.closest('.nav-tabs > li');
+                        parentDropdown.addClass('active');
+                        updateParentLinkText(parentDropdown, false, trackLink.text());
+                        
+                    }
+                }
+                
+                // Set location active state
+                if (locationParam && locationParam !== 'null' && locationParam !== '') {
+                    const locationLink = container.find('a[data-location="' + locationParam + '"]');
+                    if (locationLink.length > 0) {
+                        locationLink.parent('li').addClass('active');
+                        const parentDropdown = locationLink.closest('.nav-tabs > li');
+                        parentDropdown.addClass('active');
+                        updateParentLinkText(parentDropdown, false, locationLink.text());
+                        
+                    }
+                }
+                
+                // Set timestamp active state
+                if (timestampParam && timestampParam !== 'null' && timestampParam !== '') {
+                    const timestampLink = container.find('a[data-timestamp="' + timestampParam + '"]');
+                    if (timestampLink.length > 0) {
+                        timestampLink.parent('li').addClass('active');
+                        const parentDropdown = timestampLink.closest('.nav-tabs > li');
+                        parentDropdown.addClass('active');
+                        updateParentLinkText(parentDropdown, false, timestampLink.text());
+                        
+                        
+                    }
+                }
+            }
+
+            // NEW: Function to get all currently active filter values
+            function getAllActiveFilters(containerId) {
+                const container = $('#' + containerId);
+                
+                // Get active track
+                let activeTrack = null;
+                const activeTrackLink = container.find('.nav-tabs li ul li.active a[data-track]');
+                if (activeTrackLink.length > 0) {
+                    const trackValue = activeTrackLink.data('track');
+                    activeTrack = (trackValue && trackValue !== 0) ? trackValue : null;
+                }
+                
+                // Get active location
+                let activeLocation = null;
+                const activeLocationLink = container.find('.nav-tabs li ul li.active a[data-location]');
+                if (activeLocationLink.length > 0) {
+                    const locationValue = activeLocationLink.data('location');
+                    activeLocation = (locationValue && locationValue !== 0) ? locationValue : null;
+                }
+                
+                // Get active timestamp
+                let activeTimestamp = null;
+                const activeTimestampLink = container.find('.nav-tabs li ul li.active a[data-timestamp]');
+                if (activeTimestampLink.length > 0) {
+                    const timestampValue = activeTimestampLink.data('timestamp');
+                    activeTimestamp = (timestampValue && timestampValue !== 0) ? timestampValue : null;
+                }
+                   
+                return {
+                    track: activeTrack,
+                    location: activeLocation,
+                    timestamp: activeTimestamp
+                };
+            }
+
+
             // Function to handle active states for filter dropdowns
  function initializeScheduleFilterStates(containerId) {
     const container = $('#' + containerId);
     let isMobile = window.innerWidth <= 768;
+
+    // NEW: Set initial active states based on URL parameters
+    setTimeout(function() {
+        setInitialActiveStates(containerId);
+    }, 100);
     
     // Update mobile state on resize
     $(window).on('resize', function() {
@@ -2456,14 +2579,12 @@ function tyler_schedule_filter_shortcode($atts) {
             dropdownList.slideUp(200);
         }
         
-        // Trigger the existing filter functionality
-        const track = clickedLink.data('track');
-        const location = clickedLink.data('location');
-        const timestamp = clickedLink.data('timestamp');
-        
-        // Call existing update function
+        // Get all currently active filters (not just the clicked one)
+        const allFilters = getAllActiveFilters(containerId);
+
+        // Call existing update function with all active filters
         if (typeof updateSchedule === 'function') {
-            updateSchedule(timestamp, location, track);
+            updateSchedule(allFilters.timestamp, allFilters.location, allFilters.track);
         }
     });
     
