@@ -1,0 +1,54 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:html -->
+<div class="heading">
+    <div class="container">
+        <h1 id="speaker-header-container">
+            <!-- Featured image will be inserted here by PHP -->
+            <div class="speaker_details" id="speaker-details-container">
+                <div class="speaker_name" id="speaker-name-container">
+                    <!-- Speaker name and title will be inserted here by PHP -->
+                </div>
+                <div class="speaker_company" id="speaker-company-container" style="display: none;">
+                    <!-- Company name will be inserted here by PHP -->
+                </div>
+            </div>
+        </h1>
+        <div class="nav" id="speaker-nav-container">
+            <!-- Navigation links will be inserted here by PHP -->
+        </div>
+    </div>
+</div>
+<!-- /wp:html -->
+
+<!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+<div class="wp-block-group container">
+    <!-- wp:post-content /-->
+    
+    <!-- wp:separator {"className":"wp-block-separator"} -->
+    <hr class="wp-block-separator" />
+    <!-- /wp:separator -->
+    
+    <!-- wp:html -->
+    <div id="schedule-button-desktop" class="hidden-xs" style="display: none;">
+        <!-- Schedule button will be inserted here by PHP -->
+    </div>
+    <!-- /wp:html -->
+    
+    <!-- wp:heading {"level":2} -->
+    <h2 class="wp-block-heading">Related Sessions</h2>
+    <!-- /wp:heading -->
+    
+    <!-- wp:html -->
+    <div class="sessions condensed" id="related-sessions-container">
+        <!-- Related sessions will be inserted here by PHP -->
+    </div>
+    
+    <div id="schedule-button-mobile" class="visible-xs text-center" style="display: none;">
+        <!-- Mobile schedule button will be inserted here by PHP -->
+    </div>
+    <!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

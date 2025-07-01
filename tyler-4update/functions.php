@@ -2371,6 +2371,266 @@ function add_speaker_archive_body_class($classes) {
 }
 add_filter('body_class', 'add_speaker_archive_body_class');
 
+
+
+
+
+
+
+/**
+ * Complete FSE support for single speaker template
+ */
+
+/**
+ * Enable FSE theme support
+ */
+function tyler_enable_fse_support() {
+    add_theme_support('block-templates');
+    add_theme_support('block-template-parts');
+}
+add_action('after_setup_theme', 'tyler_enable_fse_support');
+
+/**
+ * Generate and inject speaker content into FSE template
+ */
+function tyler_inject_speaker_content() {
+    if (is_singular('speaker')) {
+        $speaker_id = get_the_ID();
+        $post_meta_data = get_post_custom();
+        $speaker_title = $post_meta_data['speaker_title'][0] ?? '';
+        $company_name = $post_meta_data['company_name'][0] ?? '';
+        // Get schedule URL with fallback
+        $full_schedule_url = '';
+        if (class_exists('EF_Session_Helper')) {
+            $full_schedule_url = EF_Session_Helper::get_schedule_url();
+        }
+        // Fallback if EF_Session_Helper doesn't work
+        if (empty($full_schedule_url)) {
+            $full_schedule_url = home_url('/agenda-main/'); // Use your actual schedule URL
+        }
+
+        // Generate speaker header content
+        $featured_image = get_the_post_thumbnail($speaker_id, 'tyler_speaker', [
+            'title' => esc_attr(get_the_title()),
+            'class' => 'img-speaker',
+            'alt' => esc_attr(get_the_title())
+        ]);
+
+        $speaker_name_with_title = get_the_title();
+        if (!empty($speaker_title)) {
+            $speaker_name_with_title .= ', ' . esc_html($speaker_title);
+        }
+
+        // Generate navigation (matching original template exactly)
+        $nav_content = '';
+
+        // Get previous post in same post type
+        $prev_post = get_adjacent_post(false, '', true);
+        if ($prev_post && $prev_post->post_type === 'speaker') {
+            $nav_content .= '<a href="' . esc_url(get_permalink($prev_post)) . '" rel="prev"><i class="icon-angle-left"></i></a>';
+        } else {
+            $nav_content .= '<span style="visibility: hidden; width: 40px; height: 40px; display: inline-flex;"><i class="icon-angle-left"></i></span>';
+        }
+
+        // All speakers link
+        $nav_content .= '<a href="' . esc_url(home_url('/speakers')) . '" title="' . esc_attr__('All', 'tyler') . '"><i class="icon-th-large"></i></a>';
+
+        // Get next post in same post type
+        $next_post = get_adjacent_post(false, '', false);
+        if ($next_post && $next_post->post_type === 'speaker') {
+            $nav_content .= '<a href="' . esc_url(get_permalink($next_post)) . '" rel="next"><i class="icon-angle-right"></i></a>';
+        } else {
+            $nav_content .= '<span style="visibility: hidden; width: 40px; height: 40px; display: inline-flex;"><i class="icon-angle-right"></i></span>';
+        }
+
+        // Generate schedule buttons
+        $schedule_button_desktop = '';
+        $schedule_button_mobile = '';
+        if (!empty($full_schedule_url)) {
+            $schedule_button_desktop = '<a href="' . esc_url($full_schedule_url) . '" class="btn btn-primary btn-header pull-right hidden-xs">' . esc_html__('View full schedule', 'tyler') . '</a>';
+            $schedule_button_mobile = '<p class="visible-xs text-center"><a href="' . esc_url($full_schedule_url) . '" class="btn btn-primary btn-header">' . esc_html__('View full schedule', 'tyler') . '</a></p>';
+        }
+
+        // Generate related sessions
+        $sessions_content = tyler_get_related_sessions_content($speaker_id);
+
+        // Output JavaScript to populate the template
+        echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var speakerHeaderContainer = document.getElementById("speaker-header-container");
+            var speakerNameContainer = document.getElementById("speaker-name-container");
+            var speakerCompanyContainer = document.getElementById("speaker-company-container");
+            var navContainer = document.getElementById("speaker-nav-container");
+            var scheduleDesktop = document.getElementById("schedule-button-desktop");
+            var scheduleMobile = document.getElementById("schedule-button-mobile");
+            var sessionsContainer = document.getElementById("related-sessions-container");
+            
+            if (speakerHeaderContainer) {
+                speakerHeaderContainer.insertAdjacentHTML("afterbegin", ' . wp_json_encode($featured_image) . ');
+            }
+            
+            if (speakerNameContainer) {
+                speakerNameContainer.innerHTML = ' . wp_json_encode($speaker_name_with_title) . ';
+            }
+            
+            if (speakerCompanyContainer && ' . wp_json_encode(!empty($company_name)) . ') {
+                speakerCompanyContainer.innerHTML = ' . wp_json_encode(esc_html($company_name)) . ';
+                speakerCompanyContainer.style.display = "block";
+            }
+            
+            if (navContainer) {
+                navContainer.innerHTML = ' . wp_json_encode($nav_content) . ';
+            }
+            
+            // Always show schedule containers and populate if we have content
+            if (scheduleDesktop) {
+                if (' . wp_json_encode(!empty($schedule_button_desktop)) . ') {
+                    scheduleDesktop.innerHTML = ' . wp_json_encode($schedule_button_desktop) . ';
+                    scheduleDesktop.style.display = "block";
+                } else {
+                    scheduleDesktop.style.display = "none";
+                }
+            }
+
+            if (scheduleMobile) {
+                if (' . wp_json_encode(!empty($schedule_button_mobile)) . ') {
+                    scheduleMobile.innerHTML = ' . wp_json_encode($schedule_button_mobile) . ';
+                    scheduleMobile.style.display = "block";
+                } else {
+                    scheduleMobile.style.display = "none";
+                }
+            }
+            
+            if (sessionsContainer) {
+                sessionsContainer.innerHTML = ' . wp_json_encode($sessions_content) . ';
+            }
+        });
+        </script>';
+    }
+}
+add_action('wp_footer', 'tyler_inject_speaker_content');
+
+/**
+ * Generate related sessions content
+ */
+function tyler_get_related_sessions_content($speaker_id) {
+    // Set up filters for sessions query (replicating original logic)
+    if (class_exists('EF_Speakers_Helper')) {
+        add_filter('posts_fields', ['EF_Speakers_Helper', 'ef_speaker_sessions_posts_fields']);
+        add_filter('posts_orderby', ['EF_Speakers_Helper', 'ef_speaker_sessions_posts_orderby']);
+        $sessions_loop = class_exists('EF_Session_Helper') ? EF_Session_Helper::get_sessions_loop() : null;
+        remove_filter('posts_fields', ['EF_Speakers_Helper', 'ef_speaker_sessions_posts_fields']);
+        remove_filter('posts_orderby', ['EF_Speakers_Helper', 'ef_speaker_sessions_posts_orderby']);
+    } else {
+        $sessions_loop = null;
+    }
+
+    $sessions_html = '';
+
+    if ($sessions_loop && $sessions_loop->have_posts()) {
+        while ($sessions_loop->have_posts()) {
+            $sessions_loop->the_post();
+            
+            $session_speakers = get_post_meta(get_the_ID(), 'session_speakers_list', true);
+            if (is_array($session_speakers) && in_array($speaker_id, $session_speakers)) {
+                $date = get_post_meta(get_the_ID(), 'session_date', true);
+                $locations = wp_get_post_terms(get_the_ID(), 'session-location', ['fields' => 'all']);
+                $time = get_post_meta(get_the_ID(), 'session_time', true);
+                $end_time = get_post_meta(get_the_ID(), 'session_end_time', true);
+
+                // Format time (replicating original logic)
+                if (!empty($time)) {
+                    $time_parts = explode(':', $time);
+                    if (count($time_parts) === 2) {
+                        $time = date(get_option('time_format'), mktime((int)$time_parts[0], (int)$time_parts[1], 0));
+                    }
+                }
+                if (!empty($end_time)) {
+                    $time_parts = explode(':', $end_time);
+                    if (count($time_parts) === 2) {
+                        $end_time = date(get_option('time_format'), mktime((int)$time_parts[0], (int)$time_parts[1], 0));
+                    }
+                }
+
+                // Get track color
+                $tracks = wp_get_post_terms(get_the_ID(), 'session-track', ['fields' => 'all']);
+                $color = '';
+                if (!empty($tracks) && isset($tracks[0])) {
+                    $color = get_term_meta($tracks[0]->term_id, 'track_color', true);
+                }
+
+                $sessions_html .= '<div class="session">';
+                $sessions_html .= '<a href="' . esc_url(get_the_permalink()) . '" class="session-inner">';
+                $sessions_html .= '<span class="title"' . (!empty($color) ? ' style="color:' . esc_attr($color) . ';"' : '') . '>';
+                $sessions_html .= '<span class="text-fit">' . esc_html(get_the_title()) . '</span>';
+                $sessions_html .= '</span>';
+                $sessions_html .= '<span class="desc">';
+                $sessions_html .= esc_html__('Location:', 'tyler') . ' <strong>' . (!empty($locations) ? esc_html($locations[0]->name) : '') . '</strong>';
+                $sessions_html .= '</span>';
+                $sessions_html .= '<span class="desc">';
+                $sessions_html .= esc_html__('Date:', 'tyler') . ' <strong>' . (!empty($date) ? esc_html(date_i18n(get_option('date_format'), $date)) : '') . '</strong>';
+                $sessions_html .= '</span>';
+                $sessions_html .= '<span class="desc">';
+                $sessions_html .= esc_html__('Time:', 'tyler') . ' <strong>' . esc_html($time) . ' - ' . esc_html($end_time) . '</strong>';
+                $sessions_html .= '</span>';
+                $sessions_html .= '<span class="more">';
+                $sessions_html .= esc_html__('View session', 'tyler') . ' <i class="icon-angle-right"></i>';
+                $sessions_html .= '</span>';
+                $sessions_html .= '</a>';
+                $sessions_html .= '</div>';
+            }
+        }
+        wp_reset_postdata();
+    }
+
+    if (empty($sessions_html)) {
+        $sessions_html = '<p>' . esc_html__('No related sessions found.', 'tyler') . '</p>';
+    }
+
+    return $sessions_html;
+}
+
+/**
+ * Add custom CSS for FSE compatibility
+ */
+function tyler_fse_custom_styles() {
+    if (is_singular('speaker')) {
+        echo '<style>
+        .heading { /* Preserve existing heading styles */ }
+        .container { /* Preserve container styles */ }
+        .speaker_info { display: flex; gap: 20px; align-items: flex-start; }
+        .speaker_details { flex: 1; }
+        .speaker_name { margin: 0; }
+        .speaker_company { margin-top: 10px; font-weight: bold; }
+        .nav { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .nav a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; text-decoration: none; }
+        .sessions.condensed { margin-top: 30px; }
+        .session { margin-bottom: 20px; }
+        .session-inner { display: block; text-decoration: none; color: inherit; }
+        .session .title { display: block; font-weight: bold; margin-bottom: 10px; }
+        .session .desc { display: block; margin: 5px 0; font-size: 14px; }
+        .session .more { display: block; margin-top: 10px; font-size: 12px; }
+        .img-speaker { max-width: 150px; }
+        #speaker-header-container { display: flex; gap: 20px; align-items: flex-start; }
+        @media (max-width: 767px) {
+            .hidden-xs { display: none !important; }
+            .visible-xs { display: block !important; }
+            #speaker-header-container { flex-direction: column; }
+        }
+        @media (min-width: 768px) {
+            .visible-xs { display: none !important; }
+            .hidden-xs { display: block !important; }
+        }
+        </style>';
+    }
+}
+add_action('wp_head', 'tyler_fse_custom_styles');
+
+
+
+
+
+
 /**
  * Shortcode approach for FSE Schedule Template XYZ
  * 

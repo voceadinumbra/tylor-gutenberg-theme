@@ -41,14 +41,9 @@ class DX_Event_Framework {
         // Load widgets
         add_action('widgets_init', array($this, 'setup_widgets'));
         add_action('widgets_init', array($this, 'ef_widgets_init'));
-
-        add_filter('template_include', array($this, 'fallback_templates'));
         add_filter('get_edit_post_link', array($this, 'get_edit_post_link'), 10, 3);
-
         add_action('init', array($this, 'ef_load_textdomain'));
-
         add_action('admin_enqueue_scripts', array($this, 'dx_multievent_enqueue_script_stype'));
-
          // Add search to widget page
         add_action('widgets_admin_page', array($this, 'dx_multievent_widget_html'));
 
@@ -208,17 +203,7 @@ class DX_Event_Framework {
      */
     public function ef_load_textdomain() {
         load_theme_textdomain('dxef', dirname(__FILE__) . '/languages/');
-    }
-
-    public function fallback_templates($template) {
-        global $wp_query;
-
-        if (is_singular('speaker') && false === strpos($template, 'single-speaker.php')) {
-            return EF_COMPONENTS_DIR . 'templates/single-speaker.php';
-        }
-
-        return $template;
-    }
+    }   
 
     public function get_edit_post_link($link, $post_id, $context)
     {
