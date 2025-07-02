@@ -1,5 +1,3 @@
-/* =WordPress Core
--------------------------------------------------------------- */
 .alignnone {
     margin: 5px 20px 20px 0;
 }
@@ -48,7 +46,7 @@ a img.aligncenter {
 .wp-caption {
     background: #fff;
     border: 1px solid #f0f0f0;
-    max-width: 96%; /* Image does not overflow the content area */
+    max-width: 96%; 
     padding: 5px 3px 10px;
     text-align: center;
 }
@@ -82,8 +80,6 @@ a img.aligncenter {
 }
 
 
-/* Generic styles
- ---------------- */
 html, body {
     font-family: "Ubuntu", Helvetica, Arial, sans-serif;
     font-size: 16px; font-weight: 400;
@@ -96,12 +92,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1 {
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 300;
 }
 h1 img.img-circle {
     max-width: 110px; max-height: 110px;
-    /*border: 2px solid #157eab;*/
     box-shadow: 0 0 0 2px #157eab;
     margin-right: 40px;
     border-radius: 180px;
@@ -109,9 +104,10 @@ h1 img.img-circle {
     z-index: 10;
 }
 h2 {
-    font-size: 36px; font-weight: 300;
+    font-size: 32px; 
+    font-weight: 300;
     color: #242424;
-    line-height: 42px;
+    line-height: 40px;
     margin: 0 0 12px
 }
 .row h2 {
@@ -119,7 +115,8 @@ h2 {
     line-height: 28px;
 }
 h3 {
-    font-size: 22px; font-weight: 400;
+    font-size: 22px; 
+    font-weight: 400;
     color: #919191;
     margin: 0 0 12px;
 }
@@ -211,12 +208,10 @@ img {
     border-color: #35aadc;
 }
 
-/* widget */
 .widget {
     margin-bottom: 2.5em;
 }
 
-/* tabs */
 .nav-tabs {
     border-bottom: none;
     font-size: 14px; font-weight: 500;
@@ -257,8 +252,7 @@ img {
     margin-left: 3px;
 }
 
-/* CONTAINER
- ------------ */
+
 @media (min-width: 1024px) {
     .container {
         width: var(--siteWidth);
@@ -266,8 +260,6 @@ img {
     }
 }
 
-/* HEADER
- --------- */
 header {
     background: #fff;
     text-align: center;
@@ -371,8 +363,6 @@ header ul ul ul {
     border: none; border-radius: 0;
 }
 
-
-
 @media (min-width: 1200px) {
     header {        
         width: 100%;
@@ -395,8 +385,6 @@ header ul ul ul {
     }
 }
 
-
-/* heading */
 .heading {
     position: relative;
     display: block;
@@ -439,7 +427,6 @@ header ul ul ul {
     width: 18px; height: 30px;
 }
 
-/* time counter */
 .timecounter {
     position: relative;
     border-radius: 6px;
@@ -501,7 +488,6 @@ input.placeholder, textarea.placeholder {
     color: #6d6d6d;
 }
 
-/* buttons */
 .btn {
     border-radius: 0;
     font-size: 16px; font-weight: 500;
@@ -571,7 +557,6 @@ h2 + .btn-header {
     background-color: #35aadc;
 }
 
-/* carousel */
 .carousel {
     padding-bottom: 50px;
 }
@@ -593,7 +578,6 @@ h2 + .btn-header {
     margin: 0 5px;
 }
 
-/* jumbotron */
 .jumbotron {
     text-align: center;
     background: #ebebeb;
@@ -642,7 +626,6 @@ h2 + .btn-header {
     content: " ";
 }
 
-/* backdrop */
 #backdrop {
     display: none;
     position: fixed;
@@ -652,7 +635,6 @@ h2 + .btn-header {
     z-index: 1;
 }
 
-/* LANDING - big image */
 .landing {
     padding: 0; margin: 0;
     text-align: center;
@@ -728,11 +710,6 @@ h2 + .btn-header {
     font-size: 20px; font-weight: 500;
 }
 
-/*
- CONTENT
- ------- */
-
-/* speakers */
 .speakers {
     margin-left: -15px;
     margin-right: -15px;
@@ -787,7 +764,6 @@ h2 + .btn-header {
 .speakers .photo img {
     max-width: 100%;
     border-radius: 180px;
-    /*border: 2px solid #157eab;*/
     box-shadow: 0px 0px 0px 2px #157eab;
 }
 .speakers .featured .photo img {
@@ -851,7 +827,6 @@ h2 + .btn-header {
     z-index: 20;
 }
 
-/* connect with us */
 .connect {
     position: relative;
     border-radius: 4px;
@@ -920,7 +895,6 @@ h2 + .btn-header {
     z-index: 0;
 }
 
-/* sessions */
 .sessions {
     margin-left: -15px;
     margin-right: -15px;
@@ -996,7 +970,6 @@ h2 + .btn-header {
 .sessions .session .speaker img {
     max-width: 100%;
     border-radius: 180px;
-    /*border: 1px solid #157eab;*/
     box-shadow: 0px 0px 0px 1px #157eab;
 }
 .sessions .session .speaker.featured img {
@@ -1019,7 +992,6 @@ h2 + .btn-header {
     line-height: 34px;
 }
 
-/* sessions - list */
 .sessions.list {
     margin: 2px 0 0;
     clear: both;
@@ -1030,7 +1002,6 @@ h2 + .btn-header {
     font-size: 21px; font-weight: 500;
     z-index: 40;
     margin-top:-2px;
-    /*height: 60px;*/
     background: #fff;
 }
 .sessions.list .day-floating > span {
@@ -1172,7 +1143,6 @@ span.speakers-thumbs a {
     font-size: 14px; font-weight: normal;
 }
 
-/* sessions filtering */
 .schedule ul ul,
 .schedule-container ul ul{
     display: none;
@@ -1214,7 +1184,6 @@ span.speakers-thumbs a {
     color:#fff;
 }
 
-/* single session */
 .sessions.single {
     margin-left: 0; margin-right: 0;
 }
@@ -1260,7 +1229,6 @@ span.speakers-thumbs a {
 	cursor: default;
 }
 
-/* mediabox */
 .mediabox {
     margin-top: 2em;
 }
@@ -1288,7 +1256,6 @@ span.speakers-thumbs a {
 .mediabox a.post img {
     min-width: 100%; min-height: 100%; max-width: none;
     vertical-align: middle;
-    /*margin:-100%;*/
     vertical-align:middle;
     position:relative;
     z-index:-1;
@@ -1340,7 +1307,6 @@ span.speakers-thumbs a {
     margin-left: -11px;
 }
 
-/* explore map */
 .location {
 }
 .location .explore {
@@ -1388,7 +1354,6 @@ span.speakers-thumbs a {
 }
 #tile_explore .map img{max-width: none !important;}
 
-/* articles */
 .articles {
     margin-top: 0;
 }
@@ -1461,7 +1426,6 @@ span.speakers-thumbs a {
     color: #000;
 }
 
-/* vertical articles */
 .articles.vertical {
     margin: -15px -15px 15px -15px;
 }
@@ -1498,13 +1462,11 @@ span.speakers-thumbs a {
     padding: 28px 0 0;
 }
 
-/* post */
 .post-info {
     font-size: 16px; font-weight: 300;
     margin-top: 3em;
 }
 
-/* paging */
 .nav-paging {
     clear: both;
     margin: 1em 0 0;
@@ -1533,7 +1495,6 @@ span.speakers-thumbs a {
     content: " »";
 }
 
-/* contact us */
 form.contact-us {
     padding-top: 1em;
 }
@@ -1546,7 +1507,6 @@ form.contact-us textarea {
     resize: vertical;
 }
 
-/* facebook */
 .facebook .fb-event {
     height: 291px;
     color: #fff;
@@ -1587,70 +1547,7 @@ form.contact-us textarea {
     font-size: 50px;
 }
 
-/* twitter */
-.twitter.row {
-    margin-top: -15px;
-    margin-bottom: -15px;
-}
-.twitter.row > div[class^=col] {
-    padding-top: 15px;
-    padding: 15px;
-}
-.twitter .view {
-    display: block;
-    position: relative;
-    width: 100%; height: 291px;
-    padding: 196px 32px 15px;
-    text-align: center; text-transform: uppercase;
-    color: #fff;
-    font-size: 18px; font-weight: 500;
-    border-radius: 4px;
-}
-.twitter .view .icon-twitter-alt {
-    position: absolute;
-    top: 50px; left: 45px;
-    font-size: 50px;
-}
-.twitter .view a {
-    display: block;
-    color: inherit;
-    margin-top: 12px;
-}
-.twitter .view a i {
-    font-size: 0.75em;
-}
-.twitter .tweet {
-    height: 291px;
-    border:1px solid #4fc4f6; border-radius: 4px;
-    padding: 22px;
-}
-.twitter .tweet .text {
-    font-size: 18px;
-    color: #000;
-    margin: 1em 0;
-    max-height: 150px;
-}
-.twitter .tweet .date {
-    color: #5b5959;
-    font-size: 14px;
-}
 
-.twitter .tweet.featured {
-    padding: 64px 46px;
-}
-.twitter .tweet.featured .avatar {
-    float: left;
-}
-.twitter .tweet.featured .text {
-    font-size: 26px;
-    margin: -12px 0 0 95px;
-}
-.twitter .tweet.featured .date {
-    font-size: 20px;
-    margin: 1em 0 0 95px;
-}
-
-/* sponsors */
 .sponsors {
     margin-bottom: 2em;
     text-align: center;
@@ -1670,9 +1567,6 @@ form.contact-us textarea {
 .sponsors-md .sponsor { width: 25%; }
 .sponsors-sm .sponsor { width: 16.6%; }
 
-
-/* SIDEBAR
------------*/
 .sidebar ul {
     list-style-type: none;
     margin: 0; padding: 0;
@@ -1681,8 +1575,6 @@ form.contact-us textarea {
     list-style-type: none;
     margin: 0 0 40px; padding: 0;
 }
-
-
 
 .sidebar .widget_text h2 {
     font-size: 18px; font-weight: 400;
@@ -1705,12 +1597,6 @@ form.contact-us textarea {
     text-align: center;
 }
 
-
-
-
-/*
- FOOTER
- ------- */
 footer {
     position: relative;
     z-index: 30;
@@ -1746,84 +1632,47 @@ footer .credits {
     color: #35aadc;
 }
 
-/* Footer Widget */
 footer .ef_footer_text_columns h1,
 footer .ef_footer_text_columns h2,
 footer .ef_footer_text_columns h3 {
 	color: #f1f1f1;	
 }
 
-/*
- TWITTER FULLSCREEN
- ------- */
-
-#twitter_fullscreen { padding: 172px 0 62px; text-align: center; }
-#twitter_fullscreen ul { margin: 0; padding: 0; }
-#twitter_fullscreen li { border: 1px solid #35aadc; border-radius: 10px; float: left; list-style: none; margin: 30px 2.06% 32px 0; min-height: 330px; padding: 60px 20px 20px; position: relative; width: 31.08%; height: 330px; }
-#twitter_fullscreen li span:before { content: ""; height: 82px; left: 50%; margin-left: -54px; position: absolute; top: -41px; width: 108px; }
-#twitter_fullscreen li:last-child { margin-right: 0; }
-#twitter_fullscreen li span { color: #121212; font-size: 18px; line-height: 32px; }
-#twitter_fullscreen li span + a { display: block; font-size: 18px; margin-top: 5px; }
-#twitter_fullscreen li a { color: #6d6d6d; }
-#twitter_fullscreen li a:hover { color: #6d6d6d; opacity: .5; }
-#twitter_fullscreen li:first-child { border: none; border-radius: 0; margin: 0 0 32px; min-height: inherit; padding: 0; width: 100%; height: auto;}
-#twitter_fullscreen li:first-child span { font-size: 42px; line-height: 52px; }
-#twitter_fullscreen li:first-child span:before { display: none; }
-#twitter_fullscreen li:first-child span + a { font-size: 22px !important; }
-#twitter_fullscreen li span a:hover {opacity:1;}
-.page-template-twitter-php header, .page-template-twitter-php footer { display:none; }
-.page-template-twitter-php #twitter_fullscreen {padding: 90px 0 62px; text-align: center; }
-.page-template-twitter-php #twitter_fullscreen li:first-child .avatar {display:none;}
-.page-template-twitter-php #twitter_fullscreen .avatar {width: 70px;position: absolute;top: 0;left: 40%;top: -29px; border-radius: 6px;}
-.page-template-twitter-php #twitter_fullscreen span:before {background-image: none;}
-
-/*
- EVENT ESPRESSO
- ------- */
 .tkt-slctr-tbl{width:100%}
 .tkt-slctr-tbl thead th:nth-child(2){text-align:right;}
 #tile_registration iframe{border:0;}
 
-
-
-
-
-
-
-.loader-img{display:none; text-align:center;}
-
-
-
+.loader-img
+{
+    display:none; 
+    text-align:center;
+}
 
 .coupon-code {
     float: left;
     margin-right: 10px;
 }
 
-
 @media (max-width: 660px) 
-{    
-  
-    
+{
     .order-details td, .order-details th {
         font-size: 0.8em;
     }
 
     .sessions.list .session {
-    display: flex;
-    flex-direction: column;
-}
-    
+        display: flex;
+        flex-direction: column;
+    }    
 }
 
 @media (max-width: 480px) 
 {     
 
-html .sessions.list .more {
-    position: relative;
-}
-.sessions.list .session .title {
-    padding: 0;
-}
+    html .sessions.list .more {
+        position: relative;
+    }
+    .sessions.list .session .title {
+        padding: 0;
+    }
     
 }

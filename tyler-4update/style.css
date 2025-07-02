@@ -3,8 +3,8 @@ Theme Name: Tyler
 Theme URI: https://www.codeable.io/
 Author:  Codeable
 Author URI: https://www.codeable.io/
-Description: Name Tyler is kept to make sure that nothing breaks when the theme is activated with the old content. 
-Version: 600.0.5
+Description: The theme is still using the name Tyler to avoid conflicts with the old theme. It is a custom FSE theme now, with some of the old code still in place for compatibility.
+Version: 600.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: tyler
@@ -43,13 +43,6 @@ position: relative !important;
 height:120px;
 padding-top:20px;
 }
-
-
-
-.vidbg-container iframe {
-top: 0 !important;
-}
-
 .landing .lead {
 	text-transform: none;
 	font-size: 25px;
@@ -401,8 +394,25 @@ border:solid;
     object-fit: contain; /* Prevents cropping */
     display: block;
 }
+.single-sponsor h3 {
+    font-size: 22px;
+    font-weight: 400;
+    color: #919191;
+    margin: 0 0 12px;
+}
 
-/* Ensure the sponsor name is visible below the logo */
+@media (min-width: 1028px) {
+.single-sponsor figure.img-sponsor.wp-block-post-featured-image {
+    float: right;
+    max-height: 100px;
+    width: auto;
+    margin: 0 0 20px 20px;
+}
+
+
+}
+
+
 .sponsor-name {
     display: block;
     margin-top: 8px;
@@ -1071,12 +1081,33 @@ text-shadow: 4px 4px 7px #000000;
                 display: flex;
                 flex-direction: column;
             }
+
             .post-type-archive-sessiontwo .sessions.list .time {
                 width: 100%;
             }
+
             .post-type-archive-sessiontwo .sessions.list .more {
                 position: relative;
                 margin-top: 19px;
             }
 
+            .single-sponsor .heading .container {
+                min-width: 100%;
+            }
+
         }
+
+        @media (max-width: 680px) {
+
+           .single-sponsor .heading .container .is-layout-flex {
+               flex-direction: column;
+           }
+
+           .single-sponsor .heading .nav {        
+                justify-content: center;
+            }
+
+        }
+
+
+        

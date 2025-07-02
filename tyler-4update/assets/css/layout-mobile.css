@@ -321,39 +321,6 @@
         top: 32px;
     }
 
-    /* twitter */
-    .twitter.row {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .twitter .view {
-        height: auto;
-        padding: 27px 32px;
-        overflow: auto;
-    }
-    .twitter .view-inner {
-        display: inline-block;
-        text-align: left;
-        float: right;
-    }
-    .twitter .view .icon-twitter-alt {
-        top: 32px;
-    }
-    .twitter .tweet {
-        height: 246px;
-        padding: 19px;
-    }
-    .twitter .tweet.featured {
-        height: 291px;
-    }
-    .twitter .tweet .text {
-        font-size: 14px;
-        max-height: 120px;
-    }
-    .twitter .tweet.featured .text {
-        max-height: 135px;
-    }
-
     /* mediabox */
     .mediabox a.post {
         width: 50%;
@@ -768,31 +735,6 @@
     }
     .facebook .fb-event {
         font-size: 14px;
-    }
-
-    /* twitter */
-    .twitter .view {
-        padding: 27px 20px;
-        font-size: 17px;
-    }
-    .twitter .view .icon-twitter-alt {
-        left: 10px;
-    }
-    .twitter .tweet.featured {
-        height: auto;
-        padding: 35px 18px;
-    }
-    .twitter .tweet.featured .avatar {
-        float: none;
-    }
-    .twitter .tweet.featured .text {
-        max-height: none;
-        margin: 12px 0 0;
-        font-size: 24px;
-    }
-    .twitter .tweet.featured .date {
-        font-size: 18px;
-        margin: 1em 0 0 0;
     }
 
     /* mediabox */

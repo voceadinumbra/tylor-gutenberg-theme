@@ -2626,7 +2626,54 @@ function tyler_fse_custom_styles() {
 }
 add_action('wp_head', 'tyler_fse_custom_styles');
 
+// Single shortcode for all sponsor navigation
+function sponsor_navigation_shortcode($atts) {
+    $output = '';
+    
+    // Previous post link
+    $output .= get_previous_post_link('%link', '<i class="icon-angle-left"></i>');
+    
+    // Sponsor type archive link
+    $sponsor_types = get_the_terms(get_the_ID(), 'sponsor-type');
+    if ($sponsor_types && !is_wp_error($sponsor_types)) {
+        $first_sponsor_type = reset($sponsor_types);
+        $archive_url = get_term_link($first_sponsor_type, 'sponsor-type');
+        
+        if (!is_wp_error($archive_url)) {
+            $output .= '<a href="' . esc_url($archive_url) . '" title="All" class="active selected current"><i class="icon-th-large"></i></a>';
+        }
+    } else {
+        $output .= '<a href="#" title="All" class="active selected current"><i class="icon-th-large"></i></a>';
+    }
+    
+    // Next post link
+    $output .= get_next_post_link('%link', '<i class="icon-angle-right"></i>');
+    
+    return $output;
+}
+add_shortcode('sponsor_navigation', 'sponsor_navigation_shortcode');
 
+
+// Shortcode for booth and meeting space information
+function sponsor_booth_info_shortcode($atts) {
+    $booth_number = function_exists('get_field') ? get_field('booth_number') : null;
+    $meeting_space = function_exists('get_field') ? get_field('meeting_space') : null;
+    
+    $location_output = [];
+    if ($booth_number) {
+        $location_output[] = sprintf(__('Booth %s', 'tyler-child'), esc_html($booth_number));
+    }
+    if ($meeting_space) {
+        $location_output[] = esc_html($meeting_space);
+    }
+    
+    if (!empty($location_output)) {
+        return '<h3>' . implode(' & ', $location_output) . '</h3>';
+    }
+    
+    return '';
+}
+add_shortcode('sponsor_booth_info', 'sponsor_booth_info_shortcode');
 
 
 
